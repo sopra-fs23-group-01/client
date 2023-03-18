@@ -2,6 +2,8 @@
 
 ## Getting started
 
+刘子涵牛逼
+
 Read and go through these Tutorials. It will make your life easier:)
 
 - Read the React [Docs](https://reactjs.org/docs/getting-started.html)
