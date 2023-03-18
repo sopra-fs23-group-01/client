@@ -1,6 +1,7 @@
 # SoPra FS23 - Client Template with build pack
 
 ## Getting started
+刘子涵超级牛逼
 刘子涵牛逼!
 是的
 Read and go through these Tutorials. It will make your life easier:)
