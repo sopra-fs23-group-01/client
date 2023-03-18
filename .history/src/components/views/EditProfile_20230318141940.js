@@ -35,6 +35,7 @@ const EditProfile= () =>{
   //get the local username and id
   const history = useHistory();
   const userid = localStorage.getItem('id');
+  const userUsername = localStorage.getItem('username');
 
   //set new const
   const [id,] = useState(userid);
