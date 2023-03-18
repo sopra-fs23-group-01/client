@@ -1,0 +1,47 @@
+[33mcommit 412a0a150c81174ebbda266d737a06e89274fe29[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m
+Author: zihanl <EEE1809172@xmu.edu.my>
+Date:   Mon Mar 6 01:57:09 2023 +0100
+
+    deploytset
+
+[33mcommit 58f3f543e047954a0b6291277215ce8b90611a12[m
+Author: zihanl <EEE1809172@xmu.edu.my>
+Date:   Wed Feb 22 11:46:38 2023 +0100
+
+    test2
+
+[33mcommit 81534f5c72e1f3ef4a8d7cf73c802dc19af1bd41[m
+Author: zihanl <EEE1809172@xmu.edu.my>
+Date:   Tue Feb 21 16:11:07 2023 +0100
+
+    test1
+
+[33mcommit 6eae4570c1a5e97894406e4b1053850df8f1239d[m
+Author: zihanl <EEE1809172@xmu.edu.my>
+Date:   Mon Feb 20 21:30:54 2023 +0100
+
+    test
+
+[33mcommit f388c134f94f0588a78ce8f3fa9008c16deb63c0[m
+Author: Roy <roy.rutishauser@gmail.com>
+Date:   Mon Feb 13 17:27:10 2023 +0100
+
+    Update getDomain.js
+
+[33mcommit a06276812b49b7d7e5e242e391c29f6318cf4ea5[m
+Author: Roy <roy.rutishauser@gmail.com>
+Date:   Mon Feb 13 17:25:35 2023 +0100
+
+    Delete app.json
+
+[33mcommit 0616ab3e297a3c13d0f8fbf18499e9bd8fd64667[m
+Author: Roy <roy.rutishauser@gmail.com>
+Date:   Mon Feb 13 17:25:10 2023 +0100
+
+    Delete Procfile
+
+[33mcommit 8ebbbff19000ad6704a02c9ac13e54329acc391f[m
+Author: Roy Rutishauser <roy.rutishauser@gmail.com>
+Date:   Fri Jan 27 11:26:04 2023 +0100
+
+    initial commit
