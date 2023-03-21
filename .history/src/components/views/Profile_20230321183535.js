@@ -59,20 +59,20 @@ const ProfilePage=() =>{
       color: functionuser.status === "ONLINE" ? "green" : "red"
     };
 
-    // const [synonyms, setSynonyms] = useState([]);
+    const [synonyms, setSynonyms] = useState([]);
   
-    // const getSynonyms = async () => {
-    //   try {
-    //     const response = await axios.get('https://api.datamuse.com/words', {
-    //       params: {
-    //         rel_syn: 'good'
-    //       }
-    //     });
-    //     setSynonyms(response.data.map(word => word.word));
-    //   } catch (error) {
-    //     console.error(error);
-    //   }
-    // };
+    const getSynonyms = async () => {
+      try {
+        const response = await axios.get('https://api.datamuse.com/words', {
+          params: {
+            rel_syn: 'good'
+          }
+        });
+        setSynonyms(response.data.map(word => word.word));
+      } catch (error) {
+        console.error(error);
+      }
+    };
     
     
   
@@ -97,6 +97,11 @@ const ProfilePage=() =>{
         </div>
         <div>
       <button onClick={() => history.push('/chat')}>Chat</button>
+      <ul>
+        {synonyms.map(synonym => (
+          <li>{synonym}</li>
+        ))}
+      </ul>
     </div>
 
       </div>  

@@ -97,6 +97,11 @@ const ProfilePage=() =>{
         </div>
         <div>
       <button onClick={() => history.push('/chat')}>Chat</button>
+      <ul>
+        {synonyms.map(synonym => (
+          <li>{synonym}</li>
+        ))}
+      </ul>
     </div>
 
       </div>  

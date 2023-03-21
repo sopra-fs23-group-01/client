@@ -29,7 +29,7 @@ const AppRouter = () => {
           </GameGuard>
         </Route>
 
-        <Route exact path="/chat">
+        <Route path="/chat">
           <GameGuard>
           <Chat/>
           </GameGuard>
