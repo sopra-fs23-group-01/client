@@ -26,12 +26,12 @@ function App() {
     useEffect(() => {
         async function start() {
             if (!localStorage.getItem('username')) {
-                await axios.get("http://sopra-fs23-group-01-client.oa.r.appspot.com:8080/getName").then(response => {
+                await axios.get("http://localhost:8080/getName").then(response => {
                     localStorage.setItem('username', response.data)
                 })
             }
             username = localStorage.getItem('username')
-            let baseUrl = "ws://sopra-fs23-group-01-client.oa.r.appspot.com:8080/websocket/"
+            let baseUrl = "ws://localhost:8080/websocket/"
             websocket = new WebSocket(baseUrl + localStorage.getItem('username'));
     
             websocket.onopen =  ()=> {
