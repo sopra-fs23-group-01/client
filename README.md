@@ -2,8 +2,6 @@
 
 ## Getting started
 
-张泽昊超级牛逼!
-周逸轩无敌牛逼！
 Read and go through these Tutorials. It will make your life easier:)
 
 - Read the React [Docs](https://reactjs.org/docs/getting-started.html)
