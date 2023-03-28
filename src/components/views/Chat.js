@@ -4,7 +4,6 @@ import axios from 'axios';
 import Right from "./Right.js";
 import Left from "./Left.js";
 import { notification} from 'antd';
-import { Avatar,Comment, TextArea, Form, Button, List, Input } from 'antd';
 
 
 let websocket;
@@ -15,14 +14,7 @@ function App() {
     const [messageList,setMessageList] = useState([])
     const [message,setMessage] = useState("")
     const [userList,setUserList] = useState([])
-    const { TextArea } = Input;
-    const data = [
-        {
-            render:(item) => {
-                return <>item</>
-            }
-        }
-    ]
+
     useEffect(() => {
         async function start() {
             if (!localStorage.getItem('username')) {
@@ -82,7 +74,7 @@ function App() {
             setMessage("")
             return
         }
-    },[message])
+    },[message,messageList,userList]) 
 
 
     const sendMessage = () => {
