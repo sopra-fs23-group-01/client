@@ -1,37 +1,37 @@
 import { useEffect, useRef, useState } from "react";
-// import "styles/views/App.css";
+import './App.scss';
 import axios from 'axios';
-import Right from "components/ui/Right";
-import Left from "components/ui/Left";
+import Right from "./Right.js";
+import Left from "./Left.js";
 import { notification} from 'antd';
-// import { Input } from 'antd';
+import { Avatar,Comment, TextArea, Form, Button, List, Input } from 'antd';
 
 
 let websocket;
-let username;
+let username
 
 function App() {
     const messageRef = useRef(null)
     const [messageList,setMessageList] = useState([])
     const [message,setMessage] = useState("")
     const [userList,setUserList] = useState([])
-    // const {} = Input;
-    // const data = [
-    //     {
-    //         render:(item) => {
-    //             return <>item</>
-    //         }
-    //     }
-    // ]
+    const { TextArea } = Input;
+    const data = [
+        {
+            render:(item) => {
+                return <>item</>
+            }
+        }
+    ]
     useEffect(() => {
         async function start() {
             if (!localStorage.getItem('username')) {
-                await axios.get("http://sopra-fs23-group-01-server.oa.r.appspot.com/getName").then(response => {
+                await axios.get("http://localhost:8080/getName").then(response => {
                     localStorage.setItem('username', response.data)
                 })
             }
             username = localStorage.getItem('username')
-            let baseUrl = "ws://sopra-fs23-group-01-server.oa.r.appspot.com/websocket/"
+            let baseUrl = "ws://whiteboard-kbot5yfedq-oa.a.run.app/websocket/"
             websocket = new WebSocket(baseUrl + localStorage.getItem('username'));
     
             websocket.onopen =  ()=> {
@@ -82,7 +82,7 @@ function App() {
             setMessage("")
             return
         }
-    },[message,messageList, userList])
+    },[message])
 
 
     const sendMessage = () => {
@@ -97,7 +97,7 @@ function App() {
     return (
         <>
             <div className="header">
-                <h2>ChattingRoom</h2>
+                <h2>聊天室</h2>
             </div>
             <div className="container">
                 <div className="chart">
