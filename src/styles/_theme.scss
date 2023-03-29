@@ -8,10 +8,11 @@
    feel free to play around with these and see what other look you can come up with! :D
 */
 
-$accent: #97ABFF;
+$accent:  rgb(158.68, 218.88, 161.12);
 $accentDark: #123597;
 $textColor: white;
 $background: #262632;
+$buttonbackground: linear-gradient(92.24deg, #9FDBA1 -6%, #1976D2 101.32%);
 
 /* some constants */
 
@@ -22,8 +23,11 @@ $SMALL_WIDTH: 768px;
 
 /* some standard elements */
 /* fonts */
-$fontDefault: "M PLUS Rounded 1c", sans-serif;
+//定义字体
+$fontDefault: "SF Pro Text-Semibold", sans-serif;
 $fontMono: "Roboto Mono", monospace;
+// $fontSize: 
+// $fontWeight: 
 
 /* a standard drop shadow */
 $dropShadow: 0 0.25em 0.25em rgba(0, 0, 0, 0.25);

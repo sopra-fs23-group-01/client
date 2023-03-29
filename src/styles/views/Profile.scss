@@ -95,7 +95,7 @@
     border-radius: $borderRadius;
     display: flex;
     align-items: center;
-    background: lighten($background, 5);
+    background: $background;
   }
 
   &.field {
