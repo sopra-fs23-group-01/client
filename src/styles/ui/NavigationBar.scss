@@ -1,0 +1,46 @@
+@import 'styles/theme';
+
+.navigation-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 15%;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.5); /* Use a semi-transparent background */
+  backdrop-filter: blur(10px); /* Apply a 10px blur to the background */
+  color: #fff;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 2px;
+}
+
+.navigation-bar li {
+  display: inline-block;
+  text-align: center;
+  width: 33.33%;
+  padding: 10px;
+  flex-grow: 1;
+  //box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.navigation-bar li.active {
+  filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.5));
+}
+
+.navigation-bar a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  font-family: $fontDefault;
+  color: #A4A4A4;
+  font-size: 14px;
+}
+
+.navigation-bar img {
+  max-height: 90%;
+  max-width: 90%;
+  margin-bottom: 5px;
+  //filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.5));
+}

@@ -3,6 +3,7 @@ import {api, handleError} from 'helpers/api';
 import User from 'models/User';
 import {Link, useHistory } from 'react-router-dom';
 import {Button} from "../ui/Button";
+import NavigationBar from "./NavigationBar";
 import 'styles/views/Login.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
@@ -52,6 +53,7 @@ const PasswordField = props => {
        <Button width="25%" onClick={toggleShowPassword }>{showPassword ? 'Hide' : 'Show' } 
        </Button>
       </div>
+        <NavigationBar/>
     </div>
   );
 };
