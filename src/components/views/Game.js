@@ -36,6 +36,10 @@ const Game = () => {
     history.push('/login');
   };
 
+  const goLobby = async () => {
+    window.location.href = `/lobby`;
+  };
+
   // the effect hook can be used to react to change in your component.
   // in this case, the effect hook is only run once, the first time the component is mounted
   // this can be achieved by leaving the second argument an empty array.
@@ -118,6 +122,12 @@ const Game = () => {
           onClick={() => logout()}
         >
           Logout
+        </Button>
+        <Button
+            width="100%"
+            onClick={() => goLobby()}
+        >
+          GoLobby
         </Button>
       </div>
     );
