@@ -7,6 +7,10 @@ import NavigationBar from "./NavigationBar";
 import 'styles/views/Login.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
+import LoginPic from 'styles/image/Pics4login/LoginPic.png';
+import NotShowIcon from "../../styles/image/Icons/NotShowIcon.png";
+import NameIcon from "../../styles/image/Icons/NameIcon.png";
+import PasswordIcon from "../../styles/image/Icons/PasscodeIcon.png";
 
 /*
 It is possible to add multiple components inside a single file,
@@ -24,7 +28,7 @@ const FormField = props => {
         className="login input"
         placeholder="enter here.."
         value={props.value}
-        onChange={e => props.onChange(e.target.value)}
+        onChange={e => +props.onChange(e.target.value)}
       />
     </div>
   );
@@ -45,15 +49,14 @@ const PasswordField = props => {
 
       <input type={showPassword ? 'text' : 'password'} 
         className="login input"
-        placeholder="enter here.."
+        placeholder="enter here..."
         value={props.value}
         onChange={e => props.onChange(e.target.value)}
       />
-            <div className="login button-container1">
-       <Button width="25%" onClick={toggleShowPassword }>{showPassword ? 'Hide' : 'Show' } 
-       </Button>
-      </div>
-        <NavigationBar/>
+        <img className="login nameicon" src={NameIcon} alt="Username" />
+        <img className="login passwordicon" src={PasswordIcon} alt="Password" />
+        <img className="login showicon" src={NotShowIcon} alt="LoginIllustration" />
+        <div className="login showtext" onClick={toggleShowPassword }>{showPassword ? 'Hide' : 'Show' }</div>
     </div>
   );
 };
@@ -90,39 +93,42 @@ const Login = props => {
   };
 
   return (
-    <BaseContainer>
       <div className="login container">
-        <div className="login form">
-          <FormField
-            label="Username"
-            value={username}
-            onChange={un => setUsername(un)}
-          />
-          <PasswordField
-            label="Password(do not contain space)"
-            value={password}
-            onChange={n => setPassword(n)}
-          />
+          <img className="login pic" src={LoginPic} alt="LoginIllustration" />
+          <div className="login welcomeline1">Welcome Back!</div>
+          <div className="login welcomeline2">Detective, we miss u!</div>
+            <div className="login form">
+              <FormField
+                label="Username"
+                value={username}
+                onChange={un => setUsername(un)}
+              />
+              <PasswordField
+                label="Password(do not contain space)"
+                value={password}
+                onChange={n => setPassword(n)}
 
-          <div className="login button-container">
-            <Button
-              disabled={!username || !password || username.trim() ===" " || password.trim() ===" "}
-              width="100%"
-              onClick={() => doLogin()}
-            >
-              login
-            </Button>
-          </div>
+              />
+              <div className="login forget">Forgot Password?</div>
+              <div className="login button-container">
+                <Button
+                  disabled={!username || !password || username.trim() ===" " || password.trim() ===" "}
+                  width="100%"
+                  onClick={() => doLogin()}
+                >
+                  login
+                </Button>
+              </div>
 
-          <div className="login button-container">
-              Don't have an account?
-            <Link to={`/register`}>Sign up</Link>
-          </div>
+              <div className="login tosignup">
+                  -Don't have an account?
+                <Link to={`/register`}>Sign up</Link>
+                  -
+              </div>
 
-          
-        </div>
+
+            </div>
       </div>
-    </BaseContainer>
   );
 };
 
