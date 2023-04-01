@@ -26,7 +26,7 @@
 }
 
 .navigation-bar li.active {
-  filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.5));
+  filter: drop-shadow(0px 0px 3px rgba(0, 0, 0, 0.2));
 }
 .navigation-bar ul {
   list-style-type: none;
@@ -41,18 +41,24 @@
   flex-direction: column;
   align-items: center;
   text-decoration: none;
-  font-family: $fontDefault;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 10px;
+  line-height: 12px;
   color: #A4A4A4;
-  font-size: 14px;
 }
 
 .navigation-bar img {
   max-height: 90%;
   max-width: 90%;
-  margin-bottom: 5px;
+  margin-bottom: 0px;
   //filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.5));
 }
 
-.navigationsection {
-  left: 10%;
+.navigation-bar a:visited {
+  color: #A4A4A4;
+}
+.navigation-bar a:hover {
+  color: #cccccc;
 }

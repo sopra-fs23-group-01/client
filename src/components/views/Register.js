@@ -50,7 +50,7 @@ const PasswordField = props => {
 
           <input type = {showPassword ? 'text' : 'password'}
             className="register input"
-            placeholder="enter here.."
+            placeholder="enter here..."
             value={props.value}
             onChange={e => props.onChange(e.target.value)  }
 
@@ -146,7 +146,6 @@ const Register = props => {
           
         </div>
       </div>
-    <NavigationBar/>
     </BaseContainer>
   );
 };
