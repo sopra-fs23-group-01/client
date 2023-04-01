@@ -8,17 +8,17 @@ import {useHistory} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import 'react-datepicker/dist/react-datepicker.css';
-
+import '@fortawesome/fontawesome-free/css/all.css';
 const NameChangeField= props =>{
-    
+
 return(
     <div className="profile username">
-        <input 
+        <input
             className="profile input"
             type={props.type}
             placeholder="enter the username you want to change.."
             value={props.value}
-            onChange={e => props.onChange(e.target.value)} 
+            onChange={e => props.onChange(e.target.value)}
             />
     </div>
 );

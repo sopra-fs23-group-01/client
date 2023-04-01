@@ -1,4 +1,6 @@
-@import 'styles/theme';
+@import '../theme';
+@import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
+
 
 /* The '&' is a shorthand for the containing element,
   so for example a '&.user-list' inside .game will compile to
@@ -9,18 +11,29 @@
 
 .profile {
   &.container {
-    background: $background;
+    background: rgba(255, 255, 255, 0);
     padding: 3em;
     border-radius: $borderRadius;
     display: flex;
     flex-direction: column;
     align-items: center;
-    box-shadow: $dropShadow;
+    font-family: 'Poppins',sans-serif !important ;
+    //box-shadow: $dropShadow;
+  }
+
+  &.head{
+    font-family: 'Poppins', sans-serif !important;
+    font-style: normal;
+    font-weight: 600;
+
+    //background: rgba(0, 0, 0, 1);
+    color: #000000;
+
   }
 
   &.input {
-    height: 35px;
-    width: 300px;
+    height: 932px;
+    width: 430px;
     padding-left: 1px;
     margin-left: 4px;
     border: none;
@@ -44,18 +57,42 @@
     margin: 0.5em 0;
   }
   &.img {
-    width: 100px;
-    height: 100px;
+    width: 175px;
+    height: 175px;
+    left: 125px;
+    top: 121px;
+    border-radius: 50%; /* 将边框半径设置为元素宽度和高度的50% */
   }
 
   &.avatar {
-    display: inline-block;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    border: 3px solid #fff;
-    overflow: hidden;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    height: 175px;
+    width: 175px;
+    left: 125px;
+    top: 121px;
+    border-radius: 50%; /* 将边框半径设置为元素宽度和高度的50% */
+    padding-top: 2em;
+    //display: inline-block;
+    //border: 3px solid #fff;
+    //overflow: hidden;
+    //box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  }
+  .settings-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    background-image: url('../gear-solid.svg');
+    background-size: cover;
+  }
+  .return-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 30px;
+    height: 30px;
+    background-image: url('../arrow-left-solid.svg');
+    background-size: cover;
   }
   &.label {
     color: $textColor;
@@ -64,19 +101,82 @@
     font-weight: 300;
   }
   &.name {
+    align-self: flex-start;
     margin-left: 0px;
-    font-weight: 300;
+    margin-bottom: 10px;
+    font-weight: 500;
+    text-align-last: left;
   }
   &.username {
+    font-family: 'Poppins',sans-serif !important ;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 48px;
+  }
+  &.status {
+    font-size: 14px;
+    margin-bottom: 10px;
     margin-left: 0px;
     font-weight: 500;
-    color: $accent;
+    text-align: left;
+  }
+  &.winningRate{
+    align-self: flex-start;
+    margin-left: 0px;
+    margin-bottom: 10px;
+    font-weight: 500;
+    text-align: left;
+  }
+  .winningRate .police-rate:before {
+    content: "\f6c5"; /* 对应 font-awesome 中的 police 图标 */
+    font-family: "Font Awesome 5 Free",sans-serif;
+    margin-right: 5px;
+  }
+
+  .winningRate .thief-rate:before {
+    content: "\f6d1"; /* 对应 font-awesome 中的 thief 图标 */
+    font-family: "Font Awesome 5 Free",sans-serif;
+    margin-right: 5px;
+  }
+
+  &.gender{
+    margin-left: 0px;
+    margin-bottom: 10px;
+    font-weight: 500;
+    text-align: left;
   }
   &.id {
-    margin-left: 0px;
-    margin-right: 10px;
-    font-family: $fontMono;
+    margin-left: 0%;
     font-weight: 300;
+    text-align: left !important;
+  }
+  &.email {
+    margin-left: 0%;
+    margin-bottom: 5px;
+    font-weight: 500;
+    text-align: left !important;
+  }
+  &.introduction {
+    box-sizing: border-box;
+    backdrop-filter: blur(6.07811px);
+    padding: 4px;
+    width: 314px;
+    height: 59px;
+    border: 0.3px solid black;
+    border-radius: 8px;
+    font-weight: 500;
+  }
+  &.comment {
+    //width: 216px;
+    margin-top: 80px;
+    height: 17px;
+    font-family: 'Poppins',sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 11.25px!important;
+    line-height: 17px;
+    color: #A4A4A4;
   }
   &.namelink {
     color: white;
