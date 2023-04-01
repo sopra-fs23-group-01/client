@@ -10,9 +10,10 @@
 .lobby {
   &.lobbyText {
     position: absolute;
-    width: 35%;
+    width: 129px;
     height: 3.2%;
-    left: 33.8%;
+    left: 50%;
+    margin-left: -65px;
     top: 5%;
     font-family: 'Poppins';
     font-style: normal;
@@ -25,9 +26,10 @@
 
   &.availableText {
     position: absolute;
-    width: 80%;
+    width: 257px;
     height: 5.2%;
-    left: 16%;
+    left: 50%;
+    margin-left: -128px;
     top: 8.3%;
     font-family: 'Poppins';
     font-style: normal;

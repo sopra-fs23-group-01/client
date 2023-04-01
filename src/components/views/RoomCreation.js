@@ -48,7 +48,12 @@ const RoomCreation = props => {
         window.location.href = `/lobby`;
     };
 
-
+/*Here is roomCreation page:
+  1. Selecting theme
+  2. Choose the number of players
+  3. Set room to be private or not
+  4. Confirm and Cancel buttons
+ */
     return (
         <BaseContainer>
             <div className="roomCreation profileText">Profile</div>
