@@ -41,6 +41,8 @@ const ProfilePage=() =>{
           } else if (users.gender === 'female') {
               icon = <i className="fa-solid fa-venus" style={{ margin: '10px' }}></i>;
           }
+          localStorage.setItem('icon', icon);
+
 
       } catch (error) {
         alert(`Something went wrong during the profile page: \n${handleError(error)}`);
@@ -68,19 +70,7 @@ const ProfilePage=() =>{
     };
 
     // const [synonyms, setSynonyms] = useState([]);
-  
-    // const getSynonyms = async () => {
-    //   try {
-    //     const response = await axios.get('https://api.datamuse.com/words', {
-    //       params: {
-    //         rel_syn: 'good'
-    //       }
-    //     });
-    //     setSynonyms(response.data.map(word => word.word));
-    //   } catch (error) {
-    //     console.error(error);
-    //   }
-    // };
+
     
     
   
