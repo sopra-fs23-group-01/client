@@ -6,6 +6,11 @@ import {Button} from "../ui/Button";
 import 'styles/views/Register.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
+import LoginPic from "../../styles/image/Pics4login/LoginPic.png";
+import NameIcon from "../../styles/image/Icons/NameIcon.png";
+import PasswordIcon from "../../styles/image/Icons/PasscodeIcon.png";
+import NotShowIcon from "../../styles/image/Icons/NotShowIcon.png";
+import NavigationBar from "./NavigationBar";
 
 /*
 It is possible to add multiple components inside a single file,
@@ -38,24 +43,23 @@ const PasswordField = props => {
   }
 
   return (
-    <div className="register field">
-      <label className="register label">
-        {props.label}
-      </label>
+        <div className="register field">
+          <label className="register label">
+            {props.label}
+          </label>
 
-      <input type = {showPassword ? 'text' : 'password'} 
-        className="register input"
-        placeholder="enter here.."
-        value={props.value}
-        onChange={e => props.onChange(e.target.value)  }
-    
-      />
-      
-      <div className="register button-container1">
-       <Button width="25%" onClick={toggleShowPassword }>{showPassword ? 'Hide' : 'Show' } 
-       </Button>
-      </div>
-    </div>
+          <input type = {showPassword ? 'text' : 'password'}
+            className="register input"
+            placeholder="enter here.."
+            value={props.value}
+            onChange={e => props.onChange(e.target.value)  }
+
+          />
+          <img className="register nameicon" src={NameIcon} alt="Username" />
+          <img className="register passwordicon" src={PasswordIcon} alt="Password" />
+          <img className="register showicon" src={NotShowIcon} alt="LoginIllustration" />
+          <div className="register showtext" onClick={toggleShowPassword }>{showPassword ? 'Hide' : 'Show' }</div>
+        </div>
   );
 };
 
@@ -105,6 +109,9 @@ const Register = props => {
   return (
     <BaseContainer>
       <div className="register container">
+        <img className="register pic" src={LoginPic} alt="LoginIllustration" />
+        <div className="register welcomeline1">Get Started Free</div>
+        <div className="register welcomeline2">Start your journy today for free forever!</div>
         <div className="register form">
           <FormField
             label="Username (Do not contain spcace):"
@@ -120,34 +127,26 @@ const Register = props => {
           />
           
           </div>
-
-          
-          {/* <div classname="register password">
-          <PasswordField
-            label="Confirm Password"
-            value={confirmPassword}
-            onChange={n => setConfirmPassword(n)}
-          />
-          </div> */}
-
           <div className="register button-container">
             <Button
               disabled={!username || !password ||password.indexOf(" ") !== -1|| username.indexOf(" ") !== -1}
-              width="75%"
+              width="100%"
+              color="white"
               onClick={() => doregister()}
             >
               Register
             </Button>
           </div>
 
-          <div className="register button-container">
-              Already have an account?
-            <Link to={`/login`}>Login</Link>
+          <div className="register tosignin">
+              -Already have an account?
+            <Link to={`/login`}> Signin</Link>-
           </div>
 
           
         </div>
       </div>
+    <NavigationBar/>
     </BaseContainer>
   );
 };
