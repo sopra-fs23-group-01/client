@@ -9,6 +9,8 @@ import Profile from "components/views/Profile";
 import ProfilePage from "components/views/Profile";
 import EditProfile from "components/views/EditProfile";
 import Chat from "components/views/Chat";
+import Lobby from "../../views/Lobby";
+import RoomCreation from "../../views/RoomCreation";
 
 /**
  * Main router of your application.
@@ -56,6 +58,18 @@ const AppRouter = () => {
         <Route exact path="/editprofile">
           <GameGuard>
             <EditProfile/>
+          </GameGuard>
+        </Route>
+
+        <Route exact path="/lobby">
+          <GameGuard>
+            <Lobby/>
+          </GameGuard>
+        </Route>
+
+        <Route exact path="/roomCreation">
+          <GameGuard>
+            <RoomCreation/>
           </GameGuard>
         </Route>
 
