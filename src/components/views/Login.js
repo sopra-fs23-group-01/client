@@ -104,7 +104,7 @@ const Login = props => {
                 onChange={un => setUsername(un)}
               />
               <PasswordField
-                label="Password(do not contain space)"
+                label="Password (Do not contain spcace):"
                 value={password}
                 onChange={n => setPassword(n)}
 
@@ -119,14 +119,11 @@ const Login = props => {
                   login
                 </Button>
               </div>
-
               <div className="login tosignup">
                   -Don't have an account?
                 <Link to={`/register`}>Sign up</Link>
                   -
               </div>
-
-
             </div>
       </div>
   );

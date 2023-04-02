@@ -1,44 +1,12 @@
 @import 'styles/theme';
 
-.register {
-  &.container {
-    margin-top: 0em;
-    min-height: 400px;
-    /* we include the center mixin defined in _theme.scss and save three duplicate lines :) */
-    @include center;
-    flex-direction: column;
-  }
-  &.pic {
-    position: absolute;
-    width: 100%;
-    height: 25%;
-    left: 0;
-    right: 0;
-    margin: auto;
-    top: 8%;
-  }
-  &.welcomeline1 {
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 40px;
-    line-height: 60px;
-    color: #2F2F2F;
-    position: absolute;
-    margin: auto;
-    top: 34%;
-  }
-  &.welcomeline2 {
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 15px;
-    line-height: 8px;
-    color: #242424;
-    position: absolute;
-    margin: auto;
-    top: 40.2%;
-  }
+.register {  &.container {
+  margin-top: 2em;
+  min-height: 300px;
+  /* we include the center mixin defined in _theme.scss and save three duplicate lines :) */
+  @include center;
+  flex-direction: column;
+}
   &.form {
     display: flex;
     flex-direction: column;
@@ -58,6 +26,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+
   }
   &.input {
     height: 50px;
@@ -75,7 +44,7 @@
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 500;
-    font-size: 13px;
+    font-size: 12px;
     line-height: 21px;
     color: #3E3E3E;
   }
@@ -93,21 +62,66 @@
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 500;
-    font-size: 13px;
-    line-height: 17px;
+    font-size: 11px;
+    line-height: 3.5%;
 
     color: #A4A4A4;
   }
   &.button-container1 {
     display: flex;
     justify-content: center;
-    margin-top: 0em;
+    margin-top: -1em;
+  }
+  &.forget {
+    position: absolute;
+    //width: 101px;
+    //height: 17px;
+    left: 63.2%;
+    top: 60%;
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 11.33px;
+    line-height: 17px;
+    color: #A4A4A4;
+  }
+  &.welcomeline1 {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 10%;
+    color: #2F2F2F;
+    position: absolute;
+    margin: auto;
+    top: 35.5%;
+  }
+  &.welcomeline2 {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 0.9%;
+    color: #242424;
+    position: absolute;
+    margin: auto;
+    top: 39.2%;
+  }
+  &.pic {
+    position: absolute;
+    width: 100%;
+    height: 25%;
+    left: 0;
+    right: 0;
+    margin: auto;
+    top: 8%;
   }
   &.showicon {
     position: absolute;
     left: 77%;
     right: 17.33%;
-    top: 37%;
+    top: 40%;
   }
   &.nameicon {
     position: absolute;
@@ -117,13 +131,13 @@
   &.passwordicon {
     position: absolute;
     left: 9.3%;
-    top: 38%;
+    top: 41%;
   }
   &.showtext {
     position: absolute;
     left: 80.8%;
     right: 17.33%;
-    top: 47%;
+    top: 51%;
 
     font-family: 'Poppins';
     font-style: normal;
@@ -132,5 +146,4 @@
     line-height: 17px;
     color: #A4A4A4;
   }
-
 }
