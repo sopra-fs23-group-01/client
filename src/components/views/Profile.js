@@ -124,7 +124,7 @@ const ProfilePage=() =>{
       <div className="login button-container">
         <Button
               width="100%"
-              onClick={() => history.push('/game')}>Goback
+              onClick={() => history.push('/leaderboard')}>Goback
         </Button>
       </div>
     </div>)

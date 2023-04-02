@@ -3,9 +3,7 @@ import {api, handleError} from 'helpers/api';
 import User from 'models/User';
 import {Link, useHistory } from 'react-router-dom';
 import {Button} from "../ui/Button";
-import NavigationBar from "./NavigationBar";
 import 'styles/views/Login.scss';
-import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import LoginPic from 'styles/image/Pics4login/LoginPic.png';
 import NotShowIcon from "../../styles/image/Icons/NotShowIcon.png";
@@ -86,7 +84,7 @@ const Login = props => {
       localStorage.setItem('username',user.username);
 
       // Login successfully worked --> navigate to the route /game in the GameRouter
-      history.push(`/game`);
+      history.push(`/leaderboard`);
     } catch (error) {
       alert(`Something went wrong during the login: \n${handleError(error)}`);
     }
