@@ -24,7 +24,7 @@ function NavigationBar() {
                     </Link>
                 </li>
                 <li className={activeButton === 'profile' ? 'active' : ''}>
-                    <Link to="/profile" onClick={() => setActiveButton('profile')}>
+                    <Link to={`/user/${localStorage.getItem('id')}`} onClick={() => setActiveButton('profile')}>
                         <img src={ProfileIcon} alt="Profile" />
                         Profile
                     </Link>

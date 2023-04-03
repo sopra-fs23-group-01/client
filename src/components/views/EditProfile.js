@@ -167,7 +167,7 @@ const EditProfile= () =>{
 
           <div className="login button-container">
                 <Button
-                    style={{ marginTop: '50px' }}
+                    style={{ marginTop: '5px' }}
                   width="150px"
                   onClick={() =>doEditProfile()}>Confirm
                 </Button>
