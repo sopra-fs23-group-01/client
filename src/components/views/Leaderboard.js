@@ -6,6 +6,15 @@ import {useHistory} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import "styles/views/Game.scss";
+import rank1 from './rank1.png';
+import rank2 from './rank2.png';
+import rank3 from './rank3.png';
+import crown from './crown.png';
+import avatar1 from './avatar1.png';
+import avatar2 from './avatar2.png';
+import avatar3 from './avatar3.png';
+import NavigationBar from './NavigationBar';
+
 
 
 const Game = () => {
@@ -87,19 +96,18 @@ const Game = () => {
   if (users) {
 
     function Player({ user }) {
-      const statusStyle = {
-        color: user.status === "ONLINE" ? "green" : "red"
-      };
     
       return (
         
-        <div className="player container">
-          <div className="player username"><a href={`/user/${user.id}`} className="player namelink"> Username:{user.username}</a></div>
-          <div className="player name">Creat time:{user.registerDate}</div>
-          <div className="player id">id: {user.id}</div>
-          <div className="player id">
-            <span style={statusStyle}>{user.status}</span>
+        <div className="game playercontainer">
+          <div className="leaderboard number">{user.id}</div>
+          <img className='avatar4' src={avatar1}/>
+          <div className="game informationcontainer">
+            <div className="leaderboard id">Player {user.id}</div>
+            <div className="leaderboard winingrate ">{user.username} %</div>
+            
           </div>
+          <div className="player username"><a href={`/user/${user.id}`} className="player namelink">{user.username}</a></div>
         </div>
       );
     }
@@ -109,38 +117,42 @@ const Game = () => {
       user: PropTypes.object
     };
 
-
     content = (
-      <div className="game">
+      <div>
         <ul className="game user-list">
           {users.map(user => (
             <Player user={user} key={user.id}/>
           ))}
         </ul>
-        <Button
-          width="100%"
-          onClick={() => logout()}
-        >
-          Logout
-        </Button>
-        <Button
-            width="100%"
-            onClick={() => goLobby()}
-        >
-          GoLobby
-        </Button>
       </div>
     );
   }
 
   return (
-    <BaseContainer className="game container">
-      <h2>Happy Coding!</h2>
-      <h2>The User list</h2>
-      <p className="game paragraph">
-        Get all users from secure endpoint:
-      </p>
+    <BaseContainer>
+
+      <img className='rank1' src={rank1}/>
+      <img className='rank2' src={rank2}/>
+      <img className='rank3' src={rank3}/>
+      <img className='crown1' src={crown}/>
+      <img className='avatar1' src={avatar1}/>
+      <img className='avatar2' src={avatar2}/>
+      <img className='avatar3' src={avatar3}/>
+      <div className='leaderboardhead'>
+        LeaderBoard Detective
+      </div>
+      <div className='rankname1'>
+        Hankyshadow
+      </div>
+      <div className='rankname2'>
+        MasterLin 
+      </div>
+      <div className='rankname3'>
+        ZephyrHarpoon
+      </div>
       {content}
+      <NavigationBar/>
+      
     </BaseContainer>
   );
 }

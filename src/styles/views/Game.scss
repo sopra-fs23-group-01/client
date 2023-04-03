@@ -8,18 +8,46 @@
  */
 
 .game {
-  &.container {
-    background: $background;
-    padding: 3em;
-    border-radius: $borderRadius;
-    display: flex;
-    flex-direction: column;
+  
+  &.playercontainer {
+    background: rgb(255, 211, 211);
     align-items: center;
     box-shadow: $dropShadow;
+    width: 100%; /* 更改宽度 */
+    height: 50px; /* 更改高度 */
+    padding: 0; /* 移除 padding，使容器尽可能大 */
+    display: flex;
+    flex-direction: row; /* 将子元素水平排列 */
+    justify-content: flex-start; /* 从最左边开始对齐子元素 */
+    white-space: nowrap; /* 防止文本换行 */
+    margin-bottom: 10px;
+    border-radius: 10px;
   }
+
+  &.informationcontainer {
+    background: rgb(255, 211, 211);
+    /* Auto layout */
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0px 8px 0px 0px;
+    gap: 4px;
+
+    width: 209px;
+    height: 45px;
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 0;
+  }
+  
   &.user-list {
     list-style: none;
     padding-left: 0;
+    margin-top: 270px;
   }
   &.user-item {
     display: flex;
@@ -32,30 +60,90 @@
   }
 }
 
-.player {
-  &.container {
-    margin: 0.5em;
-    width: 50em;
-    padding: 10px;
-    border-radius: $borderRadius;
-    display: flex;
-    align-items: center;
-    background: $background;
+.leaderboard {
+
+  &.number{
+
+    width: 10px;
+    height: 22px;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 22px;
+    /* identical to box height, or 147% */
+    color: #050505;
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    margin-left: 10px;
+    margin-right: 10px;
   }
+  
+  &.container {
+    position: absolute;
+    width: 100%;
+    height: 300px;
+    left: 5px;
+    top: 297px;
+  }
+  
   &.name {
     font-weight: 300;
     margin-left: 50px;
   }
   &.username {
     font-weight: 500;
-    color: $accent;
+    color: black;
+    margin-left: 250px;
+    margin-right: 20px;
   }
   &.id {
-    margin-left: auto;
-    margin-right: 10px;
-    font-family: $fontMono;
-    font-weight: 300;
+    width: 53px;
+    height: 22px;
+    
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 22px;
+    /* identical to box height, or 157% */
+    
+    
+    color: #0F0E0E;
+    
+    
+    /* Inside auto layout */
+    
+    flex: none;
+    order: 0;
+    flex-grow: 0;
   }
+
+  &.winingrate {
+    width: 25px;
+    height: 20px;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 20px;
+    /* identical to box height, or 167% */
+
+
+    color: #000000;
+
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+  }
+
   &.namelink {
     color: white;
   }
@@ -64,3 +152,159 @@
     color: green;
   }
 }
+
+.leaderboardhead {
+  position: absolute;
+  width: 232px;
+  height: 30px;
+  left: 50%;
+  margin-left: -116px;
+  top: 30px;
+  
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 30px;
+  /* identical to box height */
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  
+  color: #000000;
+}
+
+
+.rank1 {
+  width: 24.12px;
+  height: 24.87px;
+  position: absolute;
+  left: 50%;
+  top: 230px;
+  transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.rank2 {
+  width: 24.12px;
+  height: 24.87px;
+  position: absolute;
+  left: 20%;
+  top: 210px;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.rank3 {
+  width: 24.12px;
+  height: 24.87px;
+  position: absolute;
+  left: 80%;
+  top: 210px;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.crown1 {
+  width: 41px;
+  height: 43px;
+  position: absolute;
+  left: 50%;
+  top: 11.2%;
+  transform: translate(-50%, -50%);
+  
+}
+
+.rankname1{
+  position: absolute;
+  width: 89px;
+  height: 36px;
+  left: 50%;
+  margin-left: -44.5px;
+  top: 240px;
+
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 18px;
+  text-align: center;
+
+  color: #2F2F2F;
+}
+
+.rankname2{
+  position: absolute;
+  width: 40px;
+  height: 24px;
+  left: 20%;
+  margin-left: -25px;
+  top: 225px;
+  
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 8px;
+  line-height: 12px;
+  text-align: center;
+  
+  color: #2F2F2F;
+}
+
+.rankname3{
+  position: absolute;
+  width: 64px;
+  height: 24px;
+  left: 80%;
+  margin-left: -39px;
+  top: 225px;
+  
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 8px;
+  line-height: 12px;
+  text-align: center;
+  
+  color: #2F2F2F;
+}
+
+.avatar1 {
+  position: absolute;
+  width: 102.91px;
+  height: 106.11px;
+  left: 50%;
+  margin-left: -51.45px;
+  top: 14%;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.avatar2 {
+  position: absolute;
+  width: 102.91px;
+  height: 106.11px;
+  left: 20%;
+  margin-left: -51.45px;
+  top: 12.3%;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.avatar3 {
+  position: absolute;
+  width: 102.91px;
+  height: 106.11px;
+  left: 80%;
+  margin-left: -51.45px;
+  top: 12.3%;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.avatar4 {
+/* picture nft */
+width: 50px;
+height: 50px;
+/* Inside auto layout */
+flex: none;
+flex-grow: 0;
+justify-self: start;
+}
+
+

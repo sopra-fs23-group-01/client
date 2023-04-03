@@ -6,6 +6,7 @@ import {useHistory} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import "styles/views/Lobby.scss";
+import NavigationBar from "./NavigationBar";
 
 
 const Lobby = () => {
@@ -125,6 +126,7 @@ const Lobby = () => {
             <div className="lobby content">{content}</div>
             <Button className="lobby quickStartButton" onClick={() => quickStart()}>Quick Start</Button>
             <Button className="lobby createButton" onClick={() => createRoom()}>Create New Room</Button>
+            <NavigationBar/>
         </BaseContainer>
     );
 }

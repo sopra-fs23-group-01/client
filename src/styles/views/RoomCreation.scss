@@ -3,9 +3,10 @@
 .roomCreation {
   &.profileText{
     position: absolute;
-    width: 35%;
+    width: 64px;
     height: 3.2%;
-    left: 42.8%;
+    left: 50%;
+    margin-left: -32px;
     top: 5%;
     font-family: 'Poppins';
     font-style: normal;
@@ -17,9 +18,10 @@
   }
   &.createText{
     position: absolute;
-    width: 80%;
+    width: 288px;
     height: 5.2%;
-    left: 12%;
+    left: 50%;
+    margin-left: -144px;
     top: 8.3%;
     font-family: 'Poppins';
     font-style: normal;
