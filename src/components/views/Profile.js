@@ -1,4 +1,4 @@
-
+import '@fortawesome/fontawesome-free/css/all.css';
 import 'styles/views/Profile.scss';
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
@@ -19,8 +19,10 @@ const ProfilePage=() =>{
   const localid = parseInt(localid_str, 10);
   const [imageUrl, setImageUrl] = useState(null);
   const [users, setUsers] = useState(true);
-  
-  //The icon
+  let icon = <i className="fa-solid fa-venus-mars" style={{ margin: '10px' }}></i>;
+
+
+    //The icon
   useEffect(() => {
     axios.get('https://source.unsplash.com/random')
       .then((response) => setImageUrl(response.request.responseURL))
@@ -34,6 +36,14 @@ const ProfilePage=() =>{
         const response = await api.get('/users/' + id);
         console.log(response);
         setUsers(response.data);
+          if (users.gender === 'male') {
+              icon = <i className="fa-solid fa-mars" style={{ margin: '10px' }}></i>;
+          } else if (users.gender === 'female') {
+              icon = <i className="fa-solid fa-venus" style={{ margin: '10px' }}></i>;
+          }
+          localStorage.setItem('icon', icon);
+
+
       } catch (error) {
         alert(`Something went wrong during the profile page: \n${handleError(error)}`);
         
@@ -60,46 +70,37 @@ const ProfilePage=() =>{
     };
 
     // const [synonyms, setSynonyms] = useState([]);
-  
-    // const getSynonyms = async () => {
-    //   try {
-    //     const response = await axios.get('https://api.datamuse.com/words', {
-    //       params: {
-    //         rel_syn: 'good'
-    //       }
-    //     });
-    //     setSynonyms(response.data.map(word => word.word));
-    //   } catch (error) {
-    //     console.error(error);
-    //   }
-    // };
+
     
     
   
     return (
       <div className="profile container">
-        <div className="profile name">User ID:  {functionuser.id}</div>
-        <div className="profile username"> Username:  {functionuser.username}</div>
-        <div className="profile name">Creation date:  {functionuser.registerDate}</div>
-        <div className="profile name">Birthday:    {functionuser.birthday}
-                        </div>
-        <div className="profile name">
-            Online status:
-          <span style={statusStyle}>   {functionuser.status}</span>
-        </div>
-
-        <div className="login button-container">
+          <div className="profile username"> {functionuser.username}</div>
+          <div className="profile email">Email{functionuser.email}</div>
+          <div className="profile status">
+              <span style={statusStyle}>   {functionuser.status}</span>
+          </div>
+          <div className="profile winningRate">Winning rate:
+              <i className="fa-solid fa-person-military-rifle" style={{ margin: '10px' }}></i>80%    {functionuser.rateDe}
+              <i className="fa-solid fa-user-ninja" style={{ marginLeft: '40px' ,marginRight: '10px' }}></i>70%{functionuser.rateUn}
+          </div>
+          <div className="profile name">Gender:  {icon}{functionuser.gender}</div>
+        <div className="profile name">Creation date: <i className="fa-solid fa-calendar-days" style={{ margin: '10px' }}></i>{functionuser.registerDate}</div>
+        <div className="profile name">Birthday: <i className="fa-solid fa-calendar-days" style={{ margin: '10px' }}></i>{functionuser.birthday}</div>
+          <div className="profile name">Introduction:    {functionuser.birthday}</div>
+          <div className="profile introduction">Get ready to be amazed by my skills of observation and deduction.    {functionuser.introduction}</div>
+        <div className="profile comment"> Want to change your intro? Go to edit!</div>
+        <div>
             {showEditButton && (
-            <Button
-              width="100%"
-              onClick={() => history.push('/editprofile')}>Edit
-            </Button>)}
+                <div className="profile settings-button" onClick={() => history.push('/editprofile')}></div>)
+            }
         </div>
         <div>
-      <button onClick={() => history.push('/chat')}>Chat</button>
+      {/*<button className="button" onClick={() => history.push('/chat')}>Chat</button>*/}
     </div>
 
-      </div>  
+      </div>
     );
   }
 
@@ -111,6 +112,8 @@ const ProfilePage=() =>{
   content =(
 
     <div className="profile container">
+        <div className="return-button" onClick={() => history.push('/game')}></div>
+      <div className="profile head">Profile</div>
 
       <div className="profile avatar">
         {imageUrl && <img src={imageUrl} alt="profile img"  className="profile img"/>}
@@ -121,12 +124,6 @@ const ProfilePage=() =>{
         <Profilefield functionuser={users} localid={localid} />            
       </div>
 
-      <div className="login button-container">
-        <Button
-              width="100%"
-              onClick={() => history.push('/game')}>Goback
-        </Button>
-      </div>
     </div>)
   
 

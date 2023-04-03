@@ -18,6 +18,11 @@ For your local development environment, you will need Node.js. You can download 
 
 ```npm install```
 
+### Make sure to install this 
+
+```npm install @fortawesome/fontawesome-free```
+
+
 Run this command before you start your application for the first time. Next, you can start the app with:
 
 ```npm run dev```
