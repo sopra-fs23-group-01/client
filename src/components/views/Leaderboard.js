@@ -151,6 +151,12 @@ const Game = () => {
         ZephyrHarpoon
       </div>
       {content}
+      <Button
+          width="100%"
+          onClick={() => logout()}
+        >
+          Logout
+        </Button>
       <NavigationBar/>
       
     </BaseContainer>
