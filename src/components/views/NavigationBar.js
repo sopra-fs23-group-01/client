@@ -12,7 +12,7 @@ function NavigationBar() {
         <nav className="navigation-bar">
             <ul>
                 <li className={activeButton === 'game' ? 'active' : ''}>
-                    <Link to="/game" onClick={() => setActiveButton('game')}>
+                    <Link to="/lobby" onClick={() => setActiveButton('lobby')}>
                         <img src={GameIcon} alt="Game" />
                         Game
                     </Link>
