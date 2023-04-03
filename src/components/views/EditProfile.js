@@ -15,7 +15,7 @@ const NameChangeField= props =>{
             <input
                 className="profile input"
                 type={props.type}
-                placeholder="enter your username"
+                placeholder="enter here"
                 value={props.value}
                 onChange={e => props.onChange(e.target.value)}
                 />
@@ -40,6 +40,8 @@ const EditProfile= () =>{
   const [username, setusername] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
   const [birthday, setBirthday] = useState(null);
+  const [introduction, setIntroduction] = useState(null);
+  const [gender, setGender] = useState(null);
   const [registerDate,] = useState(null);
   const [status,] = useState(null);
     const [users, setUsers] = useState(true);
@@ -76,8 +78,10 @@ const EditProfile= () =>{
         const requestBody = JSON.stringify({  id: id,
         username: username,
         birthday: birthday,
+        gender:gender,
         registerDate: registerDate,
-        status: status
+        status: status,
+        introduction: introduction
       });
         await api.put('/users/'+id, requestBody);
      
@@ -112,18 +116,52 @@ const EditProfile= () =>{
             </div>
 
           <div className="profile username" style={{marginTop:'40px',marginBottom:'40px'}}> {users.username}</div>
-            <div className="profile name">Change your birthday here :</div>
+            <div className="profile name">Username:</div>
+            <NameChangeField
+                value={username}
+                onChange={un => setusername(un)}
+            />
+            <div className="profile name">Birthday:</div>
               <NameChangeField
                 type="date"
                 value={birthday}
                 onChange={un => setBirthday(un)}
               />
               {/* <div className="profile username"> Current Username:  {userUsername}</div> */}
-            <div className="profile name">Change your username here :</div>
+
+            <div className="profile name">
+                <div style={{ display: 'flex', flexDirection: 'row' }}>
+                <label>
+                    Gender:
+                    <input
+                        style={{width:'20px',marginLeft:'20px'}}
+                        className="profile input"
+                        type="radio"
+                        value="male"
+                        checked={gender === 'male'}
+                        onChange={() => setGender('male')}
+                    />
+                    Male
+                </label>
+                <label>
+                    <input
+                        style={{width:'20px',marginLeft:'20px'}}
+                        className="profile input"
+                        type="radio"
+                        value="female"
+                        checked={gender === 'female'}
+                        onChange={() => setGender('female')}
+                    />
+                    Female
+                </label>
+                </div>
+            </div>
+
+            <div className="profile name">Introduction:</div>
             <NameChangeField
-                  value={username}
-                  onChange={un => setusername(un)}
-              />
+                value={introduction}
+                onChange={un => setIntroduction(un)}
+            />
 
 
 
