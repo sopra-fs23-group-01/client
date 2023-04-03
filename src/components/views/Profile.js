@@ -112,7 +112,7 @@ const ProfilePage=() =>{
   content =(
 
     <div className="profile container">
-        <div className="return-button" onClick={() => history.push('/game')}></div>
+        <div className="return-button" onClick={() => history.push('/leaderboard')}></div>
       <div className="profile head">Profile</div>
 
       <div className="profile avatar">
