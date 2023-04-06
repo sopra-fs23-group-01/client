@@ -36,9 +36,9 @@ const ProfilePage=() =>{
         const response = await api.get('/users/' + id);
         console.log(response);
         setUsers(response.data);
-          if (users.gender === 'male') {
+          if (users.gender == 'MALE') {
               icon = <i className="fa-solid fa-mars" style={{ margin: '10px' }}></i>;
-          } else if (users.gender === 'female') {
+          } else if (users.gender === 'FEMALE') {
               icon = <i className="fa-solid fa-venus" style={{ margin: '10px' }}></i>;
           }
           localStorage.setItem('icon', icon);
@@ -82,14 +82,14 @@ const ProfilePage=() =>{
               <span style={statusStyle}>   {functionuser.status}</span>
           </div>
           <div className="profile winningRate">Winning rate:
-              <i className="fa-solid fa-person-military-rifle" style={{ margin: '10px' }}></i>80%    {functionuser.rateDe}
-              <i className="fa-solid fa-user-ninja" style={{ marginLeft: '40px' ,marginRight: '10px' }}></i>70%{functionuser.rateUn}
+              <i className="fa-solid fa-person-military-rifle" style={{ margin: '10px' }}></i>    {functionuser.rateDe}%
+              <i className="fa-solid fa-user-ninja" style={{ marginLeft: '40px' ,marginRight: '10px' }}></i>{functionuser.rateUn}%
           </div>
           <div className="profile name">Gender:  {icon}{functionuser.gender}</div>
         <div className="profile name">Creation date: <i className="fa-solid fa-calendar-days" style={{ margin: '10px' }}></i>{functionuser.registerDate}</div>
         <div className="profile name">Birthday: <i className="fa-solid fa-calendar-days" style={{ margin: '10px' }}></i>{functionuser.birthday}</div>
           <div className="profile name">Introduction:    {functionuser.birthday}</div>
-          <div className="profile introduction">Get ready to be amazed by my skills of observation and deduction.    {functionuser.introduction}</div>
+          <div className="profile introduction">{functionuser.intro}</div>
         <div className="profile comment"> Want to change your intro? Go to edit!</div>
         <div>
             {showEditButton && (

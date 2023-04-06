@@ -40,8 +40,9 @@ const EditProfile= () =>{
   const [username, setusername] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
   const [birthday, setBirthday] = useState(null);
-  const [introduction, setIntroduction] = useState(null);
+  const [intro, setIntro] = useState(null);
   const [gender, setGender] = useState(null);
+    const [email, setEmail] = useState(null);
   const [registerDate,] = useState(null);
   const [status,] = useState(null);
     const [users, setUsers] = useState(true);
@@ -81,7 +82,7 @@ const EditProfile= () =>{
         gender:gender,
         registerDate: registerDate,
         status: status,
-        introduction: introduction
+        intro: intro
       });
         await api.put('/users/'+id, requestBody);
      
@@ -121,6 +122,11 @@ const EditProfile= () =>{
                 value={username}
                 onChange={un => setusername(un)}
             />
+            <div className="profile name">Email:</div>
+            <NameChangeField
+                value={email}
+                onChange={un => setEmail(un)}
+            />
             <div className="profile name">Birthday:</div>
               <NameChangeField
                 type="date"
@@ -137,9 +143,9 @@ const EditProfile= () =>{
                         style={{width:'20px',marginLeft:'20px'}}
                         className="profile input"
                         type="radio"
-                        value="male"
-                        checked={gender === 'male'}
-                        onChange={() => setGender('male')}
+                        value="MALE"
+                        checked={gender === 'MALE'}
+                        onChange={() => setGender('MALE')}
                     />
                     Male
                 </label>
@@ -148,9 +154,9 @@ const EditProfile= () =>{
                         style={{width:'20px',marginLeft:'20px'}}
                         className="profile input"
                         type="radio"
-                        value="female"
-                        checked={gender === 'female'}
-                        onChange={() => setGender('female')}
+                        value="FEMALE"
+                        checked={gender === 'FEMALE'}
+                        onChange={() => setGender('FEMALE')}
                     />
                     Female
                 </label>
@@ -159,8 +165,8 @@ const EditProfile= () =>{
 
             <div className="profile name">Introduction:</div>
             <NameChangeField
-                value={introduction}
-                onChange={un => setIntroduction(un)}
+                value={intro}
+                onChange={un => setIntro(un)}
             />
 
 
