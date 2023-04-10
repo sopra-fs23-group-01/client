@@ -13,6 +13,7 @@ class User {
     this.intro = null;
     this.rateDe =null;
     this.rateUn = null;
+    this.avatar = null;
     Object.assign(this, data);
   }
 }

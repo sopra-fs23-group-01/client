@@ -49,13 +49,6 @@ const EditProfile= () =>{
     let icon = localStorage.getItem('icon');
 
 
-    //add the icon
-    useEffect(() => {
-      axios.get('https://source.unsplash.com/random')
-      .then((response) => setImageUrl(response.request.responseURL))
-      .catch((error) => console.log(error));
-    }, []);
-
     useEffect(() => {
         // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
         async function fetchData() {
@@ -76,14 +69,15 @@ const EditProfile= () =>{
 
   const doEditProfile = async () => {
     try {
-        const requestBody = JSON.stringify({  id: id,
+        const requestBody = JSON.stringify({
+            id: id,
         username: username,
         birthday: birthday,
         gender:gender,
         registerDate: registerDate,
         status: status,
         intro: intro
-      });
+        });
         await api.put('/users/'+id, requestBody);
      
         history.push(`/user/${id}`);
@@ -112,8 +106,8 @@ const EditProfile= () =>{
             <div className="profile head">Setting Profile</div>
 
 
-            <div className="profile avatar">
-              {imageUrl && <img src={imageUrl} alt="profile img"  className="profile img"/>}
+            <div className="profile avatar" onClick={() => history.push(`/editavatar`)}>
+                <img src={users.avatarUrl} alt="profile img" className="profile img"/>
             </div>
 
           <div className="profile username" style={{marginTop:'40px',marginBottom:'40px'}}> {users.username}</div>

@@ -22,12 +22,12 @@ const ProfilePage=() =>{
   let icon = <i className="fa-solid fa-venus-mars" style={{ margin: '10px' }}></i>;
 
 
-    //The icon
-  useEffect(() => {
-    axios.get('https://source.unsplash.com/random')
-      .then((response) => setImageUrl(response.request.responseURL))
-      .catch((error) => console.log(error));
-  }, []);
+  //   //The icon
+  // useEffect(() => {
+  //   axios.get('https://robohash.org/1')
+  //     .then((response) => setImageUrl(response.request.responseURL))
+  //     .catch((error) => console.log(error));
+  // }, []);
 
   useEffect(() => {
     // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
@@ -36,11 +36,7 @@ const ProfilePage=() =>{
         const response = await api.get('/users/' + id);
         console.log(response);
         setUsers(response.data);
-          if (users.gender == 'MALE') {
-              icon = <i className="fa-solid fa-mars" style={{ margin: '10px' }}></i>;
-          } else if (users.gender === 'FEMALE') {
-              icon = <i className="fa-solid fa-venus" style={{ margin: '10px' }}></i>;
-          }
+          console.log('Judge');
           localStorage.setItem('icon', icon);
 
 
@@ -85,7 +81,12 @@ const ProfilePage=() =>{
               <i className="fa-solid fa-person-military-rifle" style={{ margin: '10px' }}></i>    {functionuser.rateDe}%
               <i className="fa-solid fa-user-ninja" style={{ marginLeft: '40px' ,marginRight: '10px' }}></i>{functionuser.rateUn}%
           </div>
-          <div className="profile name">Gender:  {icon}{functionuser.gender}</div>
+          <div className="profile name">Gender:  {functionuser.gender ?
+              (functionuser.gender === 'MALE' ?
+                  <i className="fa-solid fa-mars" style={{ margin: '10px' }}></i>
+                  : <i className="fa-solid fa-venus" style={{ margin: '10px' }}></i>)
+              : <i className="fa-solid fa-venus-mars" style={{ margin: '10px' }}></i>}{functionuser.gender}
+          </div>
         <div className="profile name">Creation date: <i className="fa-solid fa-calendar-days" style={{ margin: '10px' }}></i>{functionuser.registerDate}</div>
         <div className="profile name">Birthday: <i className="fa-solid fa-calendar-days" style={{ margin: '10px' }}></i>{functionuser.birthday}</div>
           <div className="profile name">Introduction:    {functionuser.birthday}</div>
@@ -115,9 +116,9 @@ const ProfilePage=() =>{
         <div className="return-button" onClick={() => history.push('/leaderboard')}></div>
       <div className="profile head">Profile</div>
 
-      <div className="profile avatar">
-        {imageUrl && <img src={imageUrl} alt="profile img"  className="profile img"/>}
-      </div>
+        <div className="profile avatar">
+            <img src={users.avatarUrl} alt="profile img" className="profile img"/>
+        </div>
 
 
       <div className="profile form">

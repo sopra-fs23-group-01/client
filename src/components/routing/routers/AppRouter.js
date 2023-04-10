@@ -12,7 +12,7 @@ import Chat from "components/views/Chat";
 import Leaderboard from "components/views/Leaderboard";
 import Lobby from "../../views/Lobby";
 import RoomCreation from "../../views/RoomCreation";
-
+import EditAvatar from "../../views/EditAvatar";
 /**
  * Main router of your application.
  * In the following class, different routes are rendered. In our case, there is a Login Route with matches the path "/login"
@@ -59,6 +59,12 @@ const AppRouter = () => {
         <Route exact path="/editprofile">
           <GameGuard>
             <EditProfile/>
+          </GameGuard>
+        </Route>
+
+        <Route exact path="/editavatar">
+          <GameGuard>
+            <EditAvatar/>
           </GameGuard>
         </Route>
 
