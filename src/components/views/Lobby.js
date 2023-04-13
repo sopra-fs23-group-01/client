@@ -34,7 +34,7 @@ const Lobby = () => {
         //     alert(`Server has been refreshed!`);
         //
         // }
-        window.location.href = `/game`;
+        window.location.href = `/chat`;
     };
     const createRoom = async () => {
         window.location.href = `/roomCreation`;
