@@ -142,9 +142,9 @@ const ChatRoom = () => {
                             ))}
                         </ul>
 
-                        <div className="chat send-message">
+                        <div className="chat send-messagebox">
                             <input type="text" className="chat input-message" placeholder="enter the message" value={userData.message} onChange={handleMessage} />
-                            <Button type="button"  onClick={sendValue}>send</Button>
+                            <Button type="button" onClick={sendValue}>send</Button>
                         </div>
                     </div>}
                     {tab !== "CHATROOM" && <div className="chat chat-content">
@@ -158,9 +158,9 @@ const ChatRoom = () => {
                             ))}
                         </ul>
 
-                        <div className="chat send-message">
+                        <div className="chat send-messagebox">
                             <input type="text" className="chat input-message" placeholder="enter the message" value={userData.message} onChange={handleMessage} />
-                            <Button type="button" className="chat send-button" onClick={sendPrivateValue}>send</Button>
+                            <Button type="button" onClick={sendPrivateValue}>send</Button>
                         </div>
                     </div>}
                 </div>
