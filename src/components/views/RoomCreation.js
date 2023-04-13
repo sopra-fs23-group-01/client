@@ -1,12 +1,10 @@
 import React, {useState} from 'react';
 import {api, handleError} from 'helpers/api';
-import User from 'models/User';
-import {Link, useHistory } from 'react-router-dom';
+import {useHistory } from 'react-router-dom';
 import {Button} from "../ui/Button";
 import 'styles/views/RoomCreation.scss';
 import BaseContainer from "components/ui/BaseContainer";
-import PropTypes from "prop-types";
-import * as url from "url";
+import Room from "../../models/Room";
 
 /*
 It is possible to add multiple components inside a single file,
@@ -16,33 +14,60 @@ specific components that belong to the main one in the same file.
  */
 
 //这里创建一个可加减的数字
-const Counter = () => {
-    const [count, setCount] = useState(4);
 
-    const increment = () => {
-        setCount(count + 1);
-    };
-
-    const decrement = () => {
-        setCount(count - 1);
-    };
-
-    return (
-        <div className="counter">
-            <div className="counter-buttons">
-                <button onClick={decrement} disabled={count<=4}>-</button>
-                <span className="number">{count}</span>
-                <button onClick={increment} disabled={count>=8}>+</button>
-            </div>
-        </div>
-    );
-};
 
 const RoomCreation = props => {
+
+    const history = useHistory();
+    const [maxPlayersNum, setMaxPlayersNum] = useState(4);
+    const [theme, setTheme] = useState('THEME1');
+    const [roomProperty, setRoomProperty] = useState("PUBLIC");
+
+    function handleCheckBox(){
+        setRoomProperty("PRIVATE");
+    }
+    const Counter = () => {
+
+        const increment = () => {
+            setMaxPlayersNum(maxPlayersNum + 1);
+        };
+
+        const decrement = () => {
+            setMaxPlayersNum(maxPlayersNum - 1);
+        };
+
+        return (
+            <div className="counter">
+                <div className="counter-buttons">
+                    <button onClick={decrement} disabled={maxPlayersNum<=4}>-</button>
+                    <span className="number">{maxPlayersNum}</span>
+                    <button onClick={increment} disabled={maxPlayersNum>=8}>+</button>
+                </div>
+            </div>
+        );
+    };
     // const history = useHistory();
     // const [password, setPassword] = useState(null);
     // const [username, setUsername] = useState(null);
-    const [selectedTheme, setSelectedTheme] = useState('null');
+
+    const createRoom = async () => {
+        try {
+            const requestBody = JSON.stringify({theme, maxPlayersNum, roomProperty});
+            const response = await api.post('/games/room', requestBody);
+
+            // Get the returned room and update a new object.
+            const room = new Room(response.data);
+
+            // Store the token into the local storage.
+            //localStorage.setItem('token', user.token);
+            localStorage.setItem('id', room.roomId);
+
+            // Create successfully, enter the room page
+            history.push(`/lobby`);
+        } catch (error) {
+            alert(`Something went wrong during the room creation: \n${handleError(error)}`);
+        }
+    };
 
     const doCancel = async () => {
         window.location.href = `/lobby`;
@@ -65,10 +90,10 @@ const RoomCreation = props => {
 
                 <div className="roomCreation select-container">
                     <div className="roomCreation select-wrapper">
-                        <select value={selectedTheme} onChange={e => setSelectedTheme(e.target.value)}>
-                            <option value="theme1">Theme 1</option>
-                            <option value="theme2">Theme 2</option>
-                            <option value="theme3">Theme 3</option>
+                        <select value={theme} onChange={e => setTheme(e.target.value)}>
+                            <option value="THEME1">THEME1</option>
+                            <option value="THEME2">THEME2</option>
+                            <option value="THEME3">THEME3</option>
                         </select>
                     </div>
                 </div>
@@ -81,13 +106,13 @@ const RoomCreation = props => {
                     <div className="roomCreation editText">Private Room</div>
                     <span style={{margin: '20px'}}></span>
                     <label className="checkbox">
-                        <input type="checkbox" id="myCheckbox" />
+                        <input type="checkbox" id="myCheckbox" onChange={handleCheckBox}/>
                         <span className="checkmark"></span>
                     </label>
                 </div>
 
 
-                <Button className="confirmButton">Confirm</Button>
+                <Button className="confirmButton" onClick = {() => createRoom()}>Confirm</Button>
                 <Button className="cancelButton" onClick={() => doCancel()}>Cancel</Button>
 
             </div>
