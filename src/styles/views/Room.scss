@@ -1,0 +1,210 @@
+@import 'styles/theme';
+
+.room {
+  &.container {
+    margin-top: 2em;
+    min-height: 300px;
+    /* we include the center mixin defined in _theme.scss and save three duplicate lines :) */
+    @include center;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  &.roomid{
+    position: absolute;
+    width: 39%;
+    height: 6.4%;
+    left: 30%;
+    top: 8%;
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 140%;
+    line-height: 60px;
+    /* identical to box height */
+
+    text-align: center;
+
+    color: #2F2F2F;
+    overflow: hidden;
+  }
+  &.reminder{
+    position: absolute;
+    width: 84%;
+    height: 3%;
+    left: 8%;
+    top: 15%;
+
+    background: #FFFAEA;
+    border-radius: 19px;
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15%;
+    //line-height: 51px;
+    /* identical to box height */
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #000000;
+    overflow: hidden;
+  }
+  &.remindericon{
+    position: absolute;
+    width: 9%;
+    left: 0%;
+    //overflow: hidden;
+  }
+  &.backicon{
+    position: absolute;
+    top:5%;
+    width: 12%;
+    left: 0%;
+    //overflow: hidden;
+  }
+  &.remindertext{
+    position: absolute;
+    left: 10%;
+
+    background: #FFFAEA;
+    border-radius: 19px;
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13%;
+    //line-height: 51px;
+    /* identical to box height */
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #000000;
+    overflow: hidden;
+  }
+  &.theme{
+    position: absolute;
+    top:2%;
+    left: 30%;
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 100%;
+    //line-height: 85px;
+    /* identical to box height */
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    color: #000000;
+  }
+  &.user-list{
+    position: absolute;
+    bottom:20%;
+    left: 0%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 items per line */
+    gap: 10px; /* space between items */
+  }
+  &.playercontainer{
+    width: 100%;
+    height: 110%;
+    align-items: center;
+    text-align: center;
+    //background-color: chocolate;
+    overflow: hidden;
+  }
+  &.avatarimg {
+    width: 100%;
+    border-radius: 50%; /* 将边框半径设置为元素宽度和高度的50% */
+  }
+  &.playername{
+    top:20%;
+    line-height: 13%;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 80%;
+    //line-height: 51px;
+    /* identical to box height */
+    align-items: center;
+    text-align: center;
+    color: #000000;
+  }
+  &.chatbox{
+    position: absolute;
+    width: 84%;
+    height: 47%;
+    left: 8%;
+    top: 19%;
+    background: #D7FFEE;
+    border-radius: 19px;
+    overflow: hidden;
+  }
+  &.button-container {
+    position: absolute;
+    left: 10%;
+    width: 80%;
+    height: 8%;
+    bottom: 5%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:white;
+    text-align: center;
+    margin-top: 2em;
+    background: linear-gradient(92.24deg, #9FDBA1 -6%, #1976D2 101.32%);
+    border-radius: 10px;
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 90%;
+    line-height: 27px;
+    /* identical to box height */
+
+    color: #FFFFFF;
+  }
+  &.inputcontainer{
+    position: absolute;
+    left: 10%;
+    width: 90%;
+    height: 5%;
+    bottom: 5%;
+  }
+  &.inputform {
+    position: absolute;
+    width: 78%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border: none;
+    border-radius: 0.75em;
+    background: transparentize(white, 0.85);
+    color: gray;
+    background-color: rgba(164, 164, 164, 0.1); /* Use a semi-transparent background */
+    backdrop-filter: blur(10px); /* Apply a 10px blur to the background */
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 90%;
+    line-height: 27px;
+    /* identical to box height */
+  }
+  &.confirmicon{
+    position: absolute;
+    width: 12%;
+    right: 5%;
+    //overflow: hidden;
+  }
+
+
+
+}

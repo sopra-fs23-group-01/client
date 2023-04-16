@@ -22,6 +22,9 @@ const RoomCreation = props => {
     const [maxPlayersNum, setMaxPlayersNum] = useState(4);
     const [theme, setTheme] = useState('THEME1');
     const [roomProperty, setRoomProperty] = useState("PUBLIC");
+    const [roomOwnerId, setRoomOwnerId] = useState(null);
+    const [roomPlayersList, setroomPlayersList] = useState([]);
+    //"roomPlayersList": ["id1", "id2", "id3"]
 
     function handleCheckBox(){
         setRoomProperty("PRIVATE");
@@ -52,7 +55,10 @@ const RoomCreation = props => {
 
     const createRoom = async () => {
         try {
-            const requestBody = JSON.stringify({theme, maxPlayersNum, roomProperty});
+            const roomOwnerId = localStorage.getItem('id');
+            //const roomPlayersList = [localStorage.getItem('id')];
+            //alert(roomOwnerId);
+            const requestBody = JSON.stringify({theme, maxPlayersNum, roomProperty,roomOwnerId});
             const response = await api.post('/games/room', requestBody);
 
             // Get the returned room and update a new object.
@@ -60,7 +66,8 @@ const RoomCreation = props => {
 
             // Store the token into the local storage.
             //localStorage.setItem('token', user.token);
-            localStorage.setItem('id', room.roomId);
+            localStorage.setItem('roomId', room.roomId);
+            localStorage.setItem('roomOwnerId', room.roomOwnerId);
 
             // Create successfully, enter the room page
             history.push(`/lobby`);

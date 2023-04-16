@@ -9,6 +9,7 @@ import Profile from "components/views/Profile";
 import ProfilePage from "components/views/Profile";
 import EditProfile from "components/views/EditProfile";
 import Chat from "components/views/Chat";
+import Room from "components/views/Room";
 import Leaderboard from "components/views/Leaderboard";
 import Lobby from "../../views/Lobby";
 import RoomCreation from "../../views/RoomCreation";
@@ -42,7 +43,13 @@ const AppRouter = () => {
         <GameGuard>
           <Profile/>
           </GameGuard>
-        </Route>   
+        </Route>
+
+        <Route path="/room=:id" component={Room}>
+          <GameGuard>
+            <Room/>
+          </GameGuard>
+        </Route>
 
         <Route exact path="/login">
           <LoginGuard>

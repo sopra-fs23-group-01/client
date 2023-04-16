@@ -7,6 +7,9 @@ class Room {
         this.token = null;
         this.roomProperty = null;
         this.theme = null;
+        this.roomOwnerId = null;
+        this.roomPlayers = null;
+        this.roomPlayersList = null;
         Object.assign(this, data);
     }
 }

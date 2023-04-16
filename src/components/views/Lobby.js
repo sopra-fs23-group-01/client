@@ -61,7 +61,7 @@ const Lobby = () => {
             };
 
             return (
-                <a href={`/room/${room.roomId}`} style={{ textDecoration: 'none' }}>
+                <a href={`/room=${room.roomId}`} style={{ textDecoration: 'none' }}>
                     <div className="lobby player container" style={{ backgroundColor: 'yellowgreen' }}>
                         <div className="lobby player room">Room {room.roomId}</div>
                         <div className="lobby player theme">{room.theme}</div>
