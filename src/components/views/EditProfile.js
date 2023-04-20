@@ -72,6 +72,7 @@ const EditProfile= () =>{
         const requestBody = JSON.stringify({
             id: id,
         username: username,
+        email: email,
         birthday: birthday,
         gender:gender,
         registerDate: registerDate,

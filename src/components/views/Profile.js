@@ -73,7 +73,7 @@ const ProfilePage=() =>{
     return (
       <div className="profile container">
           <div className="profile username"> {functionuser.username}</div>
-          <div className="profile email">Email{functionuser.email}</div>
+          <div className="profile email">{functionuser.email}</div>
           <div className="profile status">
               <span style={statusStyle}>   {functionuser.status}</span>
           </div>
