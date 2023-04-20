@@ -31,7 +31,7 @@
   &.reminder{
     position: absolute;
     width: 84%;
-    height: 3%;
+    height: 30px;
     left: 8%;
     top: 15%;
 
@@ -66,6 +66,7 @@
   &.remindertext{
     position: absolute;
     left: 10%;
+    
 
     background: #FFFAEA;
     border-radius: 19px;
@@ -81,11 +82,13 @@
     text-align: center;
     color: #000000;
     overflow: hidden;
+    height: 40px;
   }
   &.theme{
     position: absolute;
-    top:2%;
-    left: 30%;
+    top:3%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 
     font-family: 'Poppins';
     font-style: normal;
@@ -99,10 +102,11 @@
     text-align: center;
 
     color: #000000;
+    
   }
   &.user-list{
     position: absolute;
-    bottom:20%;
+    bottom:15%;
     left: 0%;
     display: grid;
     grid-template-columns: repeat(4, 1fr); /* 4 items per line */
@@ -207,4 +211,200 @@
 
 
 
+}
+
+.chat{
+  &.container {
+    position: relative;
+  }
+  
+  &.register {
+    position: fixed;
+    padding: 30px;
+    box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06), 0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086), 0 100px 80px rgba(0, 0, 0, 0.12);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: row;
+  }
+  
+  &.chat-box {
+    box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06), 0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086), 0 100px 80px rgba(0, 0, 0, 0.12);
+    position: absolute;
+    left: 50%;
+    margin-left: -180px;
+    width: 361px;
+    height: 435px;
+    top: 160px;
+    display: flex;
+    justify-content: center;
+
+    background: #D7FFEE;
+    border-radius: 19px;
+  }
+  
+  &.member-list {
+    width: 20%;
+  }
+  
+  &.chat-content {
+    width: 80%;
+    margin-left:20px;
+    overflow: auto;
+    height: 70%;
+    overflow-y: scroll;
+    scrollbar-width: none; /* For Firefox */
+    margin-top: 10%;
+  }
+  
+  &.chat.chat-content::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Edge */
+  }
+
+  &.chat.message.system {
+    /* Add your styles for system messages here, e.g. font size, color, etc. */
+    font-size: 14px;
+    color: #777;
+    text-align: center;
+    font-style: italic;
+  }
+
+
+  &.chat-messages {
+    height: 70%;
+    width: 90%; /* 将宽度减少为原来的85%（即减少10%） */
+    margin-left: 15%; /* 从左边向右增加10%的外边距 */
+    border: none;
+    margin-top: 140px;
+  }
+  
+  &.send-messagebox {
+    position: absolute;
+    box-sizing: border-box;
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    top: 92%;
+    left: 22px;
+  }
+  
+  &.input-message {
+    box-sizing: border-box;
+
+    width: 314px;
+    height: 40px;
+    left: 0px;
+    top: 450px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.02)), radial-gradient(90.16% 143.01% at 15.32% 21.04%, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.0447917) 77.08%, rgba(255, 255, 255, 0) 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+    background-blend-mode: normal, overlay, normal;
+    backdrop-filter: blur(6.07811px);
+    /* Note: backdrop-filter has minimal browser support */
+    border: none;
+    border-radius: 0.75em;
+    background: transparentize(white, 0.85);
+    color: gray;
+    background-color: rgba(164, 164, 164, 0.1); /* Use a semi-transparent background */
+    backdrop-filter: blur(10px); /* Apply a 10px blur to the background */
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 90%;
+    line-height: 27px;
+
+  }
+  &.inputform {
+    position: absolute;
+    width: 78%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border: none;
+    border-radius: 0.75em;
+    background: transparentize(white, 0.85);
+    color: gray;
+    background-color: rgba(164, 164, 164, 0.1); /* Use a semi-transparent background */
+    backdrop-filter: blur(10px); /* Apply a 10px blur to the background */
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 90%;
+    line-height: 27px;
+    /* identical to box height */
+  }
+  
+  &.ul {
+    padding: 0;
+    list-style-type: none;
+  }
+  
+  &.send-button {
+    width: 10%;
+    border-radius: 50px;
+    margin-left: 5px;
+    cursor: pointer;
+  }
+  
+  &.member {
+    padding: 5px;
+    background: #f8d7d7;
+    border: #000;
+    cursor: pointer;
+    margin: 5px 2px;
+    box-shadow: 0 8px 8px -4px rgb(0, 189, 251);
+    width: 250%;
+  }
+  
+  &.member.active {
+    background: rgb(20, 194, 233);
+    color: #fff;
+    width: 250%;
+  }
+  
+  &.member:hover {
+    background: grey;
+    color: #fff;
+    width: 250%;
+  }
+  
+  &.avatar {
+    background-color: cornflowerblue;
+    padding: 3px 5px;
+    border-radius: 5px;
+    color: #fff;
+  }
+  
+  &.avatar.self {
+    color: #000;
+    background-color: greenyellow;
+  }
+  
+  &.message {
+    padding: 5px;
+    width: auto;
+    display: flex;
+    flex-direction: row;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    margin: 5px 10px;
+    margin-left: -50px;
+  }
+  
+  &.message-data {
+    padding: 5px;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+  }
+  
+  &.message.self {
+    justify-content: flex-end;
+  }
 }
