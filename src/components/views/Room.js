@@ -132,12 +132,26 @@ const Room = () => {
     const [privateChats, setPrivateChats] = useState(new Map());
     const [publicChats, setPublicChats] = useState([]);
     const [tab, setTab] = useState("CHATROOM");
+
+
+
+    // 从localStorage获取username并将其设置为userData的初始值。
+    const storedUsername = localStorage.getItem('username');
     const [userData, setUserData] = useState({
-        username: '',
+        username: storedUsername || '',
         receivername: '',
         connected: false,
         message: ''
     });
+    //自动连接
+    useEffect(() => {
+        if (userData.username) {
+            connect();
+        }
+    }, [userData.username]);
+
+
+
     useEffect(() => {
         console.log(userData);
     }, [userData]);
@@ -256,9 +270,9 @@ const Room = () => {
         setUserData({ ...userData, "username": value });
     }
 
-    const registerUser = () => {
-        connect();
-    }
+    // const registerUser = () => {
+    //     connect();
+    // }
 
     return (
         <div>
@@ -317,19 +331,21 @@ const Room = () => {
                         </div>
                     </div>
                     :
-                    <div className="chat register">
-                        <input
-                            id="user-name"
-                            placeholder="(测试用)"
-                            name="userName"
-                            value={userData.username}
-                            onChange={handleUsername}
-                            margin="normal"
-                        />
-                        <button type="button" onClick={registerUser}>
-                            connect
-                        </button>
-                    </div>}
+                    null
+                    // <div className="chat register">
+                    //     <input
+                    //         id="user-name"
+                    //         placeholder="(测试用)"
+                    //         name="userName"
+                    //         value={userData.username}
+                    //         onChange={handleUsername}
+                    //         margin="normal"
+                    //     />
+                    //     <button type="button" onClick={registerUser}>
+                    //         connect
+                    //     </button>
+                    // </div>
+                    }
                 </div>
 
 
