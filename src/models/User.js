@@ -14,6 +14,7 @@ class User {
     this.rateDe =null;
     this.rateUn = null;
     this.avatar = null;
+    this.readyStatus = null;
     Object.assign(this, data);
   }
 }

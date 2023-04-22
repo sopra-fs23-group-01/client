@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {api} from 'helpers/api';
+import {api, handleError} from 'helpers/api';
 import {Button} from 'components/ui/Button';
 import {useHistory} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
@@ -21,11 +21,23 @@ const Lobby = () => {
     //const [users, setUsers] = useState(null);
     const [rooms, setRooms] = useState(null);
 
-
     const quickStart = async () => {
 
         window.location.href = `/chat`;
     };
+
+    async function enterRoom(roomId, id) {
+        try {
+            const requestBody = JSON.stringify({id});
+            await api.put('/room/'+roomId+'/players', requestBody);
+            alert('Entered room successfully: '+roomId+'userId: '+id);
+            //history.push(`/leaderboard`);
+        } catch (error) {
+            console.error(`Something went wrong during the enterRoom: \n${handleError(error)}`);
+            alert(`Something went wrong during the enterRoom: \n${handleError(error)}`);
+        }
+    }
+
     const createRoom = async () => {
         window.location.href = `/roomCreation`;
     };
@@ -60,11 +72,15 @@ const Lobby = () => {
                 color: room.roomProperty === "PUBLIC" ? "green" : "red"
             };
 
+            const tryStyle = {
+                color: room.roomPlayers.length !== 0 ? "green" : "yellow"
+            };
+
             return (
-                <a href={`/room=${room.roomId}`} style={{ textDecoration: 'none' }}>
+                <a href={`/room=${room.roomId}`} style={{ textDecoration: 'none' }} onClick={() => enterRoom(room.roomId, localStorage.getItem('id'))}>
                     <div className="lobby player container" style={{ backgroundColor: 'yellowgreen' }}>
                         <div className="lobby player room">Room {room.roomId}</div>
-                        <div className="lobby player theme">{room.theme}</div>
+                        <div className="lobby player theme"><span style={tryStyle}> {room.theme}</span></div>
                         <span style={propertyStyle}>{room.roomProperty}</span>
                     </div>
                 </a>

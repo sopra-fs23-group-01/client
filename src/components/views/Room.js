@@ -26,12 +26,14 @@ const Room = () => {
     const [users, setUsers] = useState(null);
     const path = window.location.pathname.substring(1); // remove leading /
     const roomId = path.split('=')[1];
+    const id = localStorage.getItem('id');
     //const roomTheme = localStorage.getItem('roomTheme');
 
     const getReady = async () => {
         try {
-            //const requestBody = JSON.stringify({});
-            //const response = await api.post('/users/login', requestBody);
+            const requestBody = JSON.stringify({id});
+            await api.put('/users/room/'+id, requestBody);
+            window.location.reload();
             //console.log(response);
             // Get the returned user and update a new object.
             //const user = new User(response.data);
@@ -41,6 +43,7 @@ const Room = () => {
             alert(`Something went wrong during the login: \n${handleError(error)}`);
         }
     };
+
 
     const goBack = async () => {
         try {
@@ -91,18 +94,21 @@ const Room = () => {
         }
 
         fetchData();
-    }, [history]);
+    }, []);
 
     let content = <Spinner/>;
 
     if (users) {
 
         function Player({ user }) {
+            const statusStyle = {
+                color: user.readyStatus === "READY" ? "green" : "red"
+            };
 
             return (
                 <div className="room playercontainer">
-                    <img src={avatar1} alt="profile img" className="room avatarimg"/>
-                    <div className="room playername ">{user.username}</div>
+                    <img src={user.avatarUrl} alt="profile img" className="room avatarimg"/>
+                    <div className="room playername "><span style={statusStyle}>{user.username}</span> </div>
                 </div>
             );
         }
@@ -307,7 +313,7 @@ const Room = () => {
                         </div>}
                         
                         <div className="room button-container" onClick={() => getReady()}>
-                                Get Ready
+                                 Ready/Cancel
                         </div>
                     </div>
                     :

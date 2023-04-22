@@ -70,7 +70,7 @@ const RoomCreation = props => {
             localStorage.setItem('roomOwnerId', room.roomOwnerId);
 
             // Create successfully, enter the room page
-            history.push(`/lobby`);
+            history.push(`/room=`+room.roomId);
         } catch (error) {
             alert(`Something went wrong during the room creation: \n${handleError(error)}`);
         }
