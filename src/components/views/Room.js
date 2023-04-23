@@ -22,6 +22,7 @@ const Room = () => {
 
     const history = useHistory();
     const [assignedWord, setAssignedWord] = useState('');
+    const [role, setRole] = useState('');
     const [room, setRoom] = useState(null);
     const [users, setUsers] = useState(null);
     const path = window.location.pathname.substring(1); // remove leading /
@@ -176,6 +177,7 @@ const Room = () => {
       
         if (message.status === 'ASSIGNED_WORD') {
           setAssignedWord(message.message);
+          setRole(message.role);
         }
       };
     const userJoin = () => {
@@ -308,7 +310,7 @@ const Room = () => {
                                 ))}
                             </ul>
                         </div> */}
-                        <div className="room theme" >{assignedWord}
+                        <div className="room theme" >{role}
                         </div>
 
                         {tab === "CHATROOM" && <div className="chat chat-content">
