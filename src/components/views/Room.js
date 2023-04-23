@@ -21,7 +21,7 @@ var stompClient = null;
 const Room = () => {
 
     const history = useHistory();
-
+    const [assignedWord, setAssignedWord] = useState('');
     const [room, setRoom] = useState(null);
     const [users, setUsers] = useState(null);
     const path = window.location.pathname.substring(1); // remove leading /
@@ -135,20 +135,21 @@ const Room = () => {
 
 
 
-    // 从localStorage获取username并将其设置为userData的初始值。
-    const storedUsername = localStorage.getItem('username');
+    // // 从localStorage获取username并将其设置为userData的初始值。
+    // const storedUsername = localStorage.getItem('username');
     const [userData, setUserData] = useState({
-        username: storedUsername || '',
+        // username: storedUsername || '',
+        username: '',
         receivername: '',
         connected: false,
         message: ''
     });
-    //自动连接
-    useEffect(() => {
-        if (userData.username) {
-            connect();
-        }
-    }, [userData.username]);
+    // //自动连接
+    // useEffect(() => {
+    //     if (userData.username) {
+    //         connect();
+    //     }
+    // }, [userData.username]);
 
 
 
@@ -166,10 +167,17 @@ const Room = () => {
     const onConnected = () => {
         setUserData({ ...userData, "connected": true });
         stompClient.subscribe('/chatroom/public', onMessageReceived);
-        stompClient.subscribe('/user/' + userData.username + '/private', onPrivateMessage);
+        stompClient.subscribe('/user/' + userData.username + '/private', onPrivateMessageReceived);
         userJoin();
     }
 
+    const onPrivateMessageReceived = (payload) => {
+        const message = JSON.parse(payload.body);
+      
+        if (message.status === 'ASSIGNED_WORD') {
+          setAssignedWord(message.message);
+        }
+      };
     const userJoin = () => {
         var chatMessage = {
             senderName: userData.username,
@@ -270,9 +278,9 @@ const Room = () => {
         setUserData({ ...userData, "username": value });
     }
 
-    // const registerUser = () => {
-    //     connect();
-    // }
+    const registerUser = () => {
+        connect();
+    }
 
     return (
         <div>
@@ -281,8 +289,11 @@ const Room = () => {
             <div className="room reminder">
                 <img className="room remindericon" src={ReminderIcon} alt="Reminder" />
                 <div className="room remindertext">Welcome to Who Is Undercover! Get ready to start!</div>
-            </div>
 
+            </div>
+            <div className="room assignedword">
+                        <strong>Your assigned word is:  {assignedWord} </strong>
+            </div>
             <div>
 
                 <div className="chat container">
@@ -297,8 +308,9 @@ const Room = () => {
                                 ))}
                             </ul>
                         </div> */}
-                        <div className="room theme" >Sports
+                        <div className="room theme" >{assignedWord}
                         </div>
+
                         {tab === "CHATROOM" && <div className="chat chat-content">
                             <ul className="chat chat-messages">
                                 {publicChats.map((chat, index) => (
@@ -331,20 +343,20 @@ const Room = () => {
                         </div>
                     </div>
                     :
-                    null
-                    // <div className="chat register">
-                    //     <input
-                    //         id="user-name"
-                    //         placeholder="(测试用)"
-                    //         name="userName"
-                    //         value={userData.username}
-                    //         onChange={handleUsername}
-                    //         margin="normal"
-                    //     />
-                    //     <button type="button" onClick={registerUser}>
-                    //         connect
-                    //     </button>
-                    // </div>
+                    // null
+                    <div className="chat register">
+                        <input
+                            id="user-name"
+                            placeholder="(测试用)"
+                            name="userName"
+                            value={userData.username}
+                            onChange={handleUsername}
+                            margin="normal"
+                        />
+                        <button type="button" onClick={registerUser}>
+                            connect
+                        </button>
+                    </div>
                     }
                 </div>
 

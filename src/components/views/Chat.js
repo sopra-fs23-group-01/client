@@ -7,6 +7,7 @@ import {Button} from "../ui/Button";
 var stompClient = null;
 const ChatRoom = () => {
     const [privateChats, setPrivateChats] = useState(new Map());
+    const [assignedWord, setAssignedWord] = useState('');
     const [publicChats, setPublicChats] = useState([]);
     const [tab, setTab] = useState("CHATROOM");
     const [userData, setUserData] = useState({
@@ -30,9 +31,18 @@ const ChatRoom = () => {
         setUserData({ ...userData, "connected": true });
         stompClient.subscribe('/chatroom/public', onMessageReceived);
         stompClient.subscribe('/user/' + userData.username + '/private', onPrivateMessage);
+        stompClient.subscribe('/user/' + userData.username + '/private', onPrivateMessageReceived);
         userJoin();
     }
 
+    const onPrivateMessageReceived = (payload) => {
+        const message = JSON.parse(payload.body);
+      
+        if (message.status === 'ASSIGNED_WORD') {
+          setAssignedWord(message.message);
+        }
+      };
+      
     const userJoin = () => {
         var chatMessage = {
             senderName: userData.username,
@@ -49,11 +59,21 @@ const ChatRoom = () => {
                     privateChats.set(payloadData.senderName, []);
                     setPrivateChats(new Map(privateChats));
                 }
+                const joinMessage = {
+                    senderName: "system",
+                    message: `${payloadData.senderName} entered the room.`,
+                    status: "MESSAGE"
+                };
+                publicChats.push(joinMessage);
+                setPublicChats([...publicChats]);
                 break;
+
             case "MESSAGE":
                 publicChats.push(payloadData);
                 setPublicChats([...publicChats]);
                 break;
+
+                
         }
     }
 
@@ -132,6 +152,10 @@ const ChatRoom = () => {
                         </ul>
                     </div>
                     {tab === "CHATROOM" && <div className="chat chat-content">
+                    <div className="assigned-word">
+                        <strong>Your assigned word is: </strong>
+                        <span>{assignedWord}</span>
+                        </div>
                         <ul className="chat chat-messages">
                             {publicChats.map((chat, index) => (
                                 <li className={`chat message ${chat.senderName === userData.username && "self"}`} key={index}>

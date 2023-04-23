@@ -63,6 +63,28 @@
     left: 0%;
     //overflow: hidden;
   }
+  &.assignedword{
+    position: absolute;
+    left: 50%;
+    margin-left: -100px;
+    top:19%;
+    width: 200px;
+    background: #d8f8db;
+    border-radius: 19px;
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13%;
+    //line-height: 51px;
+    /* identical to box height */
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #f54ca3;
+    overflow: hidden;
+    height: 40px;
+  }
   &.remindertext{
     position: absolute;
     left: 10%;
@@ -106,7 +128,7 @@
   }
   &.user-list{
     position: absolute;
-    bottom:15%;
+    bottom:13%;
     left: 0%;
     display: grid;
     grid-template-columns: repeat(4, 1fr); /* 4 items per line */
@@ -236,7 +258,7 @@
     margin-left: -180px;
     width: 361px;
     height: 435px;
-    top: 160px;
+    top: 200px;
     display: flex;
     justify-content: center;
 
