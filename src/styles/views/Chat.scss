@@ -1,135 +1,134 @@
-@import 'styles/theme';
-
-.chat{
-  &.container {
-    position: relative;
-  }
-  
-  &.register {
-    position: fixed;
-    padding: 30px;
-    box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06), 0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086), 0 100px 80px rgba(0, 0, 0, 0.12);
-    top: 35%;
-    left: 32%;
-    display: flex;
-    flex-direction: row;
-  }
-  
-  &.chat-box {
-    box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06), 0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086), 0 100px 80px rgba(0, 0, 0, 0.12);
-    position: absolute;
-    left: 50%;
-    margin-left: -180px;
-    width: 361px;
-    height: 435px;
-    top: 150px;
-    display: flex;
-    justify-content: center;
-
-    background: #D7FFEE;
-    border-radius: 19px;
-  }
-  
-  &.member-list {
-    width: 20%;
-  }
-  
-  &.chat-content {
-    width: 80%;
-    margin-left: 10px;
-  }
-  
-  &.chat-messages {
-    height: 80%;
-    width: 80%; /* 将宽度减少为原来的85%（即减少10%） */
-    margin-left: 15%; /* 从左边向右增加10%的外边距 */
-    border: 1px solid #989494;
-  }
-  
-  &.send-messagebox {
-    box-sizing: border-box;
-    width: 50%;
-    display: flex;
-    flex-direction: row;
-    top: 50%;
-  }
-  
-  &.input-message {
-    box-sizing: border-box;
-
-    width: 314px;
-    height: 40px;
-    left: 0px;
-    top: 450px;
-
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.02)), radial-gradient(90.16% 143.01% at 15.32% 21.04%, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.0447917) 77.08%, rgba(255, 255, 255, 0) 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
-    background-blend-mode: normal, overlay, normal;
-    backdrop-filter: blur(6.07811px);
-    /* Note: backdrop-filter has minimal browser support */
-
-    border-radius: 8px;
-  }
-  
-  &.ul {
-    padding: 0;
-    list-style-type: none;
-  }
-  
-  &.send-button {
-    width: 10%;
-    border-radius: 50px;
-    margin-left: 5px;
-    cursor: pointer;
-  }
-  
-  &.member {
-    padding: 5px;
-    background: #f8d7d7;
-    border: #000;
-    cursor: pointer;
-    margin: 5px 2px;
-    box-shadow: 0 8px 8px -4px rgb(0, 189, 251);
-    width: 250%;
-  }
-  
-  &.member.active {
-    background: rgb(20, 194, 233);
-    color: #fff;
-    width: 250%;
-  }
-  
-  &.member:hover {
-    background: grey;
-    color: #fff;
-    width: 250%;
-  }
-  
-  &.avatar {
-    background-color: cornflowerblue;
-    padding: 3px 5px;
-    border-radius: 5px;
-    color: #fff;
-  }
-  
-  &.avatar.self {
-    color: #000;
-    background-color: greenyellow;
-  }
-  
-  &.message {
-    padding: 5px;
-    width: auto;
-    display: flex;
-    flex-direction: row;
-    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
-    margin: 5px 10px;
-  }
-  
-  &.message-data {
-    padding: 5px;
-  }
-  
-  &.message.self {
-    justify-content: end;
-  }
-}
+//@import 'styles/theme';
+//
+//.chat{
+//  &.container {
+//    position: relative;
+//  }
+//
+//  &.register {
+//    position: fixed;
+//    padding: 30px;
+//    box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06), 0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086), 0 100px 80px rgba(0, 0, 0, 0.12);
+//    top: 35%;
+//    left: 32%;
+//    display: flex;
+//    flex-direction: row;
+//  }
+//
+//  &.chat-box {
+//    box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06), 0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086), 0 100px 80px rgba(0, 0, 0, 0.12);
+//    position: absolute;
+//    left: 50%;
+//    margin-left: -180px;
+//    width: 361px;
+//    height: 435px;
+//    top: 150px;
+//    display: flex;
+//    justify-content: center;
+//
+//    background: #D7FFEE;
+//    border-radius: 19px;
+//  }
+//
+//  &.member-list {
+//    width: 20%;
+//  }
+//
+//  &.chat-content {
+//    width: 80%;
+//    margin-left: 10px;
+//  }
+//
+//  &.chat-messages {
+//    height: 80%;
+//    width: 80%; /* 将宽度减少为原来的85%（即减少10%） */
+//    margin-left: 15%; /* 从左边向右增加10%的外边距 */
+//    border: 1px solid #989494;
+//  }
+//
+//  &.send-messagebox {
+//    box-sizing: border-box;
+//    width: 100%;
+//    display: flex;
+//    flex-direction: row;
+//    bottom: 0%;
+//  }
+//
+//  &.input-message {
+//    box-sizing: border-box;
+//    width: 80%;
+//    height: 40px;
+//    left: 0px;
+//    top: 450px;
+//
+//    background: linear-gradient(0deg, rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.02)), radial-gradient(90.16% 143.01% at 15.32% 21.04%, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.0447917) 77.08%, rgba(255, 255, 255, 0) 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+//    background-blend-mode: normal, overlay, normal;
+//    backdrop-filter: blur(6.07811px);
+//    /* Note: backdrop-filter has minimal browser support */
+//
+//    border-radius: 8px;
+//  }
+//
+//  &.ul {
+//    padding: 0;
+//    list-style-type: none;
+//  }
+//
+//  &.send-button {
+//    width: 10%;
+//    border-radius: 50px;
+//    margin-left: 5px;
+//    cursor: pointer;
+//  }
+//
+//  &.member {
+//    padding: 5px;
+//    background: #f8d7d7;
+//    border: #000;
+//    cursor: pointer;
+//    margin: 5px 2px;
+//    box-shadow: 0 8px 8px -4px rgb(0, 189, 251);
+//    width: 250%;
+//  }
+//
+//  &.member.active {
+//    background: rgb(20, 194, 233);
+//    color: #fff;
+//    width: 250%;
+//  }
+//
+//  &.member:hover {
+//    background: grey;
+//    color: #fff;
+//    width: 250%;
+//  }
+//
+//  &.avatar {
+//    background-color: cornflowerblue;
+//    padding: 3px 5px;
+//    border-radius: 5px;
+//    color: #fff;
+//  }
+//
+//  &.avatar.self {
+//    color: #000;
+//    background-color: greenyellow;
+//  }
+//
+//  &.message {
+//    padding: 5px;
+//    width: auto;
+//    display: flex;
+//    flex-direction: row;
+//    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+//    margin: 5px 10px;
+//  }
+//
+//  &.message-data {
+//    padding: 5px;
+//  }
+//
+//  &.message.self {
+//    justify-content: end;
+//  }
+//}
