@@ -26,7 +26,7 @@ const Game = () => {
     const [room, setRoom] = useState(null);
     const [users, setUsers] = useState(null);
     const path = window.location.pathname.substring(1); // remove leading /
-    const roomId = path.split('=')[1];
+    const roomId = path.split('=')[1].split('/')[0];
     const id = localStorage.getItem('id');
     //const roomTheme = localStorage.getItem('roomTheme');
 
