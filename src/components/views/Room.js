@@ -143,20 +143,19 @@ const Room = () => {
 
 
     // // 从localStorage获取username并将其设置为userData的初始值。
-    // const storedUsername = localStorage.getItem('username');
+    const storedUsername = localStorage.getItem('username');
     const [userData, setUserData] = useState({
-        // username: storedUsername || '',
-        username: '',
+        username: storedUsername || '',
         receivername: '',
         connected: false,
         message: ''
     });
-    // //自动连接
-    // useEffect(() => {
-    //     if (userData.username) {
-    //         connect();
-    //     }
-    // }, [userData.username]);
+    //自动连接
+    useEffect(() => {
+        if (userData.username) {
+            connect();
+        }
+    }, [userData.username]);
 
 
 
@@ -295,9 +294,9 @@ const Room = () => {
         setUserData({ ...userData, "username": value });
     }
 
-    const registerUser = () => {
-        connect();
-    }
+    // const registerUser = () => {
+    //     connect();
+    // }
 
     return (
         <div>
