@@ -5,6 +5,7 @@ import {LoginGuard} from "components/routing/routeProtectors/LoginGuard";
 //  import {ProfileGuard} from "components/routing/routeProtectors/ProfileGuard";
 import Login from "components/views/Login";
 import Register from "components/views/Register";
+import Game from "components/views/Game";
 import Profile from "components/views/Profile";
 import ProfilePage from "components/views/Profile";
 import EditProfile from "components/views/EditProfile";
@@ -13,7 +14,6 @@ import Room from "components/views/Room";
 import Leaderboard from "components/views/Leaderboard";
 import Lobby from "../../views/Lobby";
 import RoomCreation from "../../views/RoomCreation";
-import Game from "../../views/Game";
 import EditAvatar from "../../views/EditAvatar";
 /**
  * Main router of your application.
@@ -26,87 +26,93 @@ import EditAvatar from "../../views/EditAvatar";
  */
 const AppRouter = () => {
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route path="/leaderboard">
-          <GameGuard>
-           <Leaderboard/>
-          </GameGuard>
-        </Route>
+      <BrowserRouter>
+        <Switch>
+          <Route path="/leaderboard">
+            <GameGuard>
+              <Leaderboard/>
+            </GameGuard>
+          </Route>
 
-        <Route exact path="/chat">
-          <GameGuard>
-          <Chat/>
-          </GameGuard>
-        </Route>
+          <Route exact path="/chat">
+            <GameGuard>
+              <Chat/>
+            </GameGuard>
+          </Route>
 
-        <Route path="/user/:id" component={ProfilePage}>
-        <GameGuard>
-          <Profile/>
-          </GameGuard>
-        </Route>
+          <Route path="/room=:id/game">
+            <GameGuard>
+              <Game/>
+            </GameGuard>
+          </Route>
 
-        <Route path="/room=:id" component={Room}>
-          <GameGuard>
-            <Room/>
-          </GameGuard>
-        </Route>
+          <Route path="/user/:id" component={ProfilePage}>
+            <GameGuard>
+              <Profile/>
+            </GameGuard>
+          </Route>
 
-        <Route exact path="/login">
-          <LoginGuard>
-            <Login/>
-          </LoginGuard>
-        </Route>
+          <Route path="/room=:id" component={Room}>
+            <GameGuard>
+              <Room/>
+            </GameGuard>
+          </Route>
 
-        <Route exact path="/register">
-          <LoginGuard>
-            <Register/>
-          </LoginGuard>
-        </Route>
+          <Route exact path="/login">
+            <LoginGuard>
+              <Login/>
+            </LoginGuard>
+          </Route>
 
-        <Route exact path="/editprofile">
-          <GameGuard>
-            <EditProfile/>
-          </GameGuard>
-        </Route>
+          <Route exact path="/register">
+            <LoginGuard>
+              <Register/>
+            </LoginGuard>
+          </Route>
 
-        <Route path="/room=:id/game">
-          <GameGuard>
-            <Game/>
-          </GameGuard>
-        </Route>
+          <Route exact path="/editprofile">
+            <GameGuard>
+              <EditProfile/>
+            </GameGuard>
+          </Route>
 
-        <Route exact path="/editavatar">
-          <GameGuard>
-            <EditAvatar/>
-          </GameGuard>
-        </Route>
+          <Route path="/room=:id/game">
+            <GameGuard>
+              <Game/>
+            </GameGuard>
+          </Route>
 
-        <Route exact path="/lobby">
-          <GameGuard>
-            <Lobby/>
-          </GameGuard>
-        </Route>
+          <Route exact path="/editavatar">
+            <GameGuard>
+              <EditAvatar/>
+            </GameGuard>
+          </Route>
 
-        <Route exact path="/profile">
-          <GameGuard>
-            <Profile/>
-          </GameGuard>
-        </Route>
+          <Route exact path="/lobby">
+            <GameGuard>
+              <Lobby/>
+            </GameGuard>
+          </Route>
 
-        <Route exact path="/roomCreation">
-          <GameGuard>
-            <RoomCreation/>
-          </GameGuard>
-        </Route>
+          <Route exact path="/profile">
+            <GameGuard>
+              <Profile/>
+            </GameGuard>
+          </Route>
 
-        <Route exact path="/">
-          <Redirect to="/login"/>
-        </Route>
+          <Route exact path="/roomCreation">
+            <GameGuard>
+              <RoomCreation/>
+            </GameGuard>
+          </Route>
 
-        
-      </Switch>
-    </BrowserRouter>
+          <Route exact path="/">
+            <Redirect to="/login"/>
+          </Route>
+
+
+        </Switch>
+      </BrowserRouter>
   );
 };
 
