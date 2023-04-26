@@ -21,6 +21,7 @@ const RoomCreation = props => {
     const history = useHistory();
     const [maxPlayersNum, setMaxPlayersNum] = useState(4);
     const [theme, setTheme] = useState('THEME1');
+    const [room, setRoom] = useState(null);
     const [roomProperty, setRoomProperty] = useState("PUBLIC");
     const [roomOwnerId, setRoomOwnerId] = useState(null);
     const [roomPlayersList, setroomPlayersList] = useState([]);

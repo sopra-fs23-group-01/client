@@ -18,54 +18,17 @@ import { over } from 'stompjs';
 import SockJS from 'sockjs-client';
 
 var stompClient = null;
-const Room = () => {
+const Game = () => {
 
     const history = useHistory();
     const [assignedWord, setAssignedWord] = useState('');
     const [role, setRole] = useState('');
-    const [room, setRoom] = useState(null);
     const [users, setUsers] = useState(null);
     const path = window.location.pathname.substring(1); // remove leading /
     const roomId = path.split('=')[1];
     const id = localStorage.getItem('id');
+
     //const roomTheme = localStorage.getItem('roomTheme');
-
-    const getReady = async () => {
-        try {
-            const requestBody = JSON.stringify({id});
-            await api.put('/users/room/'+id, requestBody);
-            //console.log(response);
-            // Get the returned user and update a new object.
-            //const user = new User(response.data);
-
-            //history.push(`/leaderboard`);
-        } catch (error) {
-            alert(`Something went wrong during the login: \n${handleError(error)}`);
-        }
-    };
-    const gameStart = () => {
-        var chatMessage = {
-            senderName: "system",
-            status: "MESSAGE"
-        };
-        stompClient.send("/app/startgame"+id, {},JSON.stringify(chatMessage));
-    }
-
-
-    const goBack = async () => {
-        try {
-            //const requestBody = JSON.stringify({});
-            //const response = await api.post('/users/login', requestBody);
-            //console.log(response);
-            // Get the returned user and update a new object.
-            //const user = new User(response.data);
-
-            history.push(`/lobby`);
-        } catch (error) {
-            alert(`Something went wrong during the login: \n${handleError(error)}`);
-        }
-    };
-
 
     useEffect(() => {
         // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
@@ -101,7 +64,7 @@ const Room = () => {
         }
 
         fetchData();
-    }, []);
+    }, [history]);
 
     let content = <Spinner/>;
 
@@ -114,7 +77,7 @@ const Room = () => {
 
             return (
                 <div className="room playercontainer">
-                    < img src={user.avatarUrl} alt="profile img" className="room avatarimg"/>
+                    <img src={user.avatarUrl} alt="profile img" className="room avatarimg"/>
                     <div className="room playername "><span style={statusStyle}>{user.username}</span> </div>
                 </div>
             );
@@ -160,42 +123,21 @@ const Room = () => {
 
 
 
+
     useEffect(() => {
         console.log(userData);
     }, [userData]);
 
-    const connect = () => {
-        let Sock = new SockJS('http://localhost:8080/ws');
-        // let Sock = new SockJS('https://sopra-fs23-group-01-server.oa.r.appspot.com/ws');
-        stompClient = over(Sock);
-        stompClient.connect({}, onConnected, onError);
-    }
 
-    const onConnected = () => {
-        setUserData({ ...userData, "connected": true });
-        stompClient.subscribe('/chatroom/public', onMessageReceived);
-        stompClient.subscribe('/user/' + userData.username + '/private', onPrivateMessageReceived);
-        userJoin();
-    }
 
     const onPrivateMessageReceived = (payload) => {
         const message = JSON.parse(payload.body);
-
+      
         if (message.status === 'ASSIGNED_WORD') {
-            setAssignedWord(message.message);
-            setRole(message.role);
+          setAssignedWord(message.message);
+          setRole(message.role);
         }
-    };
-
-    const userJoin = () => {
-        var chatMessage = {
-            senderName: userData.username,
-            status: "JOIN"
-        };
-        stompClient.send("/app/message", {}, JSON.stringify(chatMessage));
-    }
-
-
+      };
 
     const onMessageReceived = (payload) => {
         var payloadData = JSON.parse(payload.body);
@@ -212,7 +154,6 @@ const Room = () => {
                 };
                 publicChats.push(joinMessage);
                 setPublicChats([...publicChats]);
-                scrollToBottom();
                 break;
             case "MESSAGE":
                 publicChats.push(payloadData);
@@ -220,12 +161,7 @@ const Room = () => {
                 scrollToBottom();
                 break;
 
-            case "START":
-                publicChats.push(payloadData);
-                setPublicChats([...publicChats]);
-                scrollToBottom();
-                break;
-
+                
         }
     }
 
@@ -295,28 +231,26 @@ const Room = () => {
         setUserData({ ...userData, "username": value });
     }
 
-    const registerUser = () => {
-        connect();
-    }
 
     return (
         <div>
-            < img className="room backicon" src={BackIcon} alt="Back" onClick={() => goBack()} />
+            {/*<img className="room backicon" src={BackIcon} alt="Back" onClick={() => goBack()} />*/}
             <div className="room roomid">Room:{roomId}</div>
             <div className="room reminder">
-                < img className="room remindericon" src={ReminderIcon} alt="Reminder" />
-                <div className="room remindertext">Welcome to Who Is Undercover!</div>
+                <img className="room remindericon" src={ReminderIcon} alt="Reminder" />
+                <div className="room remindertext">Welcome to Who Is Undercover! Get ready to start!</div>
 
             </div>
-            {/*<div className="room assignedword">
-                <strong>Your assigned word is:  {assignedWord} </strong>
-            </div>*/}
+            <div className="room assignedword">
+                        <strong>Your assigned word is:  {assignedWord} </strong>
+            </div>
+            <div>
 
                 <div className="chat container">
-                    {userData.connected ?
-
-                        <div className="chat chat-box">
-                            {/* <div className="chat member-list">
+                {userData.connected ?
+                
+                    <div className="chat chat-box">
+                        {/* <div className="chat member-list">
                             <ul>
                                 <li onClick={() => { setTab("CHATROOM") }} className={`chat member ${tab === "CHATROOM" && "active"}`}>Chatroom</li>
                                 {[...privateChats.keys()].map((name, index) => (
@@ -324,72 +258,63 @@ const Room = () => {
                                 ))}
                             </ul>
                         </div> */}
-                            <div className="room theme" >{role}
-                            </div>
-
-                            {tab === "CHATROOM" && <div className="chat chat-content">
-                                <ul className="chat chat-messages">
-                                    {publicChats.map((chat, index) => (
-                                        <li className={`chat message ${chat.senderName === userData.username && "self"} ${chat.senderName === "system" && "system"}`} key={index}>
-                                            {chat.senderName !== userData.username && chat.senderName !== "system" && <div className="chat avatar">{chat.senderName}</div>}
-                                            <div className="chat message-data">{chat.message}</div>
-                                            {chat.senderName === userData.username && <div className="chat avatar self">{chat.senderName}</div>}
-                                        </li>
-                                    ))}
-                                </ul>
-                                <div ref={messagesEndRef} />
-
-                            </div>}
-                            {tab !== "CHATROOM" && <div className="chat chat-content">
-                                <ul className="chat chat-messages">
-                                    {[...privateChats.get(tab)].map((chat, index) => (
-                                        <li className={`chat message ${chat.senderName === userData.username && "self"}`} key={index}>
-                                            {chat.senderName !== userData.username && <div className="chat avatar">{chat.senderName}</div>}
-                                            <div className="chat message-data">{chat.message}</div>
-                                            {chat.senderName === userData.username && <div className="chat avatar self">{chat.senderName}</div>}
-                                        </li>
-                                    ))}
-                                </ul>
-                                <div ref={messagesEndRef} />
-
-                            </div>}
-
-                            <div className="room button-container" onClick={() => getReady()}>
-                                Ready/Cancel
-                            </div>
-                            <div className="room button-container1" onClick={() => gameStart()}>
-                                Start
-                            </div>
-
-
-
+                        <div className="room theme" >{role}
                         </div>
-                        :
-                        null
-                        // <div className="chat register">
-                        //     <input
-                        //         id="user-name"
-                        //         placeholder="(测试用)"
-                        //         name="userName"
-                        //         value={userData.username}
-                        //         onChange={handleUsername}
-                        //         margin="normal"
-                        //     />
-                        //     <button type="button" onClick={registerUser}>
-                        //         connect
-                        //     </button>
-                        // </div>
+
+                        {tab === "CHATROOM" && <div className="chat chat-content">
+                            <ul className="chat chat-messages">
+                                {publicChats.map((chat, index) => (
+                                    <li className={`chat message ${chat.senderName === userData.username && "self"} ${chat.senderName === "system" && "system"}`} key={index}>
+                                    {chat.senderName !== userData.username && chat.senderName !== "system" && <div className="chat avatar">{chat.senderName}</div>}
+                                    <div className="chat message-data">{chat.message}</div>
+                                    {chat.senderName === userData.username && <div className="chat avatar self">{chat.senderName}</div>}
+                                    </li>
+                                ))}
+                            </ul>
+                            <div ref={messagesEndRef} />
+
+                        </div>}
+                        {tab !== "CHATROOM" && <div className="chat chat-content">
+                            <ul className="chat chat-messages">
+                                {[...privateChats.get(tab)].map((chat, index) => (
+                                    <li className={`chat message ${chat.senderName === userData.username && "self"}`} key={index}>
+                                        {chat.senderName !== userData.username && <div className="chat avatar">{chat.senderName}</div>}
+                                        <div className="chat message-data">{chat.message}</div>
+                                        {chat.senderName === userData.username && <div className="chat avatar self">{chat.senderName}</div>}
+                                    </li>
+                                ))}
+                            </ul>
+                            <div ref={messagesEndRef} />
+
+                        </div>}
+
+                    </div>
+                    :
+                    // null
+                    <div className="chat register">
+                        <input
+                            id="user-name"
+                            placeholder="(测试用)"
+                            name="userName"
+                            value={userData.username}
+                            onChange={handleUsername}
+                            margin="normal"
+                        />
+                    </div>
                     }
                 </div>
 
+
+            </div>
             {content}
             <div className="chat send-messagebox">
                 <input type="text" className="chat input-message" placeholder="Enter your message here..." value={userData.message} onChange={handleMessage} />
-                <Button type="button" onClick={sendValue}>send</Button>
+                {/*<Button type="button" onClick={sendValue}>send</Button>*/}
+                <img className="room confirmicon" src={ConfirmIcon} onClick={sendValue} alt="Confirm" />
             </div>
 
         </div>
     );
 }
 
-export default Room;
+export default Game;

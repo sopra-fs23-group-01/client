@@ -128,7 +128,7 @@
   }
   &.user-list{
     position: absolute;
-    bottom:13%;
+    bottom:7%;
     left: 0%;
     display: grid;
     grid-template-columns: repeat(4, 1fr); /* 4 items per line */
@@ -137,13 +137,14 @@
   &.playercontainer{
     width: 100%;
     height: 110%;
+    margin-left: -25%;
     align-items: center;
     text-align: center;
     //background-color: chocolate;
     overflow: hidden;
   }
   &.avatarimg {
-    width: 100%;
+    width: 70%;
     border-radius: 50%; /* 将边框半径设置为元素宽度和高度的50% */
   }
   &.playername{
@@ -170,6 +171,31 @@
     overflow: hidden;
   }
   &.button-container {
+    position: absolute;
+    left: 10%;
+    width: 80%;
+    height: 8%;
+    bottom: 15%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:white;
+    text-align: center;
+    margin-top: 2em;
+    background: linear-gradient(92.24deg, #9FDBA1 -6%, #1976D2 101.32%);
+    border-radius: 10px;
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 90%;
+    line-height: 27px;
+    /* identical to box height */
+
+    color: #FFFFFF;
+  }
+  &.button-container1 {
     position: absolute;
     left: 10%;
     width: 80%;
@@ -255,10 +281,10 @@
     box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06), 0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086), 0 100px 80px rgba(0, 0, 0, 0.12);
     position: absolute;
     left: 50%;
-    margin-left: -180px;
-    width: 361px;
-    height: 435px;
-    top: 200px;
+    margin-left: -48%;
+    width: 96.3%;
+    height: 100%;
+    top: 42%;
     display: flex;
     justify-content: center;
 
@@ -401,7 +427,7 @@
   &.avatar {
     background-color: cornflowerblue;
     padding: 3px 5px;
-    border-radius: 5px;
+    border-radius: 3px;
     color: #fff;
   }
   
