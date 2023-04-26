@@ -263,7 +263,15 @@
 
 .chat{
   &.container {
-    position: relative;
+    position: absolute;
+    left: 50%;
+    margin-left: -48%;
+    width: 96.3%;
+    height: 49.5%;
+    top: 0%;
+    display: flex;
+    justify-content: center;
+
   }
   
   &.register {
@@ -290,6 +298,7 @@
 
     background: #D7FFEE;
     border-radius: 19px;
+    overflow: hidden;
   }
   
   &.member-list {

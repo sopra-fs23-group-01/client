@@ -384,7 +384,8 @@ const Room = () => {
             {content}
             <div className="chat send-messagebox">
                 <input type="text" className="chat input-message" placeholder="Enter your message here..." value={userData.message} onChange={handleMessage} />
-                <Button type="button" onClick={sendValue}>send</Button>
+                {/*<Button type="button" onClick={sendValue}>send</Button>*/}
+                <img className="room confirmicon" src={ConfirmIcon} onClick={sendValue} alt="Confirm" />
             </div>
 
         </div>
