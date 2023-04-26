@@ -101,7 +101,7 @@ const Game = () => {
         
         <div className="game playercontainer">
           <div className="leaderboard number">{user.id}</div>
-          <img className='avatar4' src={avatar1}/>
+          <img className='avatar4' src={user.avatarUrl} />
           <div className="game informationcontainer">
             <div className="leaderboard id">Player {user.id}</div>
             <div className="leaderboard winingrate ">{user.username} %</div>
