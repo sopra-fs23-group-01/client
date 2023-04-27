@@ -83,7 +83,6 @@ const Room = () => {
 
         alert(roomId);
         setIsVisible(true);
-        setIsButtonVisible(false);
         stompClient.send("/app/gamestart/"+roomId, {},JSON.stringify());
 
         //history.push('/room='+roomId+'/game');
@@ -193,8 +192,8 @@ const Room = () => {
     }, [userData]);
 
     const connect = () => {
-        //let Sock = new SockJS('http://localhost:8080/ws');
-        let Sock = new SockJS('https://sopra-fs23-group-01-server.oa.r.appspot.com/ws');
+        let Sock = new SockJS('http://localhost:8080/ws');
+        // let Sock = new SockJS('https://sopra-fs23-group-01-server.oa.r.appspot.com/ws');
         stompClient = over(Sock);
         stompClient.connect({}, onConnected, onError);
     }
@@ -204,6 +203,9 @@ const Room = () => {
         stompClient.subscribe('/chatroom/public', onMessageReceived);
         stompClient.subscribe('/user/' + userData.username + '/private', onPrivateMessageReceived);
         userJoin();
+    }
+    const onGameStart = () => {
+        setIsButtonVisible(false);
     }
 
     const onPrivateMessageReceived = (payload) => {
@@ -257,11 +259,11 @@ const Room = () => {
                 break;
 
             case "START":
+                setIsButtonVisible(false);
                 wordAssign();
                 publicChats.push(payloadData);
                 setPublicChats([...publicChats]);
                 scrollToBottom();
-
                 break;
 
             case "REMINDER":
