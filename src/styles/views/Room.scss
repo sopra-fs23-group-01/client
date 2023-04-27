@@ -1,6 +1,18 @@
 @import 'styles/theme';
 
 .room {
+  &.countdown{
+    position: absolute;
+    left: 35%;
+    top: 90%;
+    width:100%;
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 100%;
+    //line-height: 27px;
+  }
   &.container {
     margin-top: 2em;
     min-height: 300px;
@@ -342,7 +354,7 @@
     height: 70%;
     width: 90%; /* 将宽度减少为原来的85%（即减少10%） */
     margin-left: 15%; /* 从左边向右增加10%的外边距 */
-    border: none;
+    border-radius: 10%;
     margin-top: 140px;
   }
   
