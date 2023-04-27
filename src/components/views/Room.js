@@ -48,9 +48,12 @@ const Room = () => {
             senderName: "system",
             status: "MESSAGE"
         };
-        stompClient.send("/app/startgame"+id, {},JSON.stringify(chatMessage));
-        history.push('/room='+roomId+'/game');
+        alert(roomId);
+        stompClient.send("/app/gamestart/"+roomId, {},JSON.stringify());
+        //history.push('/room='+roomId+'/game');
     }
+
+
 
 
     const goBack = async () => {
@@ -113,9 +116,14 @@ const Room = () => {
                 color: user.readyStatus === "READY" ? "green" : "red"
             };
 
+            const clickToVote = () =>{
+                api.put("room/"+roomId+"/vote/" +localStorage.getItem('id')+"="+user.id)
+            }
+
             return (
                 <div className="room playercontainer">
-                    < img src={user.avatarUrl} alt="profile img" className="room avatarimg"/>
+
+                    < img src={user.avatarUrl} onClick={clickToVote} alt="profile img" className="room avatarimg"/>
                     <div className="room playername "><span style={statusStyle}>{user.username}</span> </div>
                 </div>
             );
@@ -226,6 +234,18 @@ const Room = () => {
                 scrollToBottom();
                 break;
 
+            case "REMINDER":
+                publicChats.push(payloadData);
+                setPublicChats([...publicChats]);
+                scrollToBottom();
+                break;
+
+            case "VOTE":
+                publicChats.push(payloadData);
+                setPublicChats([...publicChats]);
+                scrollToBottom();
+                break;
+
         }
     }
 
@@ -312,11 +332,11 @@ const Room = () => {
                 <strong>Your assigned word is:  {assignedWord} </strong>
             </div>*/}
 
-            <div className="chat container">
-                {userData.connected ?
+                <div className="chat container">
+                    {userData.connected ?
 
-                    <div className="chat chat-box">
-                        {/* <div className="chat member-list">
+                        <div className="chat chat-box">
+                            {/* <div className="chat member-list">
                             <ul>
                                 <li onClick={() => { setTab("CHATROOM") }} className={`chat member ${tab === "CHATROOM" && "active"}`}>Chatroom</li>
                                 {[...privateChats.keys()].map((name, index) => (
@@ -324,68 +344,69 @@ const Room = () => {
                                 ))}
                             </ul>
                         </div> */}
-                        <div className="room theme" >{role}
+                            <div className="room theme" >{role}
+                            </div>
+
+                            {tab === "CHATROOM" && <div className="chat chat-content">
+                                <ul className="chat chat-messages">
+                                    {publicChats.map((chat, index) => (
+                                        <li className={`chat message ${chat.senderName === userData.username && "self"} ${chat.senderName === "system" && "system"}`} key={index}>
+                                            {chat.senderName !== userData.username && chat.senderName !== "system" && <div className="chat avatar">{chat.senderName}</div>}
+                                            <div className="chat message-data">{chat.message}</div>
+                                            {chat.senderName === userData.username && <div className="chat avatar self">{chat.senderName}</div>}
+                                            <div ref={messagesEndRef} />
+                                        </li>
+                                    ))}
+                                </ul>
+
+
+                            </div>}
+                            {tab !== "CHATROOM" && <div className="chat chat-content">
+                                <ul className="chat chat-messages">
+                                    {[...privateChats.get(tab)].map((chat, index) => (
+                                        <li className={`chat message ${chat.senderName === userData.username && "self"}`} key={index}>
+                                            {chat.senderName !== userData.username && <div className="chat avatar">{chat.senderName}</div>}
+                                            <div className="chat message-data">{chat.message}</div>
+                                            {chat.senderName === userData.username && <div className="chat avatar self">{chat.senderName}</div>}
+                                        </li>
+                                    ))}
+                                </ul>
+                                <div ref={messagesEndRef} />
+                            </div>}
+
+                            <div className="room button-container" onClick={() => getReady()}>
+                                Ready/Cancel
+                            </div>
+                            <div className="room button-container1" onClick={() => gameStart()}>
+                                Start
+                            </div>
+
+
+
                         </div>
-
-                        {tab === "CHATROOM" && <div className="chat chat-content">
-                            <ul className="chat chat-messages">
-                                {publicChats.map((chat, index) => (
-                                    <li className={`chat message ${chat.senderName === userData.username && "self"} ${chat.senderName === "system" && "system"}`} key={index}>
-                                        {chat.senderName !== userData.username && chat.senderName !== "system" && <div className="chat avatar">{chat.senderName}</div>}
-                                        <div className="chat message-data">{chat.message}</div>
-                                        {chat.senderName === userData.username && <div className="chat avatar self">{chat.senderName}</div>}
-                                    </li>
-                                ))}
-                            </ul>
-                            <div ref={messagesEndRef} />
-
-                        </div>}
-                        {tab !== "CHATROOM" && <div className="chat chat-content">
-                            <ul className="chat chat-messages">
-                                {[...privateChats.get(tab)].map((chat, index) => (
-                                    <li className={`chat message ${chat.senderName === userData.username && "self"}`} key={index}>
-                                        {chat.senderName !== userData.username && <div className="chat avatar">{chat.senderName}</div>}
-                                        <div className="chat message-data">{chat.message}</div>
-                                        {chat.senderName === userData.username && <div className="chat avatar self">{chat.senderName}</div>}
-                                    </li>
-                                ))}
-                            </ul>
-                            <div ref={messagesEndRef} />
-                        </div>}
-
-                        <div className="room button-container" onClick={() => getReady()}>
-                            Ready/Cancel
-                        </div>
-                        <div className="room button-container1" onClick={() => gameStart()}>
-                            Start
-                        </div>
-
-
-
-                    </div>
-                    :
-                    null
-                    // <div className="chat register">
-                    //     <input
-                    //         id="user-name"
-                    //         placeholder="(测试用)"
-                    //         name="userName"
-                    //         value={userData.username}
-                    //         onChange={handleUsername}
-                    //         margin="normal"
-                    //     />
-                    //     <button type="button" onClick={registerUser}>
-                    //         connect
-                    //     </button>
-                    // </div>
-                }
-            </div>
+                        :
+                        null
+                        // <div className="chat register">
+                        //     <input
+                        //         id="user-name"
+                        //         placeholder="(测试用)"
+                        //         name="userName"
+                        //         value={userData.username}
+                        //         onChange={handleUsername}
+                        //         margin="normal"
+                        //     />
+                        //     <button type="button" onClick={registerUser}>
+                        //         connect
+                        //     </button>
+                        // </div>
+                    }
+                </div>
 
             {content}
             <div className="chat send-messagebox">
                 <input type="text" className="chat input-message" placeholder="Enter your message here..." value={userData.message} onChange={handleMessage} />
                 {/*<Button type="button" onClick={sendValue}>send</Button>*/}
-                < img className="room confirmicon" src={ConfirmIcon} onClick={sendValue} alt="Confirm" />
+                <img className="room confirmicon" src={ConfirmIcon} onClick={sendValue} alt="Confirm" />
             </div>
 
         </div>
