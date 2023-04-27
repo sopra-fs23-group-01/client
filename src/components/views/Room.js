@@ -257,7 +257,7 @@ const Room = () => {
                 break;
 
             case "START":
-                wordAssign();//ASSIGN A WORD
+                wordAssign();
                 publicChats.push(payloadData);
                 setPublicChats([...publicChats]);
                 scrollToBottom();
