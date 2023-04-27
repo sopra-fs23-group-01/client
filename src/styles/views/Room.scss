@@ -108,14 +108,14 @@
   }
   &.theme{
     position: absolute;
-    top:3%;
+    top:5%;
     left: 50%;
     transform: translate(-50%, -50%);
 
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 600;
-    font-size: 100%;
+    font-size: 200%;
     //line-height: 85px;
     /* identical to box height */
 
@@ -170,12 +170,23 @@
     border-radius: 19px;
     overflow: hidden;
   }
-  &.button-container {
+
+  &.button-row {
     position: absolute;
     left: 10%;
     width: 80%;
     height: 8%;
-    bottom: 15%;
+    bottom: 5%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &.button-container {
+    height:100%;
+    width: 48%;
 
     display: flex;
     justify-content: center;
@@ -196,11 +207,8 @@
     color: #FFFFFF;
   }
   &.button-container1 {
-    position: absolute;
-    left: 10%;
-    width: 80%;
-    height: 8%;
-    bottom: 5%;
+    height:100%;
+    width: 48%;
 
     display: flex;
     justify-content: center;
@@ -291,10 +299,11 @@
     left: 50%;
     margin-left: -48%;
     width: 96.3%;
-    height: 100%;
-    top: 22%;
+    height: 112%;
+    top: 10%;
     display: flex;
     justify-content: center;
+
 
     background: #D7FFEE;
     border-radius: 19px;
@@ -309,10 +318,11 @@
     width: 80%;
     margin-left:20px;
     overflow: auto;
-    height: 70%;
+    height: 80%;
     overflow-y: scroll;
     scrollbar-width: none; /* For Firefox */
     margin-top: 10%;
+
   }
   
   &.chat.chat-content::-webkit-scrollbar {
@@ -402,6 +412,7 @@
   &.ul {
     padding: 0;
     list-style-type: none;
+
   }
   
   &.send-button {
@@ -447,16 +458,19 @@
   
   &.message {
     padding: 5px;
-    width: auto;
+    //width: 115%;
+    //height:18%;
     display: flex;
     flex-direction: row;
     box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
     margin: 5px 10px;
     margin-left: -50px;
+    border-radius: 20px;
+    background-color: #f2f2f2;
   }
   
   &.message-data {
-    padding: 5px;
+    padding: 3px;
     word-wrap: break-word;
     white-space: pre-wrap;
   }

@@ -28,6 +28,7 @@ const Room = () => {
     const path = window.location.pathname.substring(1); // remove
     const roomId = path.split('=')[1];
     const id = localStorage.getItem('id');
+    const [isButtonVisible, setIsButtonVisible] = useState(true);
     //const roomTheme = localStorage.getItem('roomTheme');
 
     const getReady = async () => {
@@ -43,17 +44,6 @@ const Room = () => {
             alert(`Something went wrong during the login: \n${handleError(error)}`);
         }
     };
-    const gameStart = () => {
-        var chatMessage = {
-            senderName: "system",
-            status: "MESSAGE"
-        };
-        alert(roomId);
-        stompClient.send("/app/gamestart/"+roomId, {},JSON.stringify());
-        //history.push('/room='+roomId+'/game');
-    }
-
-
 
 
     const goBack = async () => {
@@ -69,6 +59,40 @@ const Room = () => {
             alert(`Something went wrong during the login: \n${handleError(error)}`);
         }
     };
+
+
+    const [seconds, setSeconds] = useState(60);
+    const [isVisible, setIsVisible] = useState(true);
+
+    useEffect(() => {
+        if (seconds > 0) {
+            const intervalId = setInterval(() => {
+                setSeconds((prevSeconds) => prevSeconds - 1);
+            }, 1000);
+
+            return () => clearInterval(intervalId);
+        } else {
+            setIsVisible(false);
+            // setTimeout(() => {
+            //     setIsVisible(true);
+            // }, 1000); // 5秒后重新显示倒计时组件
+        }
+    }, [seconds]);
+
+    const gameStart = () => {
+        var chatMessage = {
+            senderName: "system",
+            status: "MESSAGE"
+        };
+        alert(roomId);
+        setIsVisible(true);
+        setIsButtonVisible(false);
+        stompClient.send("/app/gamestart/"+roomId, {},JSON.stringify());
+        //history.push('/room='+roomId+'/game');
+    }
+
+
+
 
 
     useEffect(() => {
@@ -232,6 +256,7 @@ const Room = () => {
                 publicChats.push(payloadData);
                 setPublicChats([...publicChats]);
                 scrollToBottom();
+
                 break;
 
             case "REMINDER":
@@ -240,10 +265,18 @@ const Room = () => {
                 scrollToBottom();
                 break;
 
+            case "DESCRIPTION":
+                publicChats.push(payloadData);
+                setPublicChats([...publicChats]);
+                scrollToBottom();
+                setSeconds(20);
+                break;
+
             case "VOTE":
                 publicChats.push(payloadData);
                 setPublicChats([...publicChats]);
                 scrollToBottom();
+                setSeconds(10);
                 break;
 
         }
@@ -344,8 +377,9 @@ const Room = () => {
                                 ))}
                             </ul>
                         </div> */}
-                            <div className="room theme" >{role}
-                            </div>
+                            <div className="room theme" >{role}</div>
+                            {isVisible ? <div className="room countdown">{seconds} seconds left</div> : null}
+
 
                             {tab === "CHATROOM" && <div className="chat chat-content">
                                 <ul className="chat chat-messages">
@@ -373,13 +407,15 @@ const Room = () => {
                                 </ul>
                                 <div ref={messagesEndRef} />
                             </div>}
-
-                            <div className="room button-container" onClick={() => getReady()}>
-                                Ready/Cancel
-                            </div>
-                            <div className="room button-container1" onClick={() => gameStart()}>
-                                Start
-                            </div>
+                            {isButtonVisible ?
+                                <div className="room button-row">
+                                    <div className="room button-container" onClick={() => getReady()}>
+                                        Ready/Cancel
+                                    </div>
+                                    <div className="room button-container1" onClick={() => gameStart()}>
+                                        Start
+                                    </div>
+                                </div>: null}
 
 
 

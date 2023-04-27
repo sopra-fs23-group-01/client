@@ -65,6 +65,7 @@ const Lobby = () => {
 
     let content = null;
 
+
     if (rooms) {
 
         function Room({ room }) {
