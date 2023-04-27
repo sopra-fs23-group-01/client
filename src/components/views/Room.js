@@ -80,18 +80,14 @@ const Room = () => {
     }, [seconds]);
 
     const gameStart = () => {
-        var chatMessage = {
-            senderName: "system",
-            status: "MESSAGE"
-        };
+
         alert(roomId);
         setIsVisible(true);
         setIsButtonVisible(false);
         stompClient.send("/app/gamestart/"+roomId, {},JSON.stringify());
+
         //history.push('/room='+roomId+'/game');
     }
-
-
 
 
 
@@ -227,6 +223,14 @@ const Room = () => {
         stompClient.send("/app/message", {}, JSON.stringify(chatMessage));
     }
 
+    const wordAssign = () => {
+        var chatMessage = {
+            senderName: userData.username,
+            status: "ASSIGNED_WORD"
+        };
+        stompClient.send("/app/message", {}, JSON.stringify(chatMessage));
+    }
+
 
 
     const onMessageReceived = (payload) => {
@@ -253,6 +257,7 @@ const Room = () => {
                 break;
 
             case "START":
+                wordAssign();//ASSIGN A WORD
                 publicChats.push(payloadData);
                 setPublicChats([...publicChats]);
                 scrollToBottom();
@@ -343,14 +348,6 @@ const Room = () => {
     //     }
     // }
 
-    const handleUsername = (event) => {
-        const { value } = event.target;
-        setUserData({ ...userData, "username": value });
-    }
-
-    // const registerUser = () => {
-    //     connect();
-    // }
 
     return (
         <div>
