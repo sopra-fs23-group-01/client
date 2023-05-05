@@ -34,12 +34,8 @@ const Room = () => {
     const getReady = async () => {
         try {
             const requestBody = JSON.stringify({id});
-            await api.put('/users/room/'+id, requestBody);
-            //console.log(response);
-            // Get the returned user and update a new object.
-            //const user = new User(response.data);
+            await api.put('/users/room/'+roomId, requestBody);
 
-            //history.push(`/leaderboard`);
         } catch (error) {
             alert(`Something went wrong during the login: \n${handleError(error)}`);
         }
@@ -48,11 +44,8 @@ const Room = () => {
 
     const goBack = async () => {
         try {
-            //const requestBody = JSON.stringify({});
-            //const response = await api.post('/users/login', requestBody);
-            //console.log(response);
-            // Get the returned user and update a new object.
-            //const user = new User(response.data);
+            const requestBody = JSON.stringify({id});
+            await api.put('/users/room/out/'+roomId, requestBody);
 
             history.push(`/lobby`);
         } catch (error) {
@@ -61,7 +54,7 @@ const Room = () => {
     };
 
 
-    const [seconds, setSeconds] = useState(60);
+    const [seconds, setSeconds] = useState(null);
     const [isVisible, setIsVisible] = useState(true);
 
     useEffect(() => {
@@ -81,8 +74,6 @@ const Room = () => {
 
     const gameStart = () => {
 
-        alert(roomId);
-        setIsVisible(true);
         stompClient.send("/app/gamestart/"+roomId, {},JSON.stringify());
 
         //history.push('/room='+roomId+'/game');
@@ -94,11 +85,9 @@ const Room = () => {
         // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
         async function fetchData() {
             try {
-                const response = await api.get('/users');
 
-                // delays continuous execution of an async operation for 1 second.
-                // This is just a fake async call, so that the spinner can be displayed
-                // feel free to remove it :)
+                //get all players in the room
+                const response = await api.get('/games/playerList/'+roomId);
                 await new Promise(resolve => setTimeout(resolve, 1000));
 
                 // Get the returned users and update the state.
@@ -124,7 +113,7 @@ const Room = () => {
         }
 
         fetchData();
-    }, []);
+    }, [users]);
 
     let content = <Spinner/>;
 
@@ -192,8 +181,8 @@ const Room = () => {
     }, [userData]);
 
     const connect = () => {
-        // let Sock = new SockJS('http://localhost:8080/ws');
-        let Sock = new SockJS('https://sopra-fs23-group-01-server.oa.r.appspot.com/ws');
+        let Sock = new SockJS('http://localhost:8080/ws');
+        //let Sock = new SockJS('https://sopra-fs23-group-01-server.oa.r.appspot.com/ws');
         stompClient = over(Sock);
         stompClient.connect({}, onConnected, onError);
     }
@@ -276,6 +265,7 @@ const Room = () => {
                 publicChats.push(payloadData);
                 setPublicChats([...publicChats]);
                 scrollToBottom();
+                setIsVisible(true);
                 setSeconds(20);
                 break;
 

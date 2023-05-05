@@ -30,7 +30,7 @@ const Lobby = () => {
         try {
             const requestBody = JSON.stringify({id});
             await api.put('/room/'+roomId+'/players', requestBody);
-            alert('Entered room successfully: '+roomId+'userId: '+id);
+            //alert('Entered room successfully: '+roomId+'userId: '+id);
             //history.push(`/leaderboard`);
         } catch (error) {
             console.error(`Something went wrong during the enterRoom: \n${handleError(error)}`);
