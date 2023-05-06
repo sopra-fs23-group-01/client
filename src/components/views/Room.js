@@ -29,6 +29,8 @@ const Room = () => {
     const roomId = path.split('=')[1];
     const id = localStorage.getItem('id');
     const [isButtonVisible, setIsButtonVisible] = useState(true);
+    const [gameStatus, setGameStatus] = useState(false);//true for game start
+    const [currentPlayer, setCurrentPlayer] = useState(null);
     //const roomTheme = localStorage.getItem('roomTheme');
 
     const getReady = async () => {
@@ -249,6 +251,7 @@ const Room = () => {
 
             case "START":
                 setIsButtonVisible(false);
+                setGameStatus(true);
                 wordAssign();
                 publicChats.push(payloadData);
                 setPublicChats([...publicChats]);
@@ -275,7 +278,13 @@ const Room = () => {
                 scrollToBottom();
                 setSeconds(10);
                 break;
-
+            case "CURRENT_PLAYER":
+                publicChats.push(payloadData);
+                setPublicChats([...publicChats]);
+                scrollToBottom();
+                setCurrentPlayer(payloadData);
+                console.log(payloadData);
+                break;
         }
     }
 
@@ -431,7 +440,15 @@ const Room = () => {
             <div className="chat send-messagebox">
                 <input type="text" className="chat input-message" placeholder="Enter your message here..." value={userData.message} onChange={handleMessage} />
                 {/*<Button type="button" onClick={sendValue}>send</Button>*/}
-                <img className="room confirmicon" src={ConfirmIcon} onClick={sendValue} alt="Confirm" />
+                {/*<button*/}
+                {/*    className="room confirmicon"*/}
+                {/*    onClick={sendValue}*/}
+                {/*    disabled={!gameStatus || !currentPlayer.equals(userData.username)}*/}
+                {/*>*/}
+                {/*    <img src={ConfirmIcon} alt="Confirm" />*/}
+                {/*</button>*/}
+                <img className="room confirmicon" src={ConfirmIcon} onClick={sendValue}
+                     disabled={!gameStatus || !currentPlayer.equals(userData.username)} alt="Confirm" />
             </div>
 
         </div>
