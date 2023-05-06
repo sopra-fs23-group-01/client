@@ -29,8 +29,7 @@ const Room = () => {
     const roomId = path.split('=')[1];
     const id = localStorage.getItem('id');
     const [isButtonVisible, setIsButtonVisible] = useState(true);
-    const [gameStatus, setGameStatus] = useState(false);//true for game start
-    const [currentPlayer, setCurrentPlayer] = useState(null);
+    const [showSendIcon, setShowSendIcon] = useState(true);
     //const roomTheme = localStorage.getItem('roomTheme');
 
     const getReady = async () => {
@@ -127,13 +126,17 @@ const Room = () => {
             };
 
             const clickToVote = () =>{
-                api.put("room/"+roomId+"/vote/" +localStorage.getItem('id')+"="+user.id)
+                console.log('id:'+localStorage.getItem('id')+'userid'+user.id)
+                if(Number(localStorage.getItem('id')) !== user.id)
+                    api.put("room/"+roomId+"/vote/" +localStorage.getItem('id')+"="+user.id)
+
             }
 
             return (
                 <div className="room playercontainer">
 
-                    < img src={user.avatarUrl} onClick={clickToVote} alt="profile img" className="room avatarimg"/>
+                    < img src={user.avatarUrl} onClick={Number(localStorage.getItem('id')) === user.id ? null : clickToVote}
+                          alt="profile img"  style={{ cursor: Number(localStorage.getItem('id')) === user.id ? "default" : "pointer" }} className="room avatarimg"/>
                     <div className="room playername "><span style={statusStyle}>{user.username}</span> </div>
                 </div>
             );
@@ -251,11 +254,11 @@ const Room = () => {
 
             case "START":
                 setIsButtonVisible(false);
-                setGameStatus(true);
                 wordAssign();
                 publicChats.push(payloadData);
                 setPublicChats([...publicChats]);
                 scrollToBottom();
+                setShowSendIcon(false);
                 break;
 
             case "REMINDER":
@@ -270,6 +273,9 @@ const Room = () => {
                 scrollToBottom();
                 setIsVisible(true);
                 setSeconds(20);
+                if(payloadData.senderName === userData.username){
+                    setShowSendIcon(true);
+                }
                 break;
 
             case "VOTE":
@@ -277,14 +283,17 @@ const Room = () => {
                 setPublicChats([...publicChats]);
                 scrollToBottom();
                 setSeconds(10);
+
                 break;
-            case "CURRENT_PLAYER":
-                publicChats.push(payloadData);
-                setPublicChats([...publicChats]);
-                scrollToBottom();
-                setCurrentPlayer(payloadData);
-                console.log(payloadData);
-                break;
+
+            // case "CURRENT_PLAYER":
+            //     publicChats.push(payloadData);
+            //     setPublicChats([...publicChats]);
+            //     scrollToBottom();
+            //     if(payloadData.message.equals(userData.username))
+            //         setShowSendIcon(true);
+            //     console.log(payloadData);
+            //     break;
         }
     }
 
@@ -440,15 +449,7 @@ const Room = () => {
             <div className="chat send-messagebox">
                 <input type="text" className="chat input-message" placeholder="Enter your message here..." value={userData.message} onChange={handleMessage} />
                 {/*<Button type="button" onClick={sendValue}>send</Button>*/}
-                {/*<button*/}
-                {/*    className="room confirmicon"*/}
-                {/*    onClick={sendValue}*/}
-                {/*    disabled={!gameStatus || !currentPlayer.equals(userData.username)}*/}
-                {/*>*/}
-                {/*    <img src={ConfirmIcon} alt="Confirm" />*/}
-                {/*</button>*/}
-                <img className="room confirmicon" src={ConfirmIcon} onClick={sendValue}
-                     disabled={!gameStatus || !currentPlayer.equals(userData.username)} alt="Confirm" />
+                <img className={`room ${showSendIcon ? 'confirmicon' : 'confirmicon-hidden'}`}  src={ConfirmIcon} onClick={sendValue} alt="Confirm" />
             </div>
 
         </div>

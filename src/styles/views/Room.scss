@@ -276,6 +276,13 @@
     right: 0%;
     //overflow: hidden;
   }
+  &.confirmicon-hidden{
+    position: absolute;
+    width: 12%;
+    right: 0%;
+    display: none;
+    //overflow: hidden;
+  }
 
 
 
