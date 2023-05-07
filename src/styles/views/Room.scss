@@ -13,6 +13,23 @@
     font-size: 100%;
     //line-height: 27px;
   }
+  &.result {
+    flex-direction: column;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(167, 223, 255, 1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 19px;
+    z-index: 9999;
+  }
+  &.trophies {
+
+    top: 20%;
+    width: 80%;
+  }
   &.container {
     margin-top: 2em;
     min-height: 300px;
@@ -39,6 +56,14 @@
 
     color: #2F2F2F;
     overflow: hidden;
+  }
+  &.winning{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 140%;
+    line-height: 60px;
+    color: #2F2F2F;
   }
   &.reminder{
     position: absolute;

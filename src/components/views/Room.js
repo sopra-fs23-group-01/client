@@ -16,6 +16,7 @@ import {Spinner} from "../ui/Spinner";
 import React, { useEffect, useState, useRef } from 'react'
 import { over } from 'stompjs';
 import SockJS from 'sockjs-client';
+import trophies from './trophies.png';
 
 var stompClient = null;
 const Room = () => {
@@ -30,6 +31,8 @@ const Room = () => {
     const id = localStorage.getItem('id');
     const [isButtonVisible, setIsButtonVisible] = useState(true);
     const [showSendIcon, setShowSendIcon] = useState(true);
+    const [winner, setWinner] = useState(null);
+    const [showResult, setShowResult] = useState(false);
     //const roomTheme = localStorage.getItem('roomTheme');
 
     const getReady = async () => {
@@ -286,6 +289,16 @@ const Room = () => {
 
                 break;
 
+            case "END":
+                setIsButtonVisible(true);
+                publicChats.push(payloadData);
+                setPublicChats([...publicChats]);
+                scrollToBottom();
+                setShowSendIcon(true);
+                setWinner(payloadData.senderName);
+                setShowResult(true);
+                break;
+
             // case "CURRENT_PLAYER":
             //     publicChats.push(payloadData);
             //     setPublicChats([...publicChats]);
@@ -376,6 +389,20 @@ const Room = () => {
                     {userData.connected ?
 
                         <div className="chat chat-box">
+                            {showResult &&
+                                <div className="room result">
+                                    <img className="room trophies" src={trophies} />
+                                    <p className="room winning">{winner} wins!</p>
+                                    <div className="login button-container" style={{ marginBottom: '30px' }}>
+                                        <Button
+                                            width="150px"
+                                            onClick={() =>setShowResult(false)}>Confirm
+                                        </Button>
+                                    </div>
+
+                                </div>
+                            }
+
                             {/* <div className="chat member-list">
                             <ul>
                                 <li onClick={() => { setTab("CHATROOM") }} className={`chat member ${tab === "CHATROOM" && "active"}`}>Chatroom</li>
