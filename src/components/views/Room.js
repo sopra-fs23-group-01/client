@@ -278,7 +278,8 @@ const Room = () => {
                 setSeconds(20);
                 if(payloadData.senderName === userData.username){
                     setShowSendIcon(true);
-                }
+                } else
+                    setShowSendIcon(false);
                 break;
 
             case "VOTE":
