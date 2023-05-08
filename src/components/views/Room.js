@@ -34,6 +34,8 @@ const Room = () => {
     const [winner, setWinner] = useState(null);
     const [showResult, setShowResult] = useState(false);
     //const roomTheme = localStorage.getItem('roomTheme');
+    const [buttonStatus, setButtonStatus] = useState("Ready");
+
 
     const getReady = async () => {
         try {
@@ -42,6 +44,40 @@ const Room = () => {
 
         } catch (error) {
             alert(`Something went wrong during the login: \n${handleError(error)}`);
+        }
+        var readyMessage = {
+            senderName: userData.username,
+            status: buttonStatus === "Ready" ? "READY" : "NOT_READY"
+        };
+        stompClient.send("/app/message/"+roomId, {}, JSON.stringify(readyMessage));
+        setButtonStatus(buttonStatus === "Ready" ? "Cancel" : "Ready");
+    };
+
+    const updateUser = async () => {
+        try {
+
+            //get all players in the room
+            const response = await api.get('/games/playerList/'+roomId);
+            await new Promise(resolve => setTimeout(resolve, 1000));
+
+            // Get the returned users and update the state.
+            setUsers(response.data);
+
+            // This is just some data for you to see what is available.
+            // Feel free to remove it.
+            console.log('request to:', response.request.responseURL);
+            console.log('status code:', response.status);
+            console.log('status text:', response.statusText);
+            console.log('requested data:', response.data);
+
+            // See here to get more data.
+            console.log(response);
+        } catch (error) {
+            console.error(`Something went wrong while fetching the users: \n${handleError(error)}`);
+            console.error("Details:", error);
+            alert("Something went wrong while fetching the users! See the console for details.");
+            localStorage.removeItem('token');
+            history.push('/login')
         }
     };
 
@@ -80,44 +116,43 @@ const Room = () => {
 
         stompClient.send("/app/gamestart/"+roomId, {},JSON.stringify());
 
-        //history.push('/room='+roomId+'/game');
     }
 
 
 
-    useEffect(() => {
-        // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
-        async function fetchData() {
-            try {
+    // useEffect(() => {
+    //     // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
+    //     async function fetchData() {
+    //         try {
 
-                //get all players in the room
-                const response = await api.get('/games/playerList/'+roomId);
-                await new Promise(resolve => setTimeout(resolve, 1000));
+    //             //get all players in the room
+    //             const response = await api.get('/games/playerList/'+roomId);
+    //             await new Promise(resolve => setTimeout(resolve, 1000));
 
-                // Get the returned users and update the state.
-                setUsers(response.data);
+    //             // Get the returned users and update the state.
+    //             setUsers(response.data);
 
-                // This is just some data for you to see what is available.
-                // Feel free to remove it.
-                console.log('request to:', response.request.responseURL);
-                console.log('status code:', response.status);
-                console.log('status text:', response.statusText);
-                console.log('requested data:', response.data);
+    //             // This is just some data for you to see what is available.
+    //             // Feel free to remove it.
+    //             console.log('request to:', response.request.responseURL);
+    //             console.log('status code:', response.status);
+    //             console.log('status text:', response.statusText);
+    //             console.log('requested data:', response.data);
 
-                // See here to get more data.
-                console.log(response);
-            } catch (error) {
-                console.error(`Something went wrong while fetching the users: \n${handleError(error)}`);
-                console.error("Details:", error);
-                alert("Something went wrong while fetching the users! See the console for details.");
-                localStorage.removeItem('token');
-                history.push('/login')
-            }
+    //             // See here to get more data.
+    //             console.log(response);
+    //         } catch (error) {
+    //             console.error(`Something went wrong while fetching the users: \n${handleError(error)}`);
+    //             console.error("Details:", error);
+    //             alert("Something went wrong while fetching the users! See the console for details.");
+    //             localStorage.removeItem('token');
+    //             history.push('/login')
+    //         }
 
-        }
+    //     }
 
-        fetchData();
-    }, [users]);
+    //     fetchData();
+    // }, [users]);
 
     let content = <Spinner/>;
 
@@ -197,7 +232,7 @@ const Room = () => {
 
     const onConnected = () => {
         setUserData({ ...userData, "connected": true });
-        stompClient.subscribe('/chatroom/public', onMessageReceived);
+        stompClient.subscribe('/chatroom/'+roomId+'/public', onMessageReceived);
         stompClient.subscribe('/user/' + userData.username + '/private', onPrivateMessageReceived);
         userJoin();
     }
@@ -219,15 +254,16 @@ const Room = () => {
             senderName: userData.username,
             status: "JOIN"
         };
-        stompClient.send("/app/message", {}, JSON.stringify(chatMessage));
+        stompClient.send("/app/message/"+roomId, {}, JSON.stringify(chatMessage));
     }
+
 
     const wordAssign = () => {
         var chatMessage = {
             senderName: userData.username,
             status: "ASSIGNED_WORD"
         };
-        stompClient.send("/app/message", {}, JSON.stringify(chatMessage));
+        stompClient.send("/app/message/"+roomId, {}, JSON.stringify(chatMessage));
     }
 
 
@@ -236,6 +272,7 @@ const Room = () => {
         var payloadData = JSON.parse(payload.body);
         switch (payloadData.status) {
             case "JOIN":
+                updateUser();       
                 if (!privateChats.get(payloadData.senderName)) {
                     privateChats.set(payloadData.senderName, []);
                     setPrivateChats(new Map(privateChats));
@@ -254,8 +291,31 @@ const Room = () => {
                 setPublicChats([...publicChats]);
                 scrollToBottom();
                 break;
+            case "READY":
+                updateUser(); 
+                const readyMessage = {
+                    senderName: "system",
+                    message: `${payloadData.senderName} is ready!`,
+                    status: "MESSAGE"
+                };
+                publicChats.push(readyMessage);
+                setPublicChats([...publicChats]);
+                scrollToBottom();
+                break;
+            case "NOT_READY":
+                updateUser(); 
+                const cancelMessage = {
+                    senderName: "system",
+                    message: `${payloadData.senderName} cancel ready!`,
+                    status: "MESSAGE"
+                };
+                publicChats.push(cancelMessage);
+                setPublicChats([...publicChats]);
+                scrollToBottom();
+                break;
 
             case "START":
+                updateUser(); 
                 setIsButtonVisible(false);
                 wordAssign();
                 publicChats.push(payloadData);
@@ -279,7 +339,7 @@ const Room = () => {
                 if(payloadData.senderName === userData.username){
                     setShowSendIcon(true);
                 } else
-                    setShowSendIcon(false);
+                setShowSendIcon(false);
                 break;
 
             case "VOTE":
@@ -342,7 +402,7 @@ const Room = () => {
                 status: "MESSAGE"
             };
             console.log(chatMessage);
-            stompClient.send("/app/message", {}, JSON.stringify(chatMessage));
+            stompClient.send("/app/message/"+roomId, {}, JSON.stringify(chatMessage));
             setUserData({ ...userData, "message": "" });
         }
     }
@@ -445,7 +505,7 @@ const Room = () => {
                             {isButtonVisible ?
                                 <div className="room button-row">
                                     <div className="room button-container" onClick={() => getReady()}>
-                                        Ready/Cancel
+                                        {buttonStatus}
                                     </div>
                                     <div className="room button-container1" onClick={() => gameStart()}>
                                         Start
@@ -457,26 +517,12 @@ const Room = () => {
                         </div>
                         :
                         null
-                        // <div className="chat register">
-                        //     <input
-                        //         id="user-name"
-                        //         placeholder="(测试用)"
-                        //         name="userName"
-                        //         value={userData.username}
-                        //         onChange={handleUsername}
-                        //         margin="normal"
-                        //     />
-                        //     <button type="button" onClick={registerUser}>
-                        //         connect
-                        //     </button>
-                        // </div>
                     }
                 </div>
 
             {content}
             <div className="chat send-messagebox">
                 <input type="text" className="chat input-message" placeholder="Enter your message here..." value={userData.message} onChange={handleMessage} />
-                {/*<Button type="button" onClick={sendValue}>send</Button>*/}
                 <img className={`room ${showSendIcon ? 'confirmicon' : 'confirmicon-hidden'}`}  src={ConfirmIcon} onClick={sendValue} alt="Confirm" />
             </div>
 

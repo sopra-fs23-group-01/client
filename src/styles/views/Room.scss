@@ -1,10 +1,31 @@
 @import 'styles/theme';
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes scroll {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(10%); // Adjust the translation value as desired
+  }
+}
+
+
 
 .room {
+
+
   &.countdown{
     position: absolute;
     left: 35%;
-    top: 90%;
+    top: 92%;
     width:100%;
 
     font-family: 'Poppins';
@@ -12,6 +33,7 @@
     font-weight: 500;
     font-size: 100%;
     //line-height: 27px;
+    animation: blink 2s linear infinite;
   }
   &.result {
     flex-direction: column;
@@ -56,6 +78,7 @@
 
     color: #2F2F2F;
     overflow: hidden;
+    animation: scroll 1s ease infinite;
   }
   &.winning{
     font-family: 'Poppins';
@@ -165,8 +188,9 @@
   }
   &.user-list{
     position: absolute;
-    bottom:7%;
+    bottom:9%;
     left: 0%;
+    width: 100%;
     display: grid;
     grid-template-columns: repeat(4, 1fr); /* 4 items per line */
     gap: 10px; /* space between items */
@@ -242,7 +266,13 @@
     /* identical to box height */
 
     color: #FFFFFF;
+
+      /* Add click effect */
+    &:active {
+      transform: scale(1.1)
+    }
   }
+
   &.button-container1 {
     height:100%;
     width: 48%;
@@ -264,6 +294,10 @@
     /* identical to box height */
 
     color: #FFFFFF;
+      /* Add click effect */
+    &:active {
+      transform: scale(1.1)
+    }
   }
   &.inputcontainer{
     position: absolute;
@@ -365,7 +399,7 @@
     height: 80%;
     overflow-y: scroll;
     scrollbar-width: none; /* For Firefox */
-    margin-top: 10%;
+    margin-top: 13%;
 
   }
   
