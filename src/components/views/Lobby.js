@@ -6,6 +6,7 @@ import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import "styles/views/Lobby.scss";
 import NavigationBar from "./NavigationBar";
+import Room from "../../models/Room";
 
 
 const Lobby = () => {
@@ -21,11 +22,6 @@ const Lobby = () => {
     //const [users, setUsers] = useState(null);
     const [rooms, setRooms] = useState(null);
 
-    const quickStart = async () => {
-
-        window.location.href = `/chat`;
-    };
-
     async function enterRoom(roomId, id) {
         try {
             const requestBody = JSON.stringify({id});
@@ -35,6 +31,20 @@ const Lobby = () => {
         } catch (error) {
             console.error(`Something went wrong during the enterRoom: \n${handleError(error)}`);
             alert(`Something went wrong during the enterRoom: \n${handleError(error)}`);
+        }
+    }
+    async function quickStart() {
+        try {
+            const id = localStorage.getItem('id');
+            const requestBody = JSON.stringify({id});
+            const response = await api.post('/room/quickStart', requestBody);
+            const room = new Room(response.data);
+            window.location.href = `/room=${room.roomId}`;
+            //alert('Entered room successfully: '+roomId+'userId: '+id);
+            //history.push(`/leaderboard`);
+        } catch (error) {
+            console.error(`Something went wrong during the quickStart: \n${handleError(error)}`);
+            alert(`Something went wrong during the quickStart: \n${handleError(error)}`);
         }
     }
 
@@ -82,7 +92,7 @@ const Lobby = () => {
                     <div className="lobby player container" style={{ backgroundColor: 'yellowgreen' }}>
                         <div className="lobby player room">Room {room.roomId}</div>
                         <div className="lobby player theme"><span style={tryStyle}> {room.theme}</span></div>
-                        <span style={propertyStyle}>{room.roomProperty}</span>
+                        <span style={propertyStyle}>{room.roomProperty}   {room.roomPlayersList.length}/{room.maxPlayersNum} </span>
                     </div>
                 </a>
             );

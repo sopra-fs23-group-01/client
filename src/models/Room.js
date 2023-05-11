@@ -5,6 +5,7 @@ class Room {
     constructor(data = {}) {
         this.roomId = null;
         this.token = null;
+        this.maxPlayersNum = null;
         this.roomProperty = null;
         this.theme = null;
         this.roomOwnerId = null;
