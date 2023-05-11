@@ -160,7 +160,8 @@ const Room = () => {
 
         function Player({ user }) {
             const statusStyle = {
-                color: user.readyStatus === "READY" ? "green" : "red"
+                color: user.readyStatus === "READY" ? "green" : "red",
+                fontSize: "120%"
             };
 
             const clickToVote = () =>{
@@ -174,7 +175,9 @@ const Room = () => {
                 <div className="room playercontainer">
 
                     < img src={user.avatarUrl} onClick={Number(localStorage.getItem('id')) === user.id ? null : clickToVote}
-                          alt="profile img"  style={{ cursor: Number(localStorage.getItem('id')) === user.id ? "default" : "pointer" }} className="room avatarimg"/>
+                          alt="profile img"  style={{ cursor: Number(localStorage.getItem('id')) === user.id ? "default" : "pointer" ,
+                                                     border: `2px solid ${user.readyStatus === "READY" ? "green" : "red"}`
+                    }} className="room avatarimg"/>
                     <div className="room playername "><span style={statusStyle}>{user.username}</span> </div>
                 </div>
             );
