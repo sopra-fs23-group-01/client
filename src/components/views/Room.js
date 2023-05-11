@@ -35,6 +35,7 @@ const Room = () => {
     const [showResult, setShowResult] = useState(false);
     //const roomTheme = localStorage.getItem('roomTheme');
     const [buttonStatus, setButtonStatus] = useState("Ready");
+    const [votedThisRound, setVotedThisRound] = useState(true);
 
 
     const getReady = async () => {
@@ -118,42 +119,6 @@ const Room = () => {
 
     }
 
-
-
-    // useEffect(() => {
-    //     // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
-    //     async function fetchData() {
-    //         try {
-
-    //             //get all players in the room
-    //             const response = await api.get('/games/playerList/'+roomId);
-    //             await new Promise(resolve => setTimeout(resolve, 1000));
-
-    //             // Get the returned users and update the state.
-    //             setUsers(response.data);
-
-    //             // This is just some data for you to see what is available.
-    //             // Feel free to remove it.
-    //             console.log('request to:', response.request.responseURL);
-    //             console.log('status code:', response.status);
-    //             console.log('status text:', response.statusText);
-    //             console.log('requested data:', response.data);
-
-    //             // See here to get more data.
-    //             console.log(response);
-    //         } catch (error) {
-    //             console.error(`Something went wrong while fetching the users: \n${handleError(error)}`);
-    //             console.error("Details:", error);
-    //             alert("Something went wrong while fetching the users! See the console for details.");
-    //             localStorage.removeItem('token');
-    //             history.push('/login')
-    //         }
-
-    //     }
-
-    //     fetchData();
-    // }, [users]);
-
     let content = <Spinner/>;
 
     if (users) {
@@ -166,16 +131,21 @@ const Room = () => {
 
             const clickToVote = () =>{
                 console.log('id:'+localStorage.getItem('id')+'userid'+user.id)
-                if(Number(localStorage.getItem('id')) !== user.id)
+                if(Number(localStorage.getItem('id')) !== user.id){
                     api.put("room/"+roomId+"/vote/" +localStorage.getItem('id')+"="+user.id)
+                    setVotedThisRound(true)
+                }
+
 
             }
 
             return (
                 <div className="room playercontainer">
 
-                    < img src={user.avatarUrl} onClick={Number(localStorage.getItem('id')) === user.id ? null : clickToVote}
-                          alt="profile img"  style={{ cursor: Number(localStorage.getItem('id')) === user.id ? "default" : "pointer" ,
+                    < img src={user.avatarUrl}
+                          onClick={Number(localStorage.getItem('id')) === user.id|| votedThisRound===true ? null : clickToVote}
+                          alt="profile img"
+                          style={{ cursor: Number(localStorage.getItem('id')) === user.id || votedThisRound===true ? "default" : "pointer" ,
                                                      border: `2px solid ${user.readyStatus === "READY" ? "green" : "red"}`
                     }} className="room avatarimg"/>
                     <div className="room playername "><span style={statusStyle}>{user.username}</span> </div>
@@ -334,6 +304,7 @@ const Room = () => {
                 break;
 
             case "DESCRIPTION":
+                setVotedThisRound(true);
                 publicChats.push(payloadData);
                 setPublicChats([...publicChats]);
                 scrollToBottom();
@@ -349,6 +320,7 @@ const Room = () => {
                 publicChats.push(payloadData);
                 setPublicChats([...publicChats]);
                 scrollToBottom();
+                setVotedThisRound(false);
                 setSeconds(10);
 
                 break;
@@ -416,25 +388,6 @@ const Room = () => {
             messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
         }
     };
-
-    // const sendPrivateValue = () => {
-    //     if (stompClient) {
-    //         var chatMessage = {
-    //             senderName: userData.username,
-    //             receiverName: tab,
-    //             message: userData.message,
-    //             status: "MESSAGE"
-    //         };
-
-    //         if (userData.username !== tab) {
-    //             privateChats.get(tab).push(chatMessage);
-    //             setPrivateChats(new Map(privateChats));
-    //         }
-    //         stompClient.send("/app/private-message", {}, JSON.stringify(chatMessage));
-    //         setUserData({ ...userData, "message": "" });
-    //     }
-    // }
-
 
     return (
         <div>
