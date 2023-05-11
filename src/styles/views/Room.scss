@@ -1,4 +1,4 @@
-@import 'styles/theme';
+@import '../theme';
 @keyframes blink {
   0%, 100% {
     opacity: 1;
@@ -85,8 +85,9 @@
     font-style: normal;
     font-weight: 700;
     font-size: 140%;
-    line-height: 60px;
+    line-height: 20px;
     color: #2F2F2F;
+    margin: 0;
   }
   &.reminder{
     position: absolute;
