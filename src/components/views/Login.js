@@ -56,8 +56,8 @@ const PasswordField = props => {
       />
         <img className="login nameicon" src={NameIcon} alt="Username" />
         <img className="login passwordicon" src={PasswordIcon} alt="Password" />
-        <img className="login showicon" src={NotShowIcon} alt="LoginIllustration" />
-        <div className="login showtext" onClick={toggleShowPassword }>{showPassword ? 'Hide' : 'Show' }</div>
+        {/*<img className="login showicon" src={NotShowIcon} alt="LoginIllustration" />*/}
+        <div onClick={toggleShowPassword }>{showPassword ? <img className="login showicon" src={NotShowIcon} alt="LoginIllustration" /> : 'Show' }</div>
     </div>
   );
 };
@@ -107,12 +107,11 @@ const Login = props => {
                 onChange={un => setUsername(un)}
               />
               <PasswordField
-                label="Password (Do not contain spcace):"
+                label="Password"
                 value={password}
                 onChange={n => setPassword(n)}
 
               />
-              <div className="login forget">Forgot Password?</div>
               <div className="login button-container">
                 <Button
                   disabled={!username || !password || username.trim() ===" " || password.trim() ===" "}

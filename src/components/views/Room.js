@@ -172,6 +172,8 @@ const Room = () => {
     const [privateChats, setPrivateChats] = useState(new Map());
     const [publicChats, setPublicChats] = useState([]);
     const [tab, setTab] = useState("CHATROOM");
+    const synonymsOfWord = ["apple", "pear"]; // 修改为你的同义词列表
+
 
 
 
@@ -197,8 +199,8 @@ const Room = () => {
     }, [userData]);
 
     const connect = () => {
-        let Sock = new SockJS('http://localhost:8080/ws');
-        //let Sock = new SockJS('https://sopra-fs23-group-01-server.oa.r.appspot.com/ws');
+        //let Sock = new SockJS('http://localhost:8080/ws');
+        let Sock = new SockJS('https://sopra-fs23-group-01-server.oa.r.appspot.com/ws');
         stompClient = over(Sock);
         stompClient.connect({}, onConnected, onError);
     }
@@ -376,6 +378,13 @@ const Room = () => {
                 message: userData.message,
                 status: "MESSAGE"
             };
+
+            let invalidWords = synonymsOfWord.filter(word => chatMessage.message.includes(word));
+            if (invalidWords.length > 0) {
+                alert("Your message contains words that are not allowed: " + invalidWords.join(", "));
+                return; // 如果有无效的词，就停止发送
+            }
+
             console.log(chatMessage);
             stompClient.send("/app/message/"+roomId, {}, JSON.stringify(chatMessage));
             setUserData({ ...userData, "message": "" });

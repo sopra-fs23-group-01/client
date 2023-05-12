@@ -59,8 +59,8 @@ const PasswordField = props => {
           />
           <img className="register nameicon" src={NameIcon} alt="Username" />
           <img className="register passwordicon" src={PasswordIcon} alt="Password" />
-          <img className="register showicon" src={NotShowIcon} alt="LoginIllustration" />
-          <div className="register showtext" onClick={toggleShowPassword }>{showPassword ? 'Hide' : 'Show' }</div>
+
+          <div onClick={toggleShowPassword }>{showPassword ? <img className="register showicon" src={NotShowIcon} alt="LoginIllustration" /> : 'Show' }</div>
         </div>
   );
 };
@@ -87,7 +87,9 @@ const Register = props => {
 
 
   const doregister = async () => {
+    
     try {
+      // localStorage.clear;
       const requestBody = JSON.stringify({username, password});
       const response = await api.post('/users', requestBody);
 
