@@ -7,6 +7,7 @@ import PropTypes from "prop-types";
 import "styles/views/Lobby.scss";
 import NavigationBar from "./NavigationBar";
 import Room from "../../models/Room";
+import {toast} from "react-toastify";
 
 
 const Lobby = () => {
@@ -44,7 +45,7 @@ const Lobby = () => {
             //history.push(`/leaderboard`);
         } catch (error) {
             console.error(`Something went wrong during the quickStart: \n${handleError(error)}`);
-            alert(`Something went wrong during the quickStart: \n${handleError(error)}`);
+            toast.error(`Something went wrong during the quickStart: \n${handleError(error)}`);
         }
     }
 
