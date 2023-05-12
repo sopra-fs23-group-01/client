@@ -17,6 +17,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import { over } from 'stompjs';
 import SockJS from 'sockjs-client';
 import trophies from './trophies.png';
+import {toast, ToastContainer} from "react-toastify";
 
 var stompClient = null;
 const Room = () => {
@@ -44,7 +45,7 @@ const Room = () => {
             await api.put('/users/room/'+roomId, requestBody);
 
         } catch (error) {
-            alert(`Something went wrong during the login: \n${handleError(error)}`);
+            toast.error(`Something went wrong get ready`);
         }
         var readyMessage = {
             senderName: userData.username,
@@ -52,6 +53,11 @@ const Room = () => {
         };
         stompClient.send("/app/message/"+roomId, {}, JSON.stringify(readyMessage));
         setButtonStatus(buttonStatus === "Ready" ? "Cancel" : "Ready");
+        if (buttonStatus === "Ready") {
+            toast.success("You are now ready!", { autoClose: 1000 });
+        } else {
+            toast.error("You cancelled your readiness.", { autoClose: 1000 });
+        }
     };
 
     const updateUser = async () => {
@@ -199,8 +205,8 @@ const Room = () => {
     }, [userData]);
 
     const connect = () => {
-        //let Sock = new SockJS('http://localhost:8080/ws');
-        let Sock = new SockJS('https://sopra-fs23-group-01-server.oa.r.appspot.com/ws');
+        let Sock = new SockJS('http://localhost:8080/ws');
+        //let Sock = new SockJS('https://sopra-fs23-group-01-server.oa.r.appspot.com/ws');
         stompClient = over(Sock);
         stompClient.connect({}, onConnected, onError);
     }
@@ -290,6 +296,7 @@ const Room = () => {
                 break;
 
             case "START":
+                toast.success("Game Start Now! Good Luck and Have Fun!");
                 updateUser(); 
                 setIsButtonVisible(false);
                 wordAssign();
@@ -303,6 +310,8 @@ const Room = () => {
                 publicChats.push(payloadData);
                 setPublicChats([...publicChats]);
                 scrollToBottom();
+                const reminderMessage = payloadData.message;
+                toast.info(reminderMessage, { autoClose: 2500 });
                 break;
 
             case "DESCRIPTION":
@@ -313,12 +322,14 @@ const Room = () => {
                 setIsVisible(true);
                 setSeconds(20);
                 if(payloadData.senderName === userData.username){
+                    toast.info("It's your turn! Please describe!")
                     setShowSendIcon(true);
                 } else
-                setShowSendIcon(false);
+                    setShowSendIcon(false);
                 break;
 
             case "VOTE":
+                toast.info("It's time to vote! Please pick a player by clicking their Avatar!")
                 publicChats.push(payloadData);
                 setPublicChats([...publicChats]);
                 scrollToBottom();
@@ -328,6 +339,7 @@ const Room = () => {
                 break;
 
             case "END":
+                toast.info("Game Over! GG!")
                 setIsButtonVisible(true);
                 publicChats.push(payloadData);
                 setPublicChats([...publicChats]);
@@ -381,7 +393,7 @@ const Room = () => {
 
             let invalidWords = synonymsOfWord.filter(word => chatMessage.message.includes(word));
             if (invalidWords.length > 0) {
-                alert("Your message contains words that are not allowed: " + invalidWords.join(", "));
+                toast.warning("Your message contains words that are not allowed: " + invalidWords.join(", "));
                 return; // 如果有无效的词，就停止发送
             }
 
@@ -400,6 +412,7 @@ const Room = () => {
 
     return (
         <div>
+            <ToastContainer />
             < img className="room backicon" src={BackIcon} alt="Back" onClick={() => goBack()} />
             <div className="room roomid">Room:{roomId}</div>
             <div className="room reminder">
