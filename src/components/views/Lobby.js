@@ -80,7 +80,7 @@ const Lobby = () => {
 
         function Room({ room }) {
             const propertyStyle = {
-                color: room.roomProperty === "PUBLIC" ? "green" : "red"
+                color: room.roomProperty === "WAITING" ? "green" : "red"
             };
 
             const tryStyle = {
@@ -88,7 +88,19 @@ const Lobby = () => {
             };
 
             return (
-                <a href={`/room=${room.roomId}`} style={{ textDecoration: 'none' }} onClick={() => enterRoom(room.roomId, localStorage.getItem('id'))}>
+                //<a href={`/room=${room.roomId}`} style={{ textDecoration: 'none' }} disabled={room.roomProperty ==="INGAME"} onClick={() => enterRoom(room.roomId, localStorage.getItem('id'))}>
+                <a
+                    href={`/room=${room.roomId}`}
+                    style={{ textDecoration: 'none', color: room.roomProperty === "INGAME" ? 'gray' : 'black', pointerEvents: room.roomProperty === "INGAME" ? 'none' : 'auto' }}
+                    onClick={(e) => {
+                        e.preventDefault(); // 禁止默认的点击事件
+                        if (room.roomProperty === "INGAME"||room.roomPlayersList.length === room.maxPlayersNum) {
+                            // 如果房间正在进行游戏，则不执行进入房间操作
+                            return;
+                        }
+                        enterRoom(room.roomId, localStorage.getItem('id'));
+                    }}
+                >
                     <div className="lobby player container" style={{ backgroundColor: 'yellowgreen' }}>
                         <div className="lobby player room">Room {room.roomId}</div>
                         <div className="lobby player theme"><span style={tryStyle}> {room.theme}</span></div>

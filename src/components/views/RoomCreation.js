@@ -22,14 +22,14 @@ const RoomCreation = props => {
     const [maxPlayersNum, setMaxPlayersNum] = useState(4);
     const [theme, setTheme] = useState('THEME1');
     const [room, setRoom] = useState(null);
-    const [roomProperty, setRoomProperty] = useState("PUBLIC");
+    //const [roomProperty, setRoomProperty] = useState("PUBLIC");
     const [roomOwnerId, setRoomOwnerId] = useState(null);
     const [roomPlayersList, setroomPlayersList] = useState([]);
     //"roomPlayersList": ["id1", "id2", "id3"]
 
-    function handleCheckBox(){
-        setRoomProperty("PRIVATE");
-    }
+    // function handleCheckBox(){
+    //     setRoomProperty("PRIVATE");
+    // }
     const Counter = () => {
 
         const increment = () => {
@@ -59,7 +59,7 @@ const RoomCreation = props => {
             const roomOwnerId = localStorage.getItem('id');
             //const roomPlayersList = [localStorage.getItem('id')];
             //alert(roomOwnerId);
-            const requestBody = JSON.stringify({theme, maxPlayersNum, roomProperty,roomOwnerId});
+            const requestBody = JSON.stringify({theme, maxPlayersNum, roomOwnerId});
             const response = await api.post('/games/room', requestBody);
 
             // Get the returned room and update a new object.
@@ -110,14 +110,14 @@ const RoomCreation = props => {
                 <Counter />
 
 
-                <div className="check">
-                    <div className="roomCreation editText">Private Room</div>
-                    <span style={{margin: '20px'}}></span>
-                    <label className="checkbox">
-                        <input type="checkbox" id="myCheckbox" onChange={handleCheckBox}/>
-                        <span className="checkmark"></span>
-                    </label>
-                </div>
+                {/*<div className="check">*/}
+                {/*    <div className="roomCreation editText">Private Room</div>*/}
+                {/*    <span style={{margin: '20px'}}></span>*/}
+                {/*    <label className="checkbox">*/}
+                {/*        <input type="checkbox" id="myCheckbox" onChange={handleCheckBox}/>*/}
+                {/*        <span className="checkmark"></span>*/}
+                {/*    </label>*/}
+                {/*</div>*/}
 
 
                 <Button className="confirmButton" onClick = {() => createRoom()}>Confirm</Button>
