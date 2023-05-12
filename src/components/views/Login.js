@@ -9,6 +9,9 @@ import LoginPic from 'styles/image/Pics4login/LoginPic.png';
 import NotShowIcon from "../../styles/image/Icons/NotShowIcon.png";
 import NameIcon from "../../styles/image/Icons/NameIcon.png";
 import PasswordIcon from "../../styles/image/Icons/PasscodeIcon.png";
+import {toast, ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 
 /*
 It is possible to add multiple components inside a single file,
@@ -69,7 +72,6 @@ const Login = props => {
   const history = useHistory();
   const [password, setPassword] = useState(null);
   const [username, setUsername] = useState(null);
-
   const doLogin = async () => {
     try {
       const requestBody = JSON.stringify({username, password});
@@ -82,16 +84,19 @@ const Login = props => {
       localStorage.setItem('token', user.token);
       localStorage.setItem('id',user.id);
       localStorage.setItem('username',user.username);
-
+      toast.success("Login successfully!", { autoClose: false });
+      // Wait for Toast component to disappear before navigating to leaderboard
+      await new Promise(resolve => setTimeout(resolve, 1000));
       // Login successfully worked --> navigate to the route /game in the GameRouter
       history.push(`/leaderboard`);
     } catch (error) {
-      alert(`Something went wrong during the login: \n${handleError(error)}`);
+      toast.error(`Your username or password is incorrect!`);
     }
   };
 
   return (
       <div className="login container">
+        <ToastContainer />
           <img className="login pic" src={LoginPic} alt="LoginIllustration" />
           <div className="login welcomeline1">Welcome Back!</div>
           <div className="login welcomeline2">Detective, we miss u!</div>

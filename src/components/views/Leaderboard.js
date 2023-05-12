@@ -14,6 +14,7 @@ import avatar1 from './avatar1.png';
 import avatar2 from './avatar2.png';
 import avatar3 from './avatar3.png';
 import NavigationBar from './NavigationBar';
+import {toast, ToastContainer} from "react-toastify";
 
 
 
@@ -37,11 +38,13 @@ const Game = () => {
       const requestBody = JSON.stringify({id:id});
       const response = await api.post('/users/logout', requestBody);
       console.log(response);
-    
+        toast.success("Logout successfully!", { autoClose: false });
+
     } catch (error) {
-      alert(`Server has been refreshed!`);
-      
+        toast.error(`Server has been refreshed!`);
     }
+      // Wait for Toast component to disappear before navigating to leaderboard
+      await new Promise(resolve => setTimeout(resolve, 1000));
     history.push('/login');
   };
 
@@ -130,7 +133,7 @@ const Game = () => {
 
   return (
     <BaseContainer>
-
+        <ToastContainer />
       <img className='rank1' src={rank1}/>
       <img className='rank2' src={rank2}/>
       <img className='rank3' src={rank3}/>

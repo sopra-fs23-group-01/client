@@ -22,6 +22,7 @@ For your local development environment, you will need Node.js. You can download 
 
 ```npm install @fortawesome/fontawesome-free```
 
+```npm install react-toastify```
 
 Run this command before you start your application for the first time. Next, you can start the app with:
 

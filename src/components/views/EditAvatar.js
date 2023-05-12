@@ -9,6 +9,7 @@ import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import 'react-datepicker/dist/react-datepicker.css';
 import '@fortawesome/fontawesome-free/css/all.css';
+import {toast, ToastContainer} from "react-toastify";
 const NameChangeField= props =>{
     return(
         <div className="profile name">
@@ -137,15 +138,18 @@ const EditAvatar= () =>{
                 avatarUrl: avatarUrl
             });
             await api.put('/users/'+id, requestBody);
-
+            toast.success("Edit Avatar successfully!", { autoClose: false });
+            // Wait for Toast component to disappear before navigating to leaderboard
+            await new Promise(resolve => setTimeout(resolve, 2000));
             history.push(`/user/${id}`);
         } catch (error) {
-            alert(`Something went wrong during the profile edit: \n${handleError(error)}`);
+            toast.error(`Something went wrong during the avatar edit`);
         }
     };
 
     return(
         <BaseContainer>
+            <ToastContainer />
             <div className="profile container">
                 {/*<div className="return-button" onClick={() => history.push('/user/${id}')}></div>*/}
                 <div className="profile head">Setting Avatar</div>

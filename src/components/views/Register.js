@@ -11,6 +11,8 @@ import NameIcon from "../../styles/image/Icons/NameIcon.png";
 import PasswordIcon from "../../styles/image/Icons/PasscodeIcon.png";
 import NotShowIcon from "../../styles/image/Icons/NotShowIcon.png";
 import NavigationBar from "./NavigationBar";
+import {toast, ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 /*
 It is possible to add multiple components inside a single file,
@@ -96,18 +98,21 @@ const Register = props => {
       localStorage.setItem('username', user.username);
       localStorage.setItem('token', user.token);
       localStorage.setItem('id', user.id);
-      console.log(user.token)
-      console.log(user.id)
-
-      // Regist successfully worked --> navigate to the route /Login in the GameRouter
+      console.log(user.token);
+      console.log(user.id);
+        toast.success("Register successful!", { autoClose: false });
+        // Wait for Toast component to disappear before navigating to leaderboard
+        await new Promise(resolve => setTimeout(resolve, 1000));
+      // Register successfully worked --> navigate to the route /Login in the GameRouter
       history.push(`/Login`);
     } catch (error) {
-      alert(`Something went wrong during the register: \n${handleError(error)}`);
+        toast.error(`Your username has been used! Please change your username.`, { autoClose: 2000 });
     }
   };
 
   return (
     <BaseContainer>
+        <ToastContainer />
       <div className="register container">
         <img className="register pic" src={LoginPic} alt="LoginIllustration" />
         <div className="register welcomeline1">Get Started Free</div>
