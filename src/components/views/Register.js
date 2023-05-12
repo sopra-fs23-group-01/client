@@ -87,7 +87,7 @@ const Register = props => {
   const doregister = async () => {
     
     try {
-      localStorage.clear;
+      // localStorage.clear;
       const requestBody = JSON.stringify({username, password});
       const response = await api.post('/users', requestBody);
 
