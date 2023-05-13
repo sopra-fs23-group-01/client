@@ -93,7 +93,7 @@ const Room = () => {
         try {
             const requestBody = JSON.stringify({id});
             await api.put('/users/room/out/'+roomId, requestBody);
-
+            updateRoomOrder();
             history.push(`/lobby`);
         } catch (error) {
             alert(`Something went wrong during the goBack: \n${handleError(error)}`);
@@ -191,6 +191,7 @@ const Room = () => {
         connected: false,
         message: ''
     });
+
     //自动连接
     useEffect(() => {
         if (userData.username) {
@@ -296,7 +297,6 @@ const Room = () => {
                 break;
 
             case "START":
-                toast.success("Game Start Now! Good Luck and Have Fun!");
                 updateUser(); 
                 setIsButtonVisible(false);
                 wordAssign();
@@ -310,8 +310,6 @@ const Room = () => {
                 publicChats.push(payloadData);
                 setPublicChats([...publicChats]);
                 scrollToBottom();
-                const reminderMessage = payloadData.message;
-                toast.info(reminderMessage, { autoClose: 2500 });
                 break;
 
             case "DESCRIPTION":
@@ -322,14 +320,12 @@ const Room = () => {
                 setIsVisible(true);
                 setSeconds(20);
                 if(payloadData.senderName === userData.username){
-                    toast.info("It's your turn! Please describe!")
                     setShowSendIcon(true);
                 } else
-                    setShowSendIcon(false);
+                setShowSendIcon(false);
                 break;
 
             case "VOTE":
-                toast.info("It's time to vote! Please pick a player by clicking their Avatar!")
                 publicChats.push(payloadData);
                 setPublicChats([...publicChats]);
                 scrollToBottom();
@@ -339,7 +335,6 @@ const Room = () => {
                 break;
 
             case "END":
-                toast.info("Game Over! GG!")
                 setIsButtonVisible(true);
                 publicChats.push(payloadData);
                 setPublicChats([...publicChats]);
@@ -400,6 +395,17 @@ const Room = () => {
             console.log(chatMessage);
             stompClient.send("/app/message/"+roomId, {}, JSON.stringify(chatMessage));
             setUserData({ ...userData, "message": "" });
+        }
+    }
+
+    const updateRoomOrder = () => {
+        if (stompClient) {
+            var oderMessage = {
+                status: "ROOM_UPDATE"
+            };
+
+            console.log(oderMessage);
+            stompClient.send("/app/roomcreat", {}, JSON.stringify(oderMessage));
         }
     }
     const messagesEndRef = useRef(null);

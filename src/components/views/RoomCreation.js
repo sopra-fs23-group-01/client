@@ -1,10 +1,15 @@
 import React, {useState} from 'react';
+import {useEffect} from 'react';
 import {api, handleError} from 'helpers/api';
 import {useHistory } from 'react-router-dom';
 import {Button} from "../ui/Button";
 import 'styles/views/RoomCreation.scss';
 import BaseContainer from "components/ui/BaseContainer";
 import Room from "../../models/Room";
+import SockJS from 'sockjs-client';
+import { over } from 'stompjs';
+
+var stompClient = null;
 
 /*
 It is possible to add multiple components inside a single file,
@@ -30,6 +35,42 @@ const RoomCreation = props => {
     // function handleCheckBox(){
     //     setRoomProperty("PRIVATE");
     // }
+
+    const connect = () => {
+        let Sock = new SockJS('http://localhost:8080/ws');
+        //let Sock = new SockJS('https://sopra-fs23-group-01-server.oa.r.appspot.com/ws');
+        stompClient = over(Sock);
+        stompClient.connect({}, onConnected, onError);
+    }
+    const onConnected = () => {
+        stompClient.subscribe('/room', onMessageReceived);
+
+    }
+
+    const onMessageReceived = (payload) => {
+        var payloadData = JSON.parse(payload.body);
+        switch (payloadData.status) {
+            case "ROOM_UPDATE":  
+                break;
+        }
+    }
+
+    const onError = (err) => {
+        console.log(err);
+
+    }
+
+    const sendUpdateReminder = () => {
+        if (stompClient) {
+            var creatMessage = {
+                status: "ROOM_UPDATE"
+            };
+
+            console.log(creatMessage);
+            stompClient.send("/app/roomcreat", {}, JSON.stringify(creatMessage));
+        }
+    }
+
     const Counter = () => {
 
         const increment = () => {
@@ -69,7 +110,7 @@ const RoomCreation = props => {
             //localStorage.setItem('token', user.token);
             localStorage.setItem('roomId', room.roomId);
             localStorage.setItem('roomOwnerId', room.roomOwnerId);
-
+            sendUpdateReminder();
             // Create successfully, enter the room page
             history.push(`/room=`+room.roomId);
         } catch (error) {
@@ -80,6 +121,13 @@ const RoomCreation = props => {
     const doCancel = async () => {
         window.location.href = `/lobby`;
     };
+
+    useEffect(() => {
+        connect();
+        return () => {
+            // stompClient.disconnect();
+        };
+    }, []);
 
 /*Here is roomCreation page:
   1. Selecting theme
