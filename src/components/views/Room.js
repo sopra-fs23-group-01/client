@@ -120,9 +120,8 @@ const Room = () => {
     }, [seconds]);
 
     const gameStart = () => {
-
+        sendUpdateReminder();
         stompClient.send("/app/gamestart/"+roomId, {},JSON.stringify());
-
     }
 
     let content = <Spinner/>;
@@ -237,6 +236,7 @@ const Room = () => {
             status: "JOIN"
         };
         stompClient.send("/app/message/"+roomId, {}, JSON.stringify(chatMessage));
+        sendUpdateReminder();
     }
 
 
@@ -246,6 +246,17 @@ const Room = () => {
             status: "ASSIGNED_WORD"
         };
         stompClient.send("/app/message/"+roomId, {}, JSON.stringify(chatMessage));
+    }
+
+    const sendUpdateReminder = () => {
+        if (stompClient) {
+            var creatMessage = {
+                status: "ROOM_UPDATE"
+            };
+
+            console.log(creatMessage);
+            stompClient.send("/app/roomcreat", {}, JSON.stringify(creatMessage));
+        }
     }
 
 
