@@ -353,6 +353,7 @@ const Room = () => {
                 setShowSendIcon(true);
                 setWinner(payloadData.senderName);
                 setShowResult(true);
+                setButtonStatus("Ready");
                 break;
 
             // case "CURRENT_PLAYER":
