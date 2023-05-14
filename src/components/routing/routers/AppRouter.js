@@ -13,7 +13,7 @@ import Leaderboard from "components/views/Leaderboard";
 import Lobby from "../../views/Lobby";
 import RoomCreation from "../../views/RoomCreation";
 import EditAvatar from "../../views/EditAvatar";
-import VoteResult from "../../views/VoteResult";
+//import VoteResult from "../../views/VoteResult";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 /**
@@ -53,9 +53,9 @@ const AppRouter = () => {
             </GameGuard>
           </Route>
 
-          <Route path="/voteresult/room=:id">
-              <VoteResult/>
-          </Route>
+          {/*<Route path="/voteresult/room=:id">*/}
+          {/*    <VoteResult/>*/}
+          {/*</Route>*/}
 
           <Route exact path="/login">
             <LoginGuard>

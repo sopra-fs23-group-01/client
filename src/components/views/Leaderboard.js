@@ -15,7 +15,7 @@ import avatar2 from './avatar2.png';
 import avatar3 from './avatar3.png';
 import NavigationBar from './NavigationBar';
 import {toast, ToastContainer} from "react-toastify";
-
+import { Link } from 'react-router-dom';
 
 
 const Game = () => {
@@ -72,21 +72,23 @@ const Game = () => {
     if (users) {
         function Player({ user }) {
             return (
-                <div className="game playercontainer">
-                    <div className="leaderboard number">{user.id}</div>
-                    <img className='avatar4' src={user.avatarUrl} />
-                    <div className="game informationcontainer">
-                        <div className="leaderboard id">
-                            <a href={`/user/${user.id}`} className="leaderboard namelink">
-                                Player {user.username}
-                            </a>
+                <Link to={`/user/${user.id}`} style={{textDecoration: 'none'}}>
+                    <div className="game playercontainer" >
+                        <div className="leaderboard number">{user.id}</div>
+                        <img className='avatar4' src={user.avatarUrl} />
+                        <div className="game informationcontainer">
+                            <div className="leaderboard id">
+                                <span className="leaderboard namelink">
+                                  Player {user.username}
+                                </span>
+                            </div>
+                            <div className="leaderboard winingrate">: {user.intro}</div>
                         </div>
-                        <div className="leaderboard winingrate">: {user.intro}</div>
+                        <div className="player rate">
+                            <div className="player ratenum">{`${user.rateDe * 100}%`}</div>
+                        </div>
                     </div>
-                    <div className="player rate">
-                        <div className="player ratenum">{`${user.rateDe * 100}%`}</div>
-                    </div>
-                </div>
+                </Link>
             );
         }
 
@@ -130,7 +132,9 @@ const Game = () => {
         {firstPlayer && (
             <>
                 <img className='crown1' src={crown}/>
-                <img className='avatar1' src={firstPlayer.avatarUrl}/>
+                <Link to={`/user/${firstPlayer.id}`}>
+                    <img className='avatar1' src={firstPlayer.avatarUrl} />
+                </Link>
                 <div className='rankname1'>
                     {firstPlayer.username}
                 </div>
@@ -139,7 +143,9 @@ const Game = () => {
         <img className='rank2' src={rank2}/>
         {secondPlayer && (
             <>
-                <img className='avatar2' src={secondPlayer.avatarUrl}/>
+                <Link to={`/user/${secondPlayer.id}`}>
+                    <img className='avatar2' src={secondPlayer.avatarUrl} />
+                </Link>
                 <div className='rankname2'>
                     {secondPlayer.username}
                 </div>
@@ -148,7 +154,9 @@ const Game = () => {
         <img className='rank3' src={rank3}/>
         {thirdPlayer && (
             <>
-                <img className='avatar3' src={thirdPlayer.avatarUrl}/>
+                <Link to={`/user/${thirdPlayer.id}`}>
+                    <img className='avatar3' src={thirdPlayer.avatarUrl} />
+                </Link>
                 <div className='rankname3'>
                     {thirdPlayer.username}
                 </div>
