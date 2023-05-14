@@ -10,7 +10,7 @@
 .game {
   
   &.playercontainer {
-    background: rgb(255, 211, 211);
+    background: rgb(204, 228, 234);
     align-items: center;
     box-shadow: $dropShadow;
     width: 100%; /* 更改宽度 */
@@ -25,7 +25,7 @@
   }
 
   &.informationcontainer {
-    background: rgb(255, 211, 211);
+    background: rgb(204, 228, 234);
     /* Auto layout */
     margin-left: 20px;
     display: flex;
@@ -67,7 +67,7 @@
     width: 10px;
     height: 22px;
 
-    font-family: 'Inter';
+    font-family: Poppins;
     font-style: normal;
     font-weight: 500;
     font-size: 15px;
@@ -110,11 +110,6 @@
     font-size: 14px;
     line-height: 22px;
     /* identical to box height, or 157% */
-    
-    
-    color: #0F0E0E;
-    
-    
     /* Inside auto layout */
     
     flex: none;
@@ -144,12 +139,16 @@
     flex-grow: 0;
   }
 
+  &.ratenum {
+    color: black;
+  }
+
   &.namelink {
-    color: white;
+    color:black;
   }
 
   &.namelink:hover {
-    color: green;
+    color: rgb(0,89,109);
   }
 }
 
@@ -275,6 +274,8 @@
   margin-left: -51.45px;
   top: 14%;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  background-color: gold;
+  border-radius: 50%;
 }
 
 .avatar2 {
@@ -283,8 +284,10 @@
   height: 106.11px;
   left: 20%;
   margin-left: -51.45px;
-  top: 12.3%;
+  top: 11.5%;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  background-color: silver;
+  border-radius: 50%;
 }
 
 .avatar3 {
@@ -293,8 +296,10 @@
   height: 106.11px;
   left: 80%;
   margin-left: -51.45px;
-  top: 12.3%;
+  top: 11.5%;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  background-color: #cd7f32;
+  border-radius: 50%;
 }
 
 .avatar4 {

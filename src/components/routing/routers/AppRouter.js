@@ -13,6 +13,9 @@ import Leaderboard from "components/views/Leaderboard";
 import Lobby from "../../views/Lobby";
 import RoomCreation from "../../views/RoomCreation";
 import EditAvatar from "../../views/EditAvatar";
+import VoteResult from "../../views/VoteResult";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 /**
  * Main router of your application.
  * In the following class, different routes are rendered. In our case, there is a Login Route with matches the path "/login"
@@ -48,6 +51,10 @@ const AppRouter = () => {
             <GameGuard>
               <Room/>
             </GameGuard>
+          </Route>
+
+          <Route path="/voteresult/room=:id">
+              <VoteResult/>
           </Route>
 
           <Route exact path="/login">

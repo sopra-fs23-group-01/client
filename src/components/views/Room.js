@@ -43,6 +43,7 @@ const Room = () => {
         try {
             const requestBody = JSON.stringify({id});
             await api.put('/users/room/'+roomId, requestBody);
+            //history.push('/voteresult/room='+roomId);
 
         } catch (error) {
             toast.error(`Something went wrong get ready`);
