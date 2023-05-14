@@ -178,11 +178,9 @@ const EditProfile= () =>{
                 </Button>
           </div>
 
-          <div className="login button-container">
-              <Button className="return-button"
+          <div className="login button-container2">
 
-                        onClick={() => history.push(`/user/${id}`)}>
-              </Button>
+              <div className="return-button" onClick={() => history.push(`/user/${id}`)}></div>
 
           </div>
         </div>
