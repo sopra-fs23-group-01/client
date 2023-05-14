@@ -69,10 +69,12 @@
   }
 
   &.list {
+    justify-content: center;
     display: flex;
     flex-wrap: wrap;
-    margin-left: 7px;
-    gap: 16px;
+    gap: 10px;
+    width: auto;
+    overflow-x: hidden;
   }
 
   &.room-item {

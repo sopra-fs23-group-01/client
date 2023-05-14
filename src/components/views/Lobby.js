@@ -187,13 +187,13 @@ const Lobby = () => {
 
 
         content = (
-            <div className="lobby">
+
                 <ul className="lobby list">
                     {rooms.map(room => (
                         <Room room={room} key={room.roomId}/>
                     ))}
                 </ul>
-            </div>
+            
         );
     }
 

@@ -31,22 +31,6 @@ const Game = () => {
   const [users, setUsers] = useState(null);
 
 
-  const logout = async () => {
-    const id = localStorage.getItem('id');
-    localStorage.removeItem('token');
-    try {
-      const requestBody = JSON.stringify({id:id});
-      const response = await api.post('/users/logout', requestBody);
-      console.log(response);
-        toast.success("Logout successfully!", { autoClose: false });
-
-    } catch (error) {
-        toast.error(`Server has been refreshed!`);
-    }
-      // Wait for Toast component to disappear before navigating to leaderboard
-      await new Promise(resolve => setTimeout(resolve, 1000));
-    history.push('/login');
-  };
 
   const goLobby = async () => {
     window.location.href = `/lobby`;
@@ -154,12 +138,7 @@ const Game = () => {
         ZephyrHarpoon
       </div>
       {content}
-      <Button
-          width="100%"
-          onClick={() => logout()}
-        >
-          Logout
-        </Button>
+
       <NavigationBar/>
       
     </BaseContainer>

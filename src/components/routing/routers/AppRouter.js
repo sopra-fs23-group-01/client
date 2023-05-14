@@ -8,7 +8,6 @@ import Game from "components/views/Game";
 import Profile from "components/views/Profile";
 import ProfilePage from "components/views/Profile";
 import EditProfile from "components/views/EditProfile";
-import Chat from "components/views/Chat";
 import Room from "components/views/Room";
 import Leaderboard from "components/views/Leaderboard";
 import Lobby from "../../views/Lobby";
@@ -30,12 +29,6 @@ const AppRouter = () => {
           <Route path="/leaderboard">
             <GameGuard>
               <Leaderboard/>
-            </GameGuard>
-          </Route>
-
-          <Route exact path="/chat">
-            <GameGuard>
-              <Chat/>
             </GameGuard>
           </Route>
 

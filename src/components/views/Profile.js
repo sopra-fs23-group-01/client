@@ -9,6 +9,7 @@ import {useHistory} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import {Spinner} from 'components/ui/Spinner';
+import {toast, ToastContainer} from "react-toastify";
 //use axios to generate the pictures
 
 
@@ -21,7 +22,22 @@ const ProfilePage=() =>{
   const [users, setUsers] = useState(true);
   let icon = <i className="fa-solid fa-venus-mars" style={{ margin: '10px' }}></i>;
 
+  const logout = async () => {
+    const id = localStorage.getItem('id');
+    localStorage.removeItem('token');
+    try {
+      const requestBody = JSON.stringify({id:id});
+      const response = await api.post('/users/logout', requestBody);
+      console.log(response);
+        toast.success("Logout successfully!", { autoClose: false });
 
+    } catch (error) {
+        toast.error(`Server has been refreshed!`);
+    }
+      // Wait for Toast component to disappear before navigating to leaderboard
+      await new Promise(resolve => setTimeout(resolve, 1000));
+    history.push('/login');
+  };
   //   //The icon
   // useEffect(() => {
   //   axios.get('https://robohash.org/1')
@@ -91,12 +107,33 @@ const ProfilePage=() =>{
         <div className="profile name">Birthday: <i className="fa-solid fa-calendar-days" style={{ margin: '10px' }}></i>{functionuser.birthday}</div>
           <div className="profile name">Introduction:    {functionuser.birthday}</div>
           <div className="profile introduction">{functionuser.intro}</div>
-        <div className="profile comment"> Want to change your intro? Go to edit!</div>
+
+
         <div>
             {showEditButton && (
-                <div className="profile settings-button" onClick={() => history.push('/editprofile')}></div>)
+                <div className="profile settings-button" onClick={() => history.push('/editprofile')}></div>
+                )
             }
         </div>
+        <div>
+            {showEditButton && (
+                <div className="profile comment"> Want to change your intro? Go to edit!</div>
+                )
+            }
+                    
+        </div>
+
+            {showEditButton && (
+                        <Button
+                        width="100%"
+                        onClick={() => logout()}
+                      >
+                        Logout
+                      </Button>
+                )
+            }
+
+
         <div>
       {/*<button className="button" onClick={() => history.push('/chat')}>Chat</button>*/}
     </div>
