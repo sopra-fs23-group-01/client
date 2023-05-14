@@ -429,6 +429,11 @@ const Room = () => {
         }
     };
 
+
+useEffect(() => {
+    scrollToBottom();
+}, [publicChats]);
+
     return (
         <div>
             <ToastContainer />
@@ -472,23 +477,25 @@ const Room = () => {
                         </div> */}
                             <div className="room theme" >{role}</div>
                             {isVisible ? <div className="room countdown">{seconds} seconds left</div> : null}
-
-
-                            {tab === "CHATROOM" && <div className="chat chat-content">
-                                <ul className="chat chat-messages">
-                                    {publicChats.map((chat, index) => (
-                                        <li className={`chat message ${chat.senderName === userData.username && "self"} ${chat.senderName === "system" && "system"}`} key={index}>
-                                            {chat.senderName !== userData.username && chat.senderName !== "system" && <div className="chat avatar">{chat.senderName}</div>}
-                                            <div className="chat message-data">{chat.message}</div>
-                                            {chat.senderName === userData.username && <div className="chat avatar self">{chat.senderName}</div>}
-                                            <div ref={messagesEndRef} />
-                                        </li>
-                                    ))}
-                                </ul>
-
-
-                            </div>}
+                            {tab === "CHATROOM" && 
+                                <div className="chat chat-container"> 
+                                    {/* <div className="chat fade-overlay"></div> */}
+                                    <div className="chat chat-content">
+                                        <ul className="chat chat-messages">
+                                            {publicChats.map((chat, index) => (
+                                                <li className={`chat message ${chat.senderName === userData.username && "self"} ${chat.senderName === "system" && "system"}`} key={index}>
+                                                    {chat.senderName !== userData.username && chat.senderName !== "system" && <div className="chat avatar">{chat.senderName}</div>}
+                                                    <div className="chat message-data">{chat.message}</div>
+                                                    {chat.senderName === userData.username && <div className="chat avatar self">{chat.senderName}</div>}
+                                                    <div ref={messagesEndRef} />
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                </div>
+                                }
                             {tab !== "CHATROOM" && <div className="chat chat-content">
+                                <div className="chat fade-overlay"></div>
                                 <ul className="chat chat-messages">
                                     {[...privateChats.get(tab)].map((chat, index) => (
                                         <li className={`chat message ${chat.senderName === userData.username && "self"}`} key={index}>

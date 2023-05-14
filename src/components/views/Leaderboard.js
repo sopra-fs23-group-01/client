@@ -5,7 +5,7 @@ import {Button} from 'components/ui/Button';
 import {useHistory} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
-import "styles/views/Game.scss";
+import "styles/views/Leaderboard.scss";
 import rank1 from './rank1.png';
 import rank2 from './rank2.png';
 import rank3 from './rank3.png';
@@ -16,6 +16,7 @@ import avatar3 from './avatar3.png';
 import NavigationBar from './NavigationBar';
 import {toast, ToastContainer} from "react-toastify";
 import { Link } from 'react-router-dom';
+import { useSwipeable } from 'react-swipeable';
 
 
 const Game = () => {
@@ -28,11 +29,12 @@ const Game = () => {
   const [firstPlayer, setFirstPlayer] = useState(null);
   const [secondPlayer, setSecondPlayer] = useState(null);
   const [thirdPlayer, setThirdPlayer] = useState(null);
-
-
-    const goLobby = async () => {
-    window.location.href = `/lobby`;
-  };
+  const handlers = useSwipeable({
+    onSwipedRight: () => history.push('/profile'),
+    preventDefaultTouchmoveEvent: true,
+    trackMouse: true 
+  });
+  const [showSpy, setShowSpy] = useState(false);
 
     useEffect(() => {
         async function fetchData() {
@@ -65,7 +67,101 @@ const Game = () => {
         fetchData();
     }, [history]);
 
+    const SpyContent = () => (
+      <BaseContainer {...handlers}>
+        <ToastContainer />
+        <img className='rank1' src={rank1}/>
+        {firstPlayer && (
+            <>
+                <img className='crown1' src={crown}/>
+                <Link to={`/user/${firstPlayer.id}`}>
+                    <img className='avatar1' src={firstPlayer.avatarUrl} />
+                </Link>
+                <div className='rankname1'>
+                    {firstPlayer.username}
+                </div>
+            </>
+        )}
+        <img className='rank2' src={rank2}/>
+        {secondPlayer && (
+            <>
+                <Link to={`/user/${secondPlayer.id}`}>
+                    <img className='avatar2' src={secondPlayer.avatarUrl} />
+                </Link>
+                <div className='rankname2'>
+                    {secondPlayer.username}
+                </div>
+            </>
+        )}
+        <img className='rank3' src={rank3}/>
+        {thirdPlayer && (
+            <>
+                <Link to={`/user/${thirdPlayer.id}`}>
+                    <img className='avatar3' src={thirdPlayer.avatarUrl} />
+                </Link>
+                <div className='rankname3'>
+                    {thirdPlayer.username}
+                </div>
+            </>
+        )}
+        <div className='leaderboardhead' onClick={() => setShowSpy(false)}>
+            LeaderBoard Spy
+        </div>
+        <div className='game zoom-text-container game zoom-text-in-out'>Click to Detective</div>
+        {content}
 
+      <NavigationBar/>
+      
+    </BaseContainer>
+    );
+
+    const DetectiveContent = () => (
+      <BaseContainer {...handlers}>
+        <ToastContainer />
+        <img className='rank1' src={rank1}/>
+        {firstPlayer && (
+            <>
+                <img className='crown1' src={crown}/>
+                <Link to={`/user/${firstPlayer.id}`}>
+                    <img className='avatar1' src={firstPlayer.avatarUrl} />
+                </Link>
+                <div className='rankname1'>
+                    {firstPlayer.username}
+                </div>
+            </>
+        )}
+        <img className='rank2' src={rank2}/>
+        {secondPlayer && (
+            <>
+                <Link to={`/user/${secondPlayer.id}`}>
+                    <img className='avatar2' src={secondPlayer.avatarUrl} />
+                </Link>
+                <div className='rankname2'>
+                    {secondPlayer.username}
+                </div>
+            </>
+        )}
+        <img className='rank3' src={rank3}/>
+        {thirdPlayer && (
+            <>
+                <Link to={`/user/${thirdPlayer.id}`}>
+                    <img className='avatar3' src={thirdPlayer.avatarUrl} />
+                </Link>
+                <div className='rankname3'>
+                    {thirdPlayer.username}
+                </div>
+            </>
+        )}
+        <div className='leaderboardhead' onClick={() => setShowSpy(true)}>
+            LeaderBoard Detective
+        </div>
+        <div className='zoom-text-container zoom-text-in-out'>Click to Spy</div>
+        {content}
+
+      <NavigationBar/>
+      
+    </BaseContainer>
+    );
 
   let content = <Spinner/>;
 
@@ -109,67 +205,53 @@ const Game = () => {
 
 
   return (
-    <BaseContainer>
-        <ToastContainer />
-{/*      <img className='rank1' src={rank1}/>
-      <img className='rank2' src={rank2}/>
-      <img className='rank3' src={rank3}/>
-      <img className='crown1' src={crown}/>
-      <img className='avatar1' src={avatar1}/>
-      <img className='avatar2' src={avatar2}/>
-      <img className='avatar3' src={avatar3}/>
+    <div>
+    {showSpy ? <SpyContent /> : <DetectiveContent />}
+  </div>
+    // <BaseContainer {...handlers}>
+    //     <ToastContainer />
+    //     <img className='rank1' src={rank1}/>
+    //     {firstPlayer && (
+    //         <>
+    //             <img className='crown1' src={crown}/>
+    //             <Link to={`/user/${firstPlayer.id}`}>
+    //                 <img className='avatar1' src={firstPlayer.avatarUrl} />
+    //             </Link>
+    //             <div className='rankname1'>
+    //                 {firstPlayer.username}
+    //             </div>
+    //         </>
+    //     )}
+    //     <img className='rank2' src={rank2}/>
+    //     {secondPlayer && (
+    //         <>
+    //             <Link to={`/user/${secondPlayer.id}`}>
+    //                 <img className='avatar2' src={secondPlayer.avatarUrl} />
+    //             </Link>
+    //             <div className='rankname2'>
+    //                 {secondPlayer.username}
+    //             </div>
+    //         </>
+    //     )}
+    //     <img className='rank3' src={rank3}/>
+    //     {thirdPlayer && (
+    //         <>
+    //             <Link to={`/user/${thirdPlayer.id}`}>
+    //                 <img className='avatar3' src={thirdPlayer.avatarUrl} />
+    //             </Link>
+    //             <div className='rankname3'>
+    //                 {thirdPlayer.username}
+    //             </div>
+    //         </>
+    //     )}
+    //     <div className='leaderboardhead'>
+    //         LeaderBoard Detective
+    //     </div>
+    //     {content}
 
-      <div className='rankname1'>
-        Hankyshadow
-      </div>
-      <div className='rankname2'>
-        MasterLin 
-      </div>
-      <div className='rankname3'>
-        ZephyrHarpoon
-      </div>*/}
-        <img className='rank1' src={rank1}/>
-        {firstPlayer && (
-            <>
-                <img className='crown1' src={crown}/>
-                <Link to={`/user/${firstPlayer.id}`}>
-                    <img className='avatar1' src={firstPlayer.avatarUrl} />
-                </Link>
-                <div className='rankname1'>
-                    {firstPlayer.username}
-                </div>
-            </>
-        )}
-        <img className='rank2' src={rank2}/>
-        {secondPlayer && (
-            <>
-                <Link to={`/user/${secondPlayer.id}`}>
-                    <img className='avatar2' src={secondPlayer.avatarUrl} />
-                </Link>
-                <div className='rankname2'>
-                    {secondPlayer.username}
-                </div>
-            </>
-        )}
-        <img className='rank3' src={rank3}/>
-        {thirdPlayer && (
-            <>
-                <Link to={`/user/${thirdPlayer.id}`}>
-                    <img className='avatar3' src={thirdPlayer.avatarUrl} />
-                </Link>
-                <div className='rankname3'>
-                    {thirdPlayer.username}
-                </div>
-            </>
-        )}
-        <div className='leaderboardhead'>
-            LeaderBoard Detective
-        </div>
-        {content}
-
-      <NavigationBar/>
+    //   <NavigationBar/>
       
-    </BaseContainer>
+    // </BaseContainer>
   );
 }
 

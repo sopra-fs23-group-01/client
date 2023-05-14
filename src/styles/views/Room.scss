@@ -17,6 +17,20 @@
   }
 }
 
+@keyframes pulsate {
+  0% { 
+    opacity: 1; 
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 0.9; 
+    transform: scale(1.05);
+  }
+  100% { 
+    opacity: 1;
+    transform: scale(1);
+  }
+}
 
 
 .room {
@@ -265,7 +279,7 @@
     font-size: 90%;
     line-height: 27px;
     /* identical to box height */
-
+    animation: pulsate 2s infinite;
     color: #FFFFFF;
 
       /* Add click effect */
@@ -296,8 +310,11 @@
 
     color: #FFFFFF;
       /* Add click effect */
+
+    transition: transform 1s;
+
     &:active {
-      transform: scale(1.1)
+      transform: scale(1.2)
     }
   }
   &.inputcontainer{
@@ -361,17 +378,6 @@
 
   }
   
-  &.register {
-    position: fixed;
-    padding: 30px;
-    box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06), 0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086), 0 100px 80px rgba(0, 0, 0, 0.12);
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    flex-direction: row;
-  }
-  
   &.chat-box {
     box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06), 0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086), 0 100px 80px rgba(0, 0, 0, 0.12);
     position: absolute;
@@ -389,20 +395,35 @@
     overflow: hidden;
   }
   
-  &.member-list {
-    width: 20%;
+  
+  &.chat-container {
+    position: relative;
+    width: 95%;
+    height: 76%;
+    overflow: hidden;
+    margin-top: 13%;
   }
   
   &.chat-content {
-    width: 80%;
-    margin-left:20px;
+    width: 100%;
+    margin-left: 0px;
     overflow: auto;
-    height: 80%;
+    height: 100%;  // 这将使 .chat-content 填充整个 .chat-container
     overflow-y: scroll;
-    scrollbar-width: none; /* For Firefox */
-    margin-top: 13%;
-
+    scrollbar-width: none;
+    border-radius: 50px;
   }
+  
+  & .fade-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50px; 
+    background: linear-gradient(to bottom, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0) 100%);  // 这将创建一个从半透明的白色到透明的渐变
+    pointer-events: none; 
+  }
+
   
   &.chat.chat-content::-webkit-scrollbar {
     display: none; /* For Chrome, Safari, and Edge */
@@ -419,7 +440,7 @@
 
   &.chat-messages {
     height: 70%;
-    width: 90%; /* 将宽度减少为原来的85%（即减少10%） */
+    width: 80%; /* 将宽度减少为原来的85%（即减少10%） */
     margin-left: 15%; /* 从左边向右增加10%的外边距 */
     border-radius: 10%;
     margin-top: 140px;
@@ -491,6 +512,7 @@
   &.ul {
     padding: 0;
     list-style-type: none;
+    // width: 100%;
 
   }
   
@@ -526,13 +548,14 @@
   &.avatar {
     background-color: cornflowerblue;
     padding: 3px 5px;
-    border-radius: 3px;
+    border-radius: 10px;
     color: #fff;
   }
   
   &.avatar.self {
     color: #000;
     background-color: greenyellow;
+    border-radius: 10px;
   }
   
   &.message {
