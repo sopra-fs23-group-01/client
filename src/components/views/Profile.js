@@ -58,6 +58,7 @@ const ProfilePage=() =>{
 
       } catch (error) {
         alert(`Something went wrong during the profile page: \n${handleError(error)}`);
+        history.push('/login');
         
       }
     }
