@@ -94,8 +94,8 @@ const ProfilePage=() =>{
               <span style={statusStyle}>   {functionuser.status}</span>
           </div>
           <div className="profile winningRate">Winning rate:
-              <i className="fa-solid fa-person-military-rifle" style={{ margin: '10px' }}></i>    {functionuser.rateDe}%
-              <i className="fa-solid fa-user-ninja" style={{ marginLeft: '40px' ,marginRight: '10px' }}></i>{functionuser.rateUn}%
+              <i className="fa-solid fa-person-military-rifle" style={{ margin: '10px' }}></i>    {functionuser.rateDe*100}%
+              <i className="fa-solid fa-user-ninja" style={{ marginLeft: '40px' ,marginRight: '10px' }}></i>{functionuser.rateUn*100}%
           </div>
           <div className="profile name">Gender:  {functionuser.gender ?
               (functionuser.gender === 'MALE' ?
