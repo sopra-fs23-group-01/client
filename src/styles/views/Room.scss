@@ -32,6 +32,12 @@
   }
 }
 
+@keyframes shake {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
+
 
 .room {
 
@@ -580,4 +586,22 @@
   &.message.self {
     justify-content: flex-end;
   }
+
+  &.welcome{
+      font-family: 'Comic Sans MS';
+      font-weight: bold;
+      font-size: 30px;
+      color: #0c0b0b;
+  }
+  &.welcomecontainer{
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+  }
+
+  &.hand-icon {
+    animation: shake 0.5s infinite;
+  }
+  
+
 }
