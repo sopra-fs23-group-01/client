@@ -29,6 +29,12 @@ const Game = () => {
   const [firstPlayer, setFirstPlayer] = useState(null);
   const [secondPlayer, setSecondPlayer] = useState(null);
   const [thirdPlayer, setThirdPlayer] = useState(null);
+
+  const [sortedUsers_UN, setSortedUsers_UN] = useState(null);
+  const [firstPlayer_UN, setFirstPlayer_UN] = useState(null);
+  const [secondPlayer_UN, setSecondPlayer_UN] = useState(null);
+  const [thirdPlayer_UN, setThirdPlayer_UN] = useState(null);
+  
   const handlers = useSwipeable({
     onSwipedRight: () => history.push('/profile'),
     preventDefaultTouchmoveEvent: true,
@@ -44,7 +50,9 @@ const Game = () => {
                 setUsers(response.data);
 
                 const sortedUsersData = response.data.slice().sort((a, b) => b.rateDe - a.rateDe);
+                const sortedUsersData_UN = response.data.slice().sort((a, b) => b.rateUn - a.rateUn);
                 setSortedUsers(sortedUsersData);
+                setSortedUsers_UN(sortedUsersData_UN);
                 if (sortedUsersData.length > 0) {
                     setFirstPlayer(sortedUsersData[0]);
                 }
@@ -54,6 +62,17 @@ const Game = () => {
                 if (sortedUsersData.length > 2) {
                     setThirdPlayer(sortedUsersData[2]);
                 }
+
+                if (sortedUsersData_UN.length > 0) {
+                  setFirstPlayer_UN(sortedUsersData_UN[0]);
+                }
+                if (sortedUsersData_UN.length > 1) {
+                    setSecondPlayer_UN(sortedUsersData_UN[1]);
+                }
+                if (sortedUsersData_UN.length > 2) {
+                    setThirdPlayer_UN(sortedUsersData_UN[2]);
+                }
+
             } catch (error) {
                 console.error(`Something went wrong while fetching the users: \n${handleError(error)}`);
                 console.error("Details:", error);
@@ -71,44 +90,44 @@ const Game = () => {
       <BaseContainer {...handlers}>
         <ToastContainer />
         <img className='rank1' src={rank1}/>
-        {firstPlayer && (
+        {firstPlayer_UN && (
             <>
                 <img className='crown1' src={crown}/>
-                <Link to={`/user/${firstPlayer.id}`}>
-                    <img className='avatar1' src={firstPlayer.avatarUrl} />
+                <Link to={`/user/${firstPlayer_UN.id}`}>
+                    <img className='avatar1' src={firstPlayer_UN.avatarUrl} />
                 </Link>
                 <div className='rankname1'>
-                    {firstPlayer.username}
+                    {firstPlayer_UN.username}
                 </div>
             </>
         )}
         <img className='rank2' src={rank2}/>
-        {secondPlayer && (
+        {secondPlayer_UN && (
             <>
                 <Link to={`/user/${secondPlayer.id}`}>
                     <img className='avatar2' src={secondPlayer.avatarUrl} />
                 </Link>
                 <div className='rankname2'>
-                    {secondPlayer.username}
+                    {secondPlayer_UN.username}
                 </div>
             </>
         )}
         <img className='rank3' src={rank3}/>
-        {thirdPlayer && (
+        {thirdPlayer_UN && (
             <>
-                <Link to={`/user/${thirdPlayer.id}`}>
-                    <img className='avatar3' src={thirdPlayer.avatarUrl} />
+                <Link to={`/user/${thirdPlayer_UN.id}`}>
+                    <img className='avatar3' src={thirdPlayer_UN.avatarUrl} />
                 </Link>
                 <div className='rankname3'>
-                    {thirdPlayer.username}
+                    {thirdPlayer_UN.username}
                 </div>
             </>
         )}
         <div className='leaderboardhead' onClick={() => setShowSpy(false)}>
-            LeaderBoard Spy
+            LeaderBoardUndercover
         </div>
-        <div className='game zoom-text-container game zoom-text-in-out'>Click to Detective</div>
-        {content}
+        <div className='game zoom-text-container zoom-text-in-out'>Click to Detective</div>
+        {content_UN}
 
       <NavigationBar/>
       
@@ -164,6 +183,7 @@ const Game = () => {
     );
 
   let content = <Spinner/>;
+  let content_UN = <Spinner/>;
 
     if (users) {
         function Player({ user }) {
@@ -201,6 +221,16 @@ const Game = () => {
                 </ul>
             </div>
         );
+
+        content_UN = (
+          <div>
+              <ul className="game user-list">
+                  {sortedUsers_UN && sortedUsers_UN.map(user => (
+                      <Player user={user} key={user.id} />
+                  ))}
+              </ul>
+          </div>
+      );
     }
 
 
