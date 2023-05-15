@@ -18,6 +18,8 @@ import { over } from 'stompjs';
 import SockJS from 'sockjs-client';
 import trophies from './trophies.png';
 import {toast, ToastContainer} from "react-toastify";
+import Modal from 'react-modal';
+import Confetti from 'react-confetti'
 
 var stompClient = null;
 const Room = () => {
@@ -166,6 +168,7 @@ const Room = () => {
 
         content = (
             <div>
+                
                 <ul className="room user-list">
                     {users.map(user => (
                         <Player user={user} key={user.id}/>
@@ -402,7 +405,7 @@ const Room = () => {
             let invalidWords = synonymsOfWord.filter(word => chatMessage.message.includes(word));
             if (invalidWords.length > 0) {
                 toast.warning("Your message contains words that are not allowed: " + invalidWords.join(", "));
-                return; // 如果有无效的词，就停止发送
+                return;
             }
 
             console.log(chatMessage);
@@ -434,8 +437,44 @@ useEffect(() => {
     scrollToBottom();
 }, [publicChats]);
 
+const [showWelcome, setShowWelcome] = useState(true);
+
+useEffect(() => {
+  const timer = setTimeout(() => {
+    setShowWelcome(false);
+  }, 5000);
+  return () => clearTimeout(timer);
+}, []);
+
     return (
         <div>
+            {showWelcome && <Confetti />}
+        <Modal 
+        isOpen={showWelcome}
+        onRequestClose={() => setShowWelcome(false)}
+        contentLabel="Welcome Modal"
+        style={
+          {
+            overlay: { backgroundColor: 'rgba(0, 0, 0, 0.5)' },
+            content: {
+              top: '50%',
+              left: '50%',
+              right: 'auto',
+              bottom: 'auto',
+              marginRight: '-50%',
+              transform: 'translate(-50%, -50%)',
+              backgroundColor: 'transparent',
+              borderRadius: '15px',
+            //   border:"none",
+            }
+          }
+        }
+      >
+        <div className='chat welcome'>Welcome to the game!</div>
+        <div className='chat welcomecontainer'>
+        <Button onClick={() => setShowWelcome(false)}>Close</Button>
+        </div>
+      </Modal>
             <ToastContainer />
             < img className="room backicon" src={BackIcon} alt="Back" onClick={() => goBack()} />
             <div className="room roomid">Room:{roomId}</div>
@@ -507,8 +546,11 @@ useEffect(() => {
                                 </ul>
                                 <div ref={messagesEndRef} />
                             </div>}
+
                             {isButtonVisible ?
+                            
                                 <div className="room button-row">
+
                                     <div className="room button-container" onClick={() => getReady()}>
                                         {buttonStatus}
                                     </div>
@@ -524,6 +566,7 @@ useEffect(() => {
                         null
                     }
                 </div>
+                
 
             {content}
             <div className="chat send-messagebox">
