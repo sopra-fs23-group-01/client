@@ -89,10 +89,15 @@ const Game = () => {
     const SpyContent = () => (
       <BaseContainer {...handlers}>
         <ToastContainer />
-        <img className='rank1' src={rank1}/>
+        <div className='leaderboardhead' onClick={() => setShowSpy(false)}>
+            LeaderBoardUndercover
+        </div>
+        <div className='game zoom-text-container zoom-text-in-out'>Click to Detective</div>
+        <div className='leaderboard top3container'>
+        <img className='leaderboard rank1' src={rank1}/>
         {firstPlayer_UN && (
             <>
-                <img className='crown1' src={crown}/>
+                <img className='leaderboard crown1' src={crown}/>
                 <Link to={`/user/${firstPlayer_UN.id}`}>
                     <img className='avatar1' src={firstPlayer_UN.avatarUrl} />
                 </Link>
@@ -123,58 +128,60 @@ const Game = () => {
                 </div>
             </>
         )}
-        <div className='leaderboardhead' onClick={() => setShowSpy(false)}>
-            LeaderBoardUndercover
-        </div>
-        <div className='game zoom-text-container zoom-text-in-out'>Click to Detective</div>
+
+</div>
+
         {content_UN}
 
       <NavigationBar/>
-      
-    </BaseContainer>
+          </BaseContainer>
+
     );
 
     const DetectiveContent = () => (
       <BaseContainer {...handlers}>
         <ToastContainer />
-        <img className='rank1' src={rank1}/>
-        {firstPlayer && (
-            <>
-                <img className='crown1' src={crown}/>
-                <Link to={`/user/${firstPlayer.id}`}>
-                    <img className='avatar1' src={firstPlayer.avatarUrl} />
-                </Link>
-                <div className='rankname1'>
-                    {firstPlayer.username}
-                </div>
-            </>
-        )}
-        <img className='rank2' src={rank2}/>
-        {secondPlayer && (
-            <>
-                <Link to={`/user/${secondPlayer.id}`}>
-                    <img className='avatar2' src={secondPlayer.avatarUrl} />
-                </Link>
-                <div className='rankname2'>
-                    {secondPlayer.username}
-                </div>
-            </>
-        )}
-        <img className='rank3' src={rank3}/>
-        {thirdPlayer && (
-            <>
-                <Link to={`/user/${thirdPlayer.id}`}>
-                    <img className='avatar3' src={thirdPlayer.avatarUrl} />
-                </Link>
-                <div className='rankname3'>
-                    {thirdPlayer.username}
-                </div>
-            </>
-        )}
         <div className='leaderboardhead' onClick={() => setShowSpy(true)}>
             LeaderBoard Detective
         </div>
         <div className='zoom-text-container zoom-text-in-out'>Click to Spy</div>
+        <div className='leaderboard top3container'>
+            <img className='rank1' src={rank1}/>
+            {firstPlayer && (
+                <>
+                    <img className='crown1' src={crown}/>
+                    <Link to={`/user/${firstPlayer.id}`}>
+                        <img className='avatar1' src={firstPlayer.avatarUrl} />
+                    </Link>
+                    <div className='rankname1'>
+                        {firstPlayer.username}
+                    </div>
+                </>
+            )}
+            <img className='rank2' src={rank2}/>
+            {secondPlayer && (
+                <>
+                    <Link to={`/user/${secondPlayer.id}`}>
+                        <img className='avatar2' src={secondPlayer.avatarUrl} />
+                    </Link>
+                    <div className='rankname2'>
+                        {secondPlayer.username}
+                    </div>
+                </>
+            )}
+            <img className='rank3' src={rank3}/>
+            {thirdPlayer && (
+                <>
+                    <Link to={`/user/${thirdPlayer.id}`}>
+                        <img className='avatar3' src={thirdPlayer.avatarUrl} />
+                    </Link>
+                    <div className='rankname3'>
+                        {thirdPlayer.username}
+                    </div>
+                </>
+            )}
+        </div>
+
         {content}
 
       <NavigationBar/>
@@ -213,7 +220,7 @@ const Game = () => {
         };
 
         content = (
-            <div>
+            <div className='game listcontainer'>
                 <ul className="game user-list">
                     {sortedUsers && sortedUsers.map(user => (
                         <Player user={user} key={user.id} />
@@ -223,7 +230,7 @@ const Game = () => {
         );
 
         content_UN = (
-          <div>
+          <div className='game listcontainer'>
               <ul className="game user-list">
                   {sortedUsers_UN && sortedUsers_UN.map(user => (
                       <Player user={user} key={user.id} />
