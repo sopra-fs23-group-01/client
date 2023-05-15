@@ -113,8 +113,10 @@ const Register = props => {
   };
 
   return (
+    
     <BaseContainer>
-        <ToastContainer />
+
+      <ToastContainer />
       <div className="register container">
         <img className="register pic" src={LoginPic} alt="LoginIllustration" />
         <div className="register welcomeline1">Get Started Free</div>

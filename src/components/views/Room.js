@@ -100,6 +100,8 @@ const Room = () => {
             history.push(`/lobby`);
         } catch (error) {
             alert(`Something went wrong during the goBack: \n${handleError(error)}`);
+            updateRoomOrder();
+            history.push(`/lobby`);
         }
     };
 
