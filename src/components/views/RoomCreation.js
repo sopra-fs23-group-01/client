@@ -137,36 +137,25 @@ const RoomCreation = props => {
  */
     return (
         <BaseContainer>
-            <div className="roomCreation profileText">Profile</div>
+            {/*<div className="roomCreation profileText">Profile</div>*/}
             <div className="roomCreation createText">Create your room</div>
 
             <div className="roomCreation container">
-                <div className="roomCreation editText">Theme for Game </div>
+                <div className="roomCreation editText" style={{ textAlign: 'center',marginTop:'40px' }}>Theme for Game </div>
 
 
                 <div className="roomCreation select-container">
                     <div className="roomCreation select-wrapper">
-                        <select value={theme} onChange={e => setTheme(e.target.value)}>
-                            <option value="THEME1">THEME1</option>
-                            <option value="THEME2">THEME2</option>
-                            <option value="THEME3">THEME3</option>
+                        <select value={theme} style={{ textAlign: 'center',width:'180px',height:'35px',marginTop:'20px' }} onChange={e => setTheme(e.target.value)}>
+                            <option value="Sports">Sports</option>
+                            <option value="Furniture">Furniture</option>
+                            <option value="Job">Job</option>
                         </select>
                     </div>
                 </div>
 
-                <div className="roomCreation editText">Number of Players</div>
-                <Counter />
-
-
-                {/*<div className="check">*/}
-                {/*    <div className="roomCreation editText">Private Room</div>*/}
-                {/*    <span style={{margin: '20px'}}></span>*/}
-                {/*    <label className="checkbox">*/}
-                {/*        <input type="checkbox" id="myCheckbox" onChange={handleCheckBox}/>*/}
-                {/*        <span className="checkmark"></span>*/}
-                {/*    </label>*/}
-                {/*</div>*/}
-
+                <div className="roomCreation editText" style={{ textAlign: 'center',marginTop:'40px' }}>Number of Players</div>
+                <Counter style={{fontSize: "20px"}}/>
 
                 <Button className="confirmButton" onClick = {() => createRoom()}>Confirm</Button>
                 <Button className="cancelButton" onClick={() => doCancel()}>Cancel</Button>

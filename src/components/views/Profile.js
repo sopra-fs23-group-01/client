@@ -29,13 +29,16 @@ const ProfilePage=() =>{
       const requestBody = JSON.stringify({id:id});
       const response = await api.post('/users/logout', requestBody);
       console.log(response);
-        toast.success("Logout successfully!", { autoClose: false });
+        toast.success("Logout successful!", { autoClose: false });
+        // Wait for Toast component to disappear before navigating to leaderboard
+        await new Promise(resolve => setTimeout(resolve, 1000));
+
 
     } catch (error) {
         toast.error(`Server has been refreshed!`);
+        // Wait for Toast component to disappear before navigating to leaderboard
+        await new Promise(resolve => setTimeout(resolve, 1000));
     }
-      // Wait for Toast component to disappear before navigating to leaderboard
-      await new Promise(resolve => setTimeout(resolve, 1000));
     history.push('/login');
   };
   //   //The icon
