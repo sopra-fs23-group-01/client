@@ -152,7 +152,7 @@ const Lobby = () => {
                     style={{
                         textDecoration: 'none',
                         color: room.roomProperty === "INGAME" ? 'gray' : 'black',
-                        pointerEvents: room.roomProperty === "INGAME" ? 'none' : 'auto'
+                        pointerEvents: room.roomProperty === "INGAME" || room.roomPlayersList.length === room.maxPlayersNum ? 'none' : 'auto'
                     }}
                     onClick={(e) => {
                         e.preventDefault(); // 禁止默认的点击事件
