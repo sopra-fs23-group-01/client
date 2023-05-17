@@ -7,6 +7,9 @@ import PropTypes from "prop-types";
 import "styles/views/Room.scss";
 import ReminderIcon from "../../styles/image/Icons/ReminderIcon.png";
 import ConfirmIcon from "../../styles/image/Icons/ConfirmIcon.png";
+import ConfirmIconBlue from "../../styles/image/Icons/ConfirmIconBlue.png";
+import OutShade from "../../styles/image/Icons/OutedFilter.png";
+import VoteShade from "../../styles/image/Icons/VotedFilter.png";
 import BackIcon from "../../styles/image/Icons/BackIcon.png";
 import {Spinner} from "../ui/Spinner";
 import React, { useEffect, useState, useRef } from 'react'
@@ -33,7 +36,7 @@ const Room = () => {
     const [isButtonVisible, setIsButtonVisible] = useState(true);
     const [showSendIcon, setShowSendIcon] = useState(true);
     const [showBackIcon, setShowBackIcon] = useState(true);
-
+    const [avatarClickedVoted, setAvatarClickedVoted] = useState(false);
     const [winner, setWinner] = useState(null);
     const [showResult, setShowResult] = useState(false);
     //const roomTheme = localStorage.getItem('roomTheme');
@@ -160,22 +163,25 @@ const Room = () => {
             const clickToVote = () =>{
                 console.log('id:'+localStorage.getItem('id')+'userid'+user.id)
                 if(Number(localStorage.getItem('id')) !== user.id){
-                    api.put("room/"+roomId+"/vote/" +localStorage.getItem('id')+"="+user.id)
-                    setVotedThisRound(true)
+                    api.put("room/"+roomId+"/vote/" +localStorage.getItem('id')+"="+user.id);
+                    setVotedThisRound(true);
                 }
-
-
             }
 
             return (
                 <div className="room playercontainer">
-
-                    < img src={user.avatarUrl}
-                          onClick={Number(localStorage.getItem('id')) === user.id|| votedThisRound===true ? null : clickToVote}
-                          alt="profile img"
-                          style={{ cursor: Number(localStorage.getItem('id')) === user.id || votedThisRound===true ? "default" : "pointer" ,
-                                                     border: `2px solid ${user.readyStatus === "READY" ? "green" : "red"}`
-                    }} className="room avatarimg"/>
+                    <img
+                        src={user.avatarUrl}
+                        onClick={Number(localStorage.getItem('id')) === user.id || votedThisRound === true ? null : clickToVote}
+                        alt="profile img"
+                        style={{
+                            cursor: Number(localStorage.getItem('id')) === user.id || votedThisRound === true ? "default" : "pointer",
+                            border: `2px solid ${user.readyStatus === "READY" ? "green" : "red"}`,
+                            position: "relative",
+                            backgroundColor: user.gameStatus === "OUT" ? "gray" : "transparent"
+                        }}
+                        className="room avatarimg"
+                    />
                     <div className="room playername "><span style={statusStyle}>{user.username}</span> </div>
                 </div>
             );
@@ -642,7 +648,7 @@ useEffect(() => {
             {content}
             <div className="chat send-messagebox">
                 <input type="text" className="chat input-message" placeholder="Enter your message here..." value={userData.message} onChange={handleMessage} />
-                <img className={`room ${showSendIcon ? 'confirmicon' : 'confirmicon-hidden'}`}  src={ConfirmIcon} onClick={sendValue} alt="Confirm" />
+                <img className={`room confirmicon`}  src={showSendIcon ? ConfirmIconBlue : ConfirmIcon} onClick={sendValue} alt="Confirm" />
             </div>
 
         </div>
