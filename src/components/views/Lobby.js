@@ -26,8 +26,8 @@ const Lobby = () => {
     const [rooms, setRooms] = useState(null);
 
     const connect = () => {
-        //let Sock = new SockJS('http://localhost:8080/ws');
-        let Sock = new SockJS('https://sopra-fs23-group-01-server.oa.r.appspot.com/ws');
+        let Sock = new SockJS('http://localhost:8080/ws');
+        //let Sock = new SockJS('https://sopra-fs23-group-01-server.oa.r.appspot.com/ws');
         stompClient = over(Sock);
         stompClient.connect({}, onConnected, onError);
     }
@@ -152,15 +152,16 @@ const Lobby = () => {
                     style={{
                         textDecoration: 'none',
                         color: room.roomProperty === "INGAME" ? 'gray' : 'black',
-                        pointerEvents: room.roomProperty === "INGAME" || room.roomPlayersList.length === room.maxPlayersNum ? 'none' : 'auto'
                     }}
                     onClick={(e) => {
                         e.preventDefault(); // 禁止默认的点击事件
-                        if (room.roomProperty === "INGAME" || room.roomPlayersList.length === room.maxPlayersNum) {
+                        const currentId = localStorage.getItem('id');
+                        const isPlayerInRoom = room.roomPlayersList.join().includes(currentId);
+                        if (room.roomProperty === "INGAME" && !isPlayerInRoom|| (room.roomPlayersList.length === room.maxPlayersNum && !isPlayerInRoom))  {
                             // 如果房间正在进行游戏，则不执行进入房间操作
                             return;
                         }
-                        enterRoom(room.roomId, localStorage.getItem('id'))
+                        enterRoom(room.roomId, currentId)
                             .then(() => {
                                 history.push(`/room=${room.roomId}`);
                             })

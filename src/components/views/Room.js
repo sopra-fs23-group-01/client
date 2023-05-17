@@ -8,10 +8,6 @@ import "styles/views/Room.scss";
 import ReminderIcon from "../../styles/image/Icons/ReminderIcon.png";
 import ConfirmIcon from "../../styles/image/Icons/ConfirmIcon.png";
 import BackIcon from "../../styles/image/Icons/BackIcon.png";
-import NavigationBar from "./NavigationBar";
-import avatar1 from "./images/avatar1.png";
-import NameIcon from "../../styles/image/Icons/NameIcon.png";
-import User from "../../models/User";
 import {Spinner} from "../ui/Spinner";
 import React, { useEffect, useState, useRef } from 'react'
 import { over } from 'stompjs';
@@ -32,8 +28,12 @@ const Room = () => {
     const path = window.location.pathname.substring(1); // remove
     const roomId = path.split('=')[1];
     const id = localStorage.getItem('id');
+
+    //control button stage
     const [isButtonVisible, setIsButtonVisible] = useState(true);
     const [showSendIcon, setShowSendIcon] = useState(true);
+    const [showBackIcon, setShowBackIcon] = useState(true);
+
     const [winner, setWinner] = useState(null);
     const [showResult, setShowResult] = useState(false);
     //const roomTheme = localStorage.getItem('roomTheme');
@@ -62,6 +62,23 @@ const Room = () => {
             toast.error("You cancelled your readiness.", { autoClose: 1000 });
         }
     };
+
+    const getReconnect = async () => {
+        try {
+            const requestBody = JSON.stringify({id});
+            await api.put('/users/room/'+roomId, requestBody);
+            //history.push('/voteresult/room='+roomId);
+
+        } catch (error) {
+            toast.error(`Something went wrong get ready`);
+        }
+        var readyMessage = {
+            senderName: userData.username,
+            status: "RECONNECT"
+        };
+        stompClient.send("/app/message/"+roomId, {}, JSON.stringify(readyMessage));
+    };
+
 
     const updateUser = async () => {
         try {
@@ -125,8 +142,9 @@ const Room = () => {
     }, [seconds]);
 
     const gameStart = () => {
-        sendUpdateReminder();
+
         stompClient.send("/app/gamestart/"+roomId, {},JSON.stringify());
+        sendUpdateReminder();
     }
 
     let content = <Spinner/>;
@@ -200,32 +218,54 @@ const Room = () => {
     //自动连接
     useEffect(() => {
         if (userData.username) {
-            connect();
+            getRoom();
         }
     }, [userData.username]);
+
+    const getRoom = async () => {
+        try {
+            const response = await api.get('/games/'+roomId);
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            console.log(response.data); // Add this line for debugging
+            setRoom(response.data);
+        } catch (error) {
+            console.error(`Something went wrong while fetching the rooms: \n${handleError(error)}`);
+            console.error("Details:", error);
+        }
+    };
 
 
 
     useEffect(() => {
-        console.log(userData);
-    }, [userData]);
+        if (room && room.roomProperty) { // Check that room and room.roomProperty are not undefined
+            //alert(room.roomProperty);
+            const currentId = localStorage.getItem('id');
+            const isPlayerInRoom = room.roomPlayersList.join().includes(currentId);
+            if((!isPlayerInRoom && room.roomProperty=='INGAME')){
+                alert('You are not allowed to enter others room!');
+                history.push('/lobby');
 
+        } else {
+
+            connect();
+        }}
+    }, [room]);
+    
     const connect = () => {
         let Sock = new SockJS('http://localhost:8080/ws');
         //let Sock = new SockJS('https://sopra-fs23-group-01-server.oa.r.appspot.com/ws');
         stompClient = over(Sock);
         stompClient.connect({}, onConnected, onError);
-    }
-
-    const onConnected = () => {
+    };
+    
+    const onConnected = async () => {
         setUserData({ ...userData, "connected": true });
         stompClient.subscribe('/chatroom/'+roomId+'/public', onMessageReceived);
         stompClient.subscribe('/user/' + userData.username + '/private', onPrivateMessageReceived);
+        updateUser();
         userJoin();
-    }
-    const onGameStart = () => {
-        setIsButtonVisible(false);
-    }
+    };
+
 
     const onPrivateMessageReceived = (payload) => {
         const message = JSON.parse(payload.body);
@@ -233,15 +273,26 @@ const Room = () => {
         if (message.status === 'ASSIGNED_WORD') {
             setAssignedWord(message.message);
             setRole(message.role);
+            localStorage.setItem("role", message.role);
         }
     };
 
     const userJoin = () => {
-        var chatMessage = {
+    
+        var joinMessage = {
             senderName: userData.username,
             status: "JOIN"
         };
-        stompClient.send("/app/message/"+roomId, {}, JSON.stringify(chatMessage));
+        if(room.roomProperty=='INGAME'){
+            getReconnect();
+            setShowBackIcon(false);
+            setShowSendIcon(false);
+            setIsButtonVisible(false);
+
+}
+        else if(room.roomProperty=='WAITING'){
+        stompClient.send("/app/message/"+roomId, {}, JSON.stringify(joinMessage));
+        }
         sendUpdateReminder();
     }
 
@@ -313,6 +364,19 @@ const Room = () => {
                 scrollToBottom();
                 break;
 
+            case "RECONNECT":
+                setRole(localStorage.getItem("role"));
+                updateUser(); 
+                const reconnectMessage = {
+                    senderName: "system",
+                    message: `${payloadData.senderName} reconnected.`,
+                    status: "MESSAGE"
+                };
+                publicChats.push(reconnectMessage);
+                setPublicChats([...publicChats]);
+                scrollToBottom();
+                break;        
+
             case "START":
                 updateUser(); 
                 setIsButtonVisible(false);
@@ -321,6 +385,8 @@ const Room = () => {
                 setPublicChats([...publicChats]);
                 scrollToBottom();
                 setShowSendIcon(false);
+                sendUpdateReminder();
+                setShowBackIcon(false);
                 break;
 
             case "REMINDER":
@@ -348,15 +414,18 @@ const Room = () => {
                 scrollToBottom();
                 setVotedThisRound(false);
                 setSeconds(10);
+                setShowSendIcon(false);
 
                 break;
 
             case "END":
+                updateUser(); 
                 setIsButtonVisible(true);
                 publicChats.push(payloadData);
                 setPublicChats([...publicChats]);
                 scrollToBottom();
                 setShowSendIcon(true);
+                setShowBackIcon(true);
                 setWinner(payloadData.senderName);
                 setShowResult(true);
                 setButtonStatus("Ready");
@@ -478,7 +547,7 @@ useEffect(() => {
         </div>
       </Modal>
             <ToastContainer />
-            < img className="room backicon" src={BackIcon} alt="Back" onClick={() => goBack()} />
+            {showBackIcon && <img className="room backicon" src={BackIcon} alt="Back" onClick={() => goBack()} />}
             <div className="room roomid">Room:{roomId}</div>
             <div className="room reminder">
                 < img className="room remindericon" src={ReminderIcon} alt="Reminder" />
