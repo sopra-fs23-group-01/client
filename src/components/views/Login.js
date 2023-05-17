@@ -6,7 +6,8 @@ import {Button} from "../ui/Button";
 import 'styles/views/Login.scss';
 import PropTypes from "prop-types";
 import LoginPic from 'styles/image/Pics4login/LoginPic.png';
-import NotShowIcon from "../../styles/image/Icons/NotShowIcon.png";
+import HideIcon from "../../styles/image/Icons/HideIcon.png";
+import ShowIcon from "../../styles/image/Icons/ShowIcon.png";
 import NameIcon from "../../styles/image/Icons/NameIcon.png";
 import PasswordIcon from "../../styles/image/Icons/PasscodeIcon.png";
 import {toast, ToastContainer} from "react-toastify";
@@ -56,8 +57,7 @@ const PasswordField = props => {
       />
         <img className="login nameicon" src={NameIcon} alt="Username" />
         <img className="login passwordicon" src={PasswordIcon} alt="Password" />
-        {/*<img className="login showicon" src={NotShowIcon} alt="LoginIllustration" />*/}
-        <div onClick={toggleShowPassword }>{showPassword ? <img className="login showicon" src={NotShowIcon} alt="LoginIllustration" /> : 'Show' }</div>
+        <div onClick={toggleShowPassword }>{showPassword ? <img className="login showicon" src={HideIcon} alt="LoginIllustration" /> : <img className="login showicon" src={ShowIcon} alt="LoginIllustration" /> }</div>
     </div>
   );
 };

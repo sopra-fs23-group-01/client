@@ -13,6 +13,8 @@ import NotShowIcon from "../../styles/image/Icons/NotShowIcon.png";
 import NavigationBar from "./NavigationBar";
 import {toast, ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import HideIcon from "../../styles/image/Icons/HideIcon.png";
+import ShowIcon from "../../styles/image/Icons/ShowIcon.png";
 
 /*
 It is possible to add multiple components inside a single file,
@@ -60,7 +62,7 @@ const PasswordField = props => {
           <img className="register nameicon" src={NameIcon} alt="Username" />
           <img className="register passwordicon" src={PasswordIcon} alt="Password" />
 
-          <div onClick={toggleShowPassword }>{showPassword ? <img className="register showicon" src={NotShowIcon} alt="LoginIllustration" /> : 'Show' }</div>
+          <div onClick={toggleShowPassword }>{showPassword ? <img className="login showicon" src={HideIcon} alt="LoginIllustration" /> : <img className="login showicon" src={ShowIcon} alt="LoginIllustration" /> }</div>
         </div>
   );
 };
