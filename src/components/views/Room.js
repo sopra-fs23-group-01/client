@@ -252,14 +252,13 @@ const Room = () => {
                 history.push('/lobby');
 
         } else {
-
             connect();
         }}
     }, [room]);
     
     const connect = () => {
-        let Sock = new SockJS('http://localhost:8080/ws');
-        //let Sock = new SockJS('https://sopra-fs23-group-01-server.oa.r.appspot.com/ws');
+        //let Sock = new SockJS('http://localhost:8080/ws');
+        let Sock = new SockJS('https://sopra-fs23-group-01-server.oa.r.appspot.com/ws');
         stompClient = over(Sock);
         stompClient.connect({}, onConnected, onError);
     };
