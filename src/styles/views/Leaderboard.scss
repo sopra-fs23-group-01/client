@@ -387,7 +387,10 @@
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
   background-color: silver;
   border-radius: 50%;
-  animation: glowSilver 1s ease-in-out infinite;
+  animation: glow 1s ease-in-out infinite;
+  background-image: linear-gradient(45deg, transparent 45%, rgba(255, 255, 255, 0.5) 46%, rgba(255, 255, 255, 0.5) 54%, transparent 55%);
+  background-size: 200% 200%;
+  animation: sweep 2s linear infinite;
 }
 
 .avatar3 {
@@ -399,8 +402,10 @@
   top: 11.5%;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
   background-color: #B87333;
-  border-radius: 50%;
-  animation: glowCopper 1s ease-in-out infinite;
+  animation: glow 1s ease-in-out infinite;
+  background-image: linear-gradient(45deg, transparent 45%, rgba(255, 255, 255, 0.5) 46%, rgba(255, 255, 255, 0.5) 54%, transparent 55%);
+  background-size: 200% 200%;
+  animation: sweep 2s linear infinite;
 
 }
 
