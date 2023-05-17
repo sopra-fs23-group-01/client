@@ -9,7 +9,7 @@ import ReminderIcon from "../../styles/image/Icons/ReminderIcon.png";
 import ConfirmIcon from "../../styles/image/Icons/ConfirmIcon.png";
 import BackIcon from "../../styles/image/Icons/BackIcon.png";
 import NavigationBar from "./NavigationBar";
-import avatar1 from "./avatar1.png";
+import avatar1 from "./images/avatar1.png";
 import NameIcon from "../../styles/image/Icons/NameIcon.png";
 import User from "../../models/User";
 import {Spinner} from "../ui/Spinner";
