@@ -44,7 +44,9 @@ const AppRouter = () => {
 
           <Route path="/room=:id" component={Room}>
             <GameGuard>
-              <Room/>
+              {/*<RoomGuard>*/}
+                <Room/>
+              {/*</RoomGuard>*/}
             </GameGuard>
           </Route>
 
@@ -72,8 +74,8 @@ const AppRouter = () => {
 
           <Route path="/room=:id/game">
             <GameGuard>
-            <PlayerGuard> 
-              <Game/>
+              <PlayerGuard>
+                <Game/>
               </PlayerGuard>
             </GameGuard>
           </Route>
@@ -86,7 +88,9 @@ const AppRouter = () => {
 
           <Route exact path="/lobby">
             <GameGuard>
+              <PlayerGuard>
                 <Lobby/>
+              </PlayerGuard>
             </GameGuard>
           </Route>
 

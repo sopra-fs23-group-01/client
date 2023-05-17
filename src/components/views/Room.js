@@ -67,14 +67,14 @@ const Room = () => {
     };
 
     const getReconnect = async () => {
-        try {
-            const requestBody = JSON.stringify({id});
-            await api.put('/users/room/'+roomId, requestBody);
-            //history.push('/voteresult/room='+roomId);
-
-        } catch (error) {
-            toast.error(`Something went wrong get ready`);
-        }
+        // try {
+        //     const requestBody = JSON.stringify({id});
+        //     await api.put('/users/room/'+roomId, requestBody);
+        //     //history.push('/voteresult/room='+roomId);
+        //
+        // } catch (error) {
+        //     toast.error(`Something went wrong get ready`);
+        // }
         var readyMessage = {
             senderName: userData.username,
             status: "RECONNECT"
@@ -88,7 +88,7 @@ const Room = () => {
 
             //get all players in the room
             const response = await api.get('/games/playerList/'+roomId);
-            await new Promise(resolve => setTimeout(resolve, 1000));
+            //await new Promise(resolve => setTimeout(resolve, 1000));
 
             // Get the returned users and update the state.
             setUsers(response.data);
@@ -156,9 +156,11 @@ const Room = () => {
 
         function Player({ user }) {
             const statusStyle = {
-                color: user.readyStatus === "READY" ? "green" : "red",
+                color: user.readyStatus === "READY" ? "green": "red",
+                content: user.readyStatus === "READY" ? setButtonStatus("Cancel"):setButtonStatus("Ready"),
                 fontSize: "120%"
             };
+
 
             const clickToVote = () =>{
                 console.log('id:'+localStorage.getItem('id')+'userid'+user.id)
@@ -247,8 +249,8 @@ const Room = () => {
             //alert(room.roomProperty);
             const currentId = localStorage.getItem('id');
             const isPlayerInRoom = room.roomPlayersList.join().includes(currentId);
-            if((!isPlayerInRoom && room.roomProperty=='INGAME')){
-                alert('You are not allowed to enter others room!');
+            if((!isPlayerInRoom)){
+                alert('Please enter the room from lobby');
                 history.push('/lobby');
 
         } else {
