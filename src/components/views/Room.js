@@ -19,6 +19,8 @@ import trophies from './images/trophies.png';
 import {toast, ToastContainer} from "react-toastify";
 import Modal from 'react-modal';
 import Confetti from 'react-confetti'
+import { faLessThanEqual } from '@fortawesome/free-solid-svg-icons';
+
 
 var stompClient = null;
 const Room = () => {
@@ -42,6 +44,8 @@ const Room = () => {
     //const roomTheme = localStorage.getItem('roomTheme');
     const [buttonStatus, setButtonStatus] = useState("Ready");
     const [votedThisRound, setVotedThisRound] = useState(true);
+    const [showStartIcon,setShowStartIcon] = useState(false);
+    
 
 
     const getReady = async () => {
@@ -65,6 +69,7 @@ const Room = () => {
             toast.error("You cancelled your readiness.", { autoClose: 1000 });
         }
     };
+
 
     const getReconnect = async () => {
         // try {
@@ -160,6 +165,7 @@ const Room = () => {
                 content: user.readyStatus === "READY" ? setButtonStatus("Cancel"):setButtonStatus("Ready"),
                 fontSize: "120%"
             };
+            // alert(user.readyStatus);
 
 
             const clickToVote = () =>{
@@ -257,6 +263,17 @@ const Room = () => {
             connect();
         }}
     }, [room]);
+
+    useEffect(() => {
+        if (room && room.roomOwnerId) { // Check that room and room.roomProperty are not undefined
+            //alert(room.roomProperty);
+            const currentId = localStorage.getItem('id');
+            if((room.roomOwnerId==currentId)){
+                setShowStartIcon(true);
+                alert()
+            }
+        }
+    }, [room]);
     
     const connect = () => {
         //let Sock = new SockJS('http://localhost:8080/ws');
@@ -292,6 +309,7 @@ const Room = () => {
         };
         if(room.roomProperty=='INGAME'){
             getReconnect();
+            getReady();
             setShowBackIcon(false);
             setShowSendIcon(false);
             setIsButtonVisible(false);
@@ -526,6 +544,8 @@ useEffect(() => {
 
     return (
         <div>
+        <BaseContainer>
+
             {showWelcome && <Confetti />}
         <Modal 
         isOpen={showWelcome}
@@ -556,14 +576,6 @@ useEffect(() => {
             <ToastContainer />
             {showBackIcon && <img className="room backicon" src={BackIcon} alt="Back" onClick={() => goBack()} />}
             <div className="room roomid">Room:{roomId}</div>
-            <div className="room reminder">
-                < img className="room remindericon" src={ReminderIcon} alt="Reminder" />
-                <div className="room remindertext">Welcome to Who Is Undercover!</div>
-
-            </div>
-            {/*<div className="room assignedword">
-                <strong>Your assigned word is:  {assignedWord} </strong>
-            </div>*/}
 
                 <div className="chat container">
                     {userData.connected ?
@@ -583,15 +595,6 @@ useEffect(() => {
                                 </div>
                             }
 
-
-                            {/* <div className="chat member-list">
-                            <ul>
-                                <li onClick={() => { setTab("CHATROOM") }} className={`chat member ${tab === "CHATROOM" && "active"}`}>Chatroom</li>
-                                {[...privateChats.keys()].map((name, index) => (
-                                    <li onClick={() => { setTab(name) }} className={`chat member ${tab === name && "active"}`} key={index}>{name}</li>
-                                ))}
-                            </ul>
-                        </div> */}
                             <div className="room theme" >{role}</div>
                             {isVisible ? <div className="room countdown">{seconds} seconds left</div> : null}
                             {tab === "CHATROOM" && 
@@ -611,19 +614,6 @@ useEffect(() => {
                                     </div>
                                 </div>
                                 }
-                            {tab !== "CHATROOM" && <div className="chat chat-content">
-                                <div className="chat fade-overlay"></div>
-                                <ul className="chat chat-messages">
-                                    {[...privateChats.get(tab)].map((chat, index) => (
-                                        <li className={`chat message ${chat.senderName === userData.username && "self"}`} key={index}>
-                                            {chat.senderName !== userData.username && <div className="chat avatar">{chat.senderName}</div>}
-                                            <div className="chat message-data">{chat.message}</div>
-                                            {chat.senderName === userData.username && <div className="chat avatar self">{chat.senderName}</div>}
-                                        </li>
-                                    ))}
-                                </ul>
-                                <div ref={messagesEndRef} />
-                            </div>}
 
                             {isButtonVisible ?
                             
@@ -632,9 +622,19 @@ useEffect(() => {
                                     <div className="room button-container" onClick={() => getReady()}>
                                         {buttonStatus}
                                     </div>
-                                    <div className="room button-container1" onClick={() => gameStart()}>
+                                    <div 
+                                        className={`room button-container1 ${showStartIcon ? 'room normal' : 'room grayed'}`} 
+                                        onClick={() => {
+                                            if (showStartIcon) {
+                                            gameStart();
+                                            } else {
+                                            toast.error("You are not allowed to start the game, please wait for room owner!", { autoClose: 1000 });
+                                            }
+                                        }}
+                                        >
                                         Start
                                     </div>
+                                    
                                 </div>: null}
 
 
@@ -649,10 +649,12 @@ useEffect(() => {
             {content}
             <div className="chat send-messagebox">
                 <input type="text" className="chat input-message" placeholder="Enter your message here..." value={userData.message} onChange={handleMessage} />
-                <img className={`room confirmicon`}  src={showSendIcon ? ConfirmIconBlue : ConfirmIcon} onClick={sendValue} alt="Confirm" />
+                <img className={`room confirmicon`}  src={showSendIcon ? ConfirmIconBlue : ConfirmIcon} onClick={showSendIcon ? () => sendValue() : null}
+                     alt="Confirm" />
             </div>
 
-        </div>
+            </BaseContainer>
+            </div>
     );
 }
 
