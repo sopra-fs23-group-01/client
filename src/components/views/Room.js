@@ -649,7 +649,8 @@ useEffect(() => {
             {content}
             <div className="chat send-messagebox">
                 <input type="text" className="chat input-message" placeholder="Enter your message here..." value={userData.message} onChange={handleMessage} />
-                <img className={`room confirmicon`}  src={showSendIcon ? ConfirmIconBlue : ConfirmIcon} onClick={sendValue} alt="Confirm" />
+                <img className={`room confirmicon`}  src={showSendIcon ? ConfirmIconBlue : ConfirmIcon} onClick={showSendIcon ? () => sendValue() : null}
+                     alt="Confirm" />
             </div>
 
         </div>
