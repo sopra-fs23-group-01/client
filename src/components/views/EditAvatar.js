@@ -43,13 +43,7 @@ function AvatarList(props) {
         'https://robohash.org/7',
         'https://robohash.org/8',
         'https://robohash.org/9',
-        'https://robohash.org/10',
-        'https://api.multiavatar.com/stefan.svg',
-        'https://api.multiavatar.com/kathrin.svg',
-        'https://api.multiavatar.com/zoe.svg',
-        'https://robohash.org/NVF.png?set=set4',
-        'https://robohash.org/7C4.png?set=set3',
-        'https://robohash.org/FLJ.png?set=set4'
+        'https://robohash.org/10'
     ];
 
     const handleAvatarClick = async (url) => {

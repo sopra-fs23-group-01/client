@@ -197,18 +197,18 @@ const Game = () => {
             return (
                 <Link to={`/user/${user.id}`} style={{textDecoration: 'none'}}>
                     <div className="game playercontainer" >
-                        <div className="leaderboard number">{user.id}</div>
+                        <div className="leaderboard number">ID {user.id}</div>
                         <img className='avatar4' src={user.avatarUrl} />
                         <div className="game informationcontainer">
                             <div className="leaderboard id">
                                 <span className="leaderboard namelink">
-                                  Player {user.username}
+                                  {user.username}
                                 </span>
                             </div>
                             <div className="leaderboard winingrate">: {user.intro}</div>
                         </div>
                         <div className="player rate">
-                            <div className="player ratenum">{`${user.rateDe * 100}%`}</div>
+                            <div className="player ratenum">{`${showSpy ? user.rateUn : user.rateDe * 100}%`}</div>
                         </div>
                     </div>
                 </Link>
@@ -245,50 +245,6 @@ const Game = () => {
     <div>
     {showSpy ? <SpyContent /> : <DetectiveContent />}
   </div>
-    // <BaseContainer {...handlers}>
-    //     <ToastContainer />
-    //     <img className='rank1' src={rank1}/>
-    //     {firstPlayer && (
-    //         <>
-    //             <img className='crown1' src={crown}/>
-    //             <Link to={`/user/${firstPlayer.id}`}>
-    //                 <img className='avatar1' src={firstPlayer.avatarUrl} />
-    //             </Link>
-    //             <div className='rankname1'>
-    //                 {firstPlayer.username}
-    //             </div>
-    //         </>
-    //     )}
-    //     <img className='rank2' src={rank2}/>
-    //     {secondPlayer && (
-    //         <>
-    //             <Link to={`/user/${secondPlayer.id}`}>
-    //                 <img className='avatar2' src={secondPlayer.avatarUrl} />
-    //             </Link>
-    //             <div className='rankname2'>
-    //                 {secondPlayer.username}
-    //             </div>
-    //         </>
-    //     )}
-    //     <img className='rank3' src={rank3}/>
-    //     {thirdPlayer && (
-    //         <>
-    //             <Link to={`/user/${thirdPlayer.id}`}>
-    //                 <img className='avatar3' src={thirdPlayer.avatarUrl} />
-    //             </Link>
-    //             <div className='rankname3'>
-    //                 {thirdPlayer.username}
-    //             </div>
-    //         </>
-    //     )}
-    //     <div className='leaderboardhead'>
-    //         LeaderBoard Detective
-    //     </div>
-    //     {content}
-
-    //   <NavigationBar/>
-      
-    // </BaseContainer>
   );
 }
 
