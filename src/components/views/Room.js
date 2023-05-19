@@ -162,7 +162,7 @@ const Room = () => {
         function Player({ user }) {
             const statusStyle = {
                 color: user.readyStatus === "READY" ? "green": "red",
-                content: user.readyStatus === "READY" ? setButtonStatus("Cancel"):setButtonStatus("Ready"),
+                //content: user.readyStatus === "READY" ? setButtonStatus("Cancel"):setButtonStatus("Ready"),
                 fontSize: "120%"
             };
             // alert(user.readyStatus);
