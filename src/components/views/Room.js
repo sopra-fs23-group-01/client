@@ -180,10 +180,10 @@ const Room = () => {
                 <div className="room playercontainer">
                     <img
                         src={user.avatarUrl}
-                        onClick={Number(localStorage.getItem('id')) === user.id || votedThisRound === true ? null : clickToVote}
+                        onClick={(Number(localStorage.getItem('id')) === user.id || votedThisRound === true || user.gameStatus === "OUT") ? null : clickToVote}
                         alt="profile img"
                         style={{
-                            cursor: Number(localStorage.getItem('id')) === user.id || votedThisRound === true ? "default" : "pointer",
+                            cursor: (Number(localStorage.getItem('id')) === user.id || votedThisRound === true || user.gameStatus === "OUT") ? "default" : "pointer",
                             border: `2px solid ${user.readyStatus === "READY" ? "green" : "red"}`,
                             position: "relative",
                             backgroundColor: user.gameStatus === "OUT" ? "gray" : "transparent"
@@ -285,7 +285,7 @@ const Room = () => {
         setUserData({ ...userData, "connected": true });
         stompClient.subscribe('/chatroom/'+roomId+'/public', onMessageReceived);
         stompClient.subscribe('/user/' + userData.username + '/private', onPrivateMessageReceived);
-        stompClient.subscribe('/room', onMessageReceived);
+        //stompClient.subscribe('/room', onMessageReceived);
         updateUser();
         userJoin();
     };
@@ -402,7 +402,7 @@ const Room = () => {
                 break;
 
             case "ROOM_UPDATE":
-                
+                //
                 updateUser();
                 getRoom();
                 scrollToBottom();
