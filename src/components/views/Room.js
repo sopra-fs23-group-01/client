@@ -413,12 +413,14 @@ const Room = () => {
                 break;
 
             case "REMINDER":
+                updateUser(); 
                 publicChats.push(payloadData);
                 setPublicChats([...publicChats]);
                 scrollToBottom();
                 break;
 
             case "DESCRIPTION":
+                updateUser(); 
                 setVotedThisRound(true);
                 publicChats.push(payloadData);
 
@@ -433,6 +435,7 @@ const Room = () => {
                 break;
 
             case "VOTE":
+                updateUser(); 
                 publicChats.push(payloadData);
                 setPublicChats([...publicChats]);
                 scrollToBottom();
