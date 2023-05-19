@@ -402,7 +402,7 @@ const Room = () => {
                 break;
 
             case "ROOM_UPDATE":
-                alert(room.roomOwnerId);
+                
                 updateUser();
                 getRoom();
                 scrollToBottom();
