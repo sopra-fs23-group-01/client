@@ -16,6 +16,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import { over } from 'stompjs';
 import SockJS from 'sockjs-client';
 import trophies from './images/trophies.png';
+import lose from './images/lose.png'
 import {toast, ToastContainer} from "react-toastify";
 import Modal from 'react-modal';
 import Confetti from 'react-confetti'
@@ -45,8 +46,7 @@ const Room = () => {
     const [buttonStatus, setButtonStatus] = useState("Ready");
     const [votedThisRound, setVotedThisRound] = useState(true);
     const [showStartIcon,setShowStartIcon] = useState(false);
-    
-
+    const [words,setWords] = useState(null);
 
     const getReady = async () => {
         try {
@@ -423,6 +423,7 @@ const Room = () => {
             case "DESCRIPTION":
                 setVotedThisRound(true);
                 publicChats.push(payloadData);
+
                 setPublicChats([...publicChats]);
                 scrollToBottom();
                 setIsVisible(true);
@@ -447,6 +448,7 @@ const Room = () => {
                 updateUser(); 
                 setIsButtonVisible(true);
                 publicChats.push(payloadData);
+                setWords(payloadData.message);
                 setPublicChats([...publicChats]);
                 scrollToBottom();
                 setShowSendIcon(true);
@@ -583,9 +585,12 @@ useEffect(() => {
                         <div className="chat chat-box">
                             {showResult &&
                                 <div className="room result">
-                                    <img className="room trophies" src={trophies} />
+                                    <img className="room trophies" src={role === 'winner' ? trophies : lose} />
                                     <p className="room winning">{winner} wins!</p>
-                                    <div className="login button-container" style={{ marginBottom: '30px' }}>
+                                    <p className="room wordsResult">{words}</p>
+                                    {/*<p className="room wordsResult">Detective words:{winner}</p>*/}
+                                    {/*<p className="room wordsResult">Undercover words:{winner}</p>*/}
+                                    <div className="room button-container-re" style={{ marginBottom: '30px' }}>
                                         <Button
                                             width="150px"
                                             onClick={() =>setShowResult(false)}>Confirm
