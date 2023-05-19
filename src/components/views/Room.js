@@ -285,6 +285,7 @@ const Room = () => {
         setUserData({ ...userData, "connected": true });
         stompClient.subscribe('/chatroom/'+roomId+'/public', onMessageReceived);
         stompClient.subscribe('/user/' + userData.username + '/private', onPrivateMessageReceived);
+        stompClient.subscribe('/room', onMessageReceived);
         updateUser();
         userJoin();
     };
@@ -398,7 +399,14 @@ const Room = () => {
                 publicChats.push(reconnectMessage);
                 setPublicChats([...publicChats]);
                 scrollToBottom();
-                break;        
+                break;
+
+            case "ROOM_UPDATE":
+                alert(room.roomOwnerId);
+                updateUser();
+                getRoom();
+                scrollToBottom();
+                break;
 
             case "START":
                 updateUser(); 
