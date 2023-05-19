@@ -2,7 +2,8 @@
 
 .login {
   &.container {
-    margin-top: 2em;
+    max-width: 430px; // 设置最大宽度为 600px，根据需要进行调整
+    margin: 2em auto 0;
     min-height: 300px;
     /* we include the center mixin defined in _theme.scss and save three duplicate lines :) */
     @include center;
@@ -133,6 +134,7 @@
     right: 0;
     margin: auto;
     top: 8%;
+    object-fit: contain;
   }
   &.showicon {
     position: absolute;
