@@ -94,8 +94,12 @@
     flex-direction: column;
     max-width: 155px;
     height: 100px;
-    border: 1px solid black;
+    border: 0.5px solid rgba(0, 0, 0, 0.2);
     padding: 10px;
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.2));
   }
 
   &.player.username {
@@ -116,6 +120,14 @@
     background-color: lightgray;
     border-radius: 5px;
   }
+  &.player.statusforroom {
+    font-family: Poppins;
+    font-style: normal;
+    filter: drop-shadow(0px 0px 3px rgba(0, 0, 0, 0.2));
+    font-weight: 500;
+    position: absolute;
+    bottom:0%;
+  }
 
   &.player.name {
     text-align: center;
@@ -127,6 +139,7 @@
     font-weight: 600;
     font-size: 24px;
     line-height: 36px;
+    filter: drop-shadow(0px 0px 3px rgba(0, 0, 0, 0.2));
     /* identical to box height */
     color: #000000;
   }

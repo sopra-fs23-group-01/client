@@ -5,11 +5,14 @@ import {useHistory} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import "styles/views/Lobby.scss";
+import FurniturePic from "../../styles/image/Pics4Theme/FurnitureTheme.png";
+import JobPic from "../../styles/image/Pics4Theme/JobTheme.png";
+import SportsPic from "../../styles/image/Pics4Theme/SportsTheme.png";
 import NavigationBar from "./NavigationBar";
 import Room from "../../models/Room";
 import {toast} from "react-toastify";
 import SockJS from 'sockjs-client';
-import { over } from 'stompjs';
+import {over} from 'stompjs';
 
 var stompClient = null;
 const Lobby = () => {
@@ -40,7 +43,7 @@ const Lobby = () => {
         var payloadData = JSON.parse(payload.body);
         switch (payloadData.status) {
             case "ROOM_UPDATE":
-                updateRoom();       
+                updateRoom();
                 break;
         }
     }
@@ -53,7 +56,7 @@ const Lobby = () => {
     async function enterRoom(roomId, id) {
         try {
             const requestBody = JSON.stringify({id});
-            await api.put('/room/'+roomId+'/players', requestBody);
+            await api.put('/room/' + roomId + '/players', requestBody);
             //alert('Entered room successfully: '+roomId+'userId: '+id);
             //history.push(`/leaderboard`);
         } catch (error) {
@@ -61,6 +64,7 @@ const Lobby = () => {
             alert(`Something went wrong during the enterRoom: \n${handleError(error)}`);
         }
     }
+
     async function quickStart() {
         try {
             const id = localStorage.getItem('id');
@@ -79,7 +83,6 @@ const Lobby = () => {
     const createRoom = async () => {
         window.location.href = `/roomCreation`;
     };
-
 
 
     // useEffect(() => {
@@ -121,32 +124,35 @@ const Lobby = () => {
 
     let content = null;
 
+    function getRoomPic(theme) {
+        switch (theme) {
+            case 'SPORTS':
+                return `url(${SportsPic})`;
+            case 'JOB':
+                return `url(${JobPic})`;
+            case 'FURNITURE':
+                return `url(${FurniturePic})`;
+            default:
+                return 'none';
+        }
+    }
 
     if (rooms) {
 
-        function Room({ room }) {
+        function Room({room}) {
             const propertyStyle = {
-                color: room.roomProperty === "WAITING" ? "green" : "red"
+                color: room.roomProperty === "WAITING" ? "darkgreen" : "darkred",
+                fontFamily: "Poppins",
+                fontStyle: "normal"
             };
+
 
             const tryStyle = {
                 color: room.roomPlayers.length !== 0 ? "green" : "yellow"
             };
 
+
             return (
-                //<a href={`/room=${room.roomId}`} style={{ textDecoration: 'none' }} disabled={room.roomProperty ==="INGAME"} onClick={() => enterRoom(room.roomId, localStorage.getItem('id'))}>
-                //  <a
-                //     href={`/room=${room.roomId}`}
-                //     style={{ textDecoration: 'none', color: room.roomProperty === "INGAME" ? 'gray' : 'black', pointerEvents: room.roomProperty === "INGAME" ? 'none' : 'auto' }}
-                //     onClick={(e) => {
-                //         e.preventDefault(); // 禁止默认的点击事件
-                //         if (room.roomProperty === "INGAME"||room.roomPlayersList.length === room.maxPlayersNum) {
-                //             // 如果房间正在进行游戏，则不执行进入房间操作
-                //             return;
-                //         }
-                //         else enterRoom(room.roomId, localStorage.getItem('id'));
-                //     }}
-                // >
                 <a
                     href={`/room=${room.roomId}`}
                     style={{
@@ -157,7 +163,7 @@ const Lobby = () => {
                         e.preventDefault(); // 禁止默认的点击事件
                         const currentId = localStorage.getItem('id');
                         const isPlayerInRoom = room.roomPlayersList.join().includes(currentId);
-                        if (room.roomProperty === "INGAME" && !isPlayerInRoom|| (room.roomPlayersList.length === room.maxPlayersNum && !isPlayerInRoom))  {
+                        if (room.roomProperty === "INGAME" && !isPlayerInRoom || (room.roomPlayersList.length === room.maxPlayersNum && !isPlayerInRoom)) {
                             // 如果房间正在进行游戏，则不执行进入房间操作
                             return;
                         }
@@ -172,10 +178,12 @@ const Lobby = () => {
                     }}
                 >
 
-                <div className="lobby player container" style={{ backgroundColor: 'yellowgreen' }}>
+                    <div className="lobby player container" style={{backgroundColor: "#FFE5F3", backgroundImage: getRoomPic(room.theme)}}>
                         <div className="lobby player room">Room {room.roomId}</div>
-                        <div className="lobby player theme"><span style={tryStyle}> {room.theme}</span></div>
-                        <span style={propertyStyle}>{room.roomProperty}   {room.roomPlayersList.length}/{room.maxPlayersNum} </span>
+                        <div className="lobby player theme"><span > {room.theme}</span></div>
+                        <div className="lobby player statusforroom" style={{ color: room.roomProperty === "WAITING" ? "green" : "red" }}>
+                            {room.roomProperty} {room.roomPlayersList.length}/{room.maxPlayersNum}
+                        </div>
                     </div>
                 </a>
             );
@@ -189,12 +197,12 @@ const Lobby = () => {
 
         content = (
 
-                <ul className="lobby list">
-                    {rooms.map(room => (
-                        <Room room={room} key={room.roomId}/>
-                    ))}
-                </ul>
-            
+            <ul className="lobby list">
+                {rooms.map(room => (
+                    <Room room={room} key={room.roomId}/>
+                ))}
+            </ul>
+
         );
     }
 
