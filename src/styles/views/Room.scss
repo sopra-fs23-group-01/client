@@ -138,6 +138,7 @@
     //overflow: hidden;
   }
   &.backicon{
+    max-width: 80px;
     position: absolute;
     top:5%;
     width: 12%;
@@ -212,6 +213,7 @@
     bottom:9%;
     left: 0%;
     width: 100%;
+    max-width: 700px;
     display: grid;
     grid-template-columns: repeat(4, 1fr); /* 4 items per line */
     gap: 10px; /* space between items */
@@ -354,6 +356,7 @@
     /* identical to box height */
   }
   &.confirmicon{
+    max-width: 100px;
     position: absolute;
     width: 12%;
     right: 0%;
