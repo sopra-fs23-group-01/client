@@ -290,13 +290,14 @@ const Room = () => {
             const currentId = localStorage.getItem('id');
             if((room.roomOwnerId==currentId)){
                 setShowStartIcon(true);
+                alert()
             }
         }
     }, [room]);
     
     const connect = () => {
-        let Sock = new SockJS('http://localhost:8080/ws');
-        //let Sock = new SockJS('https://sopra-fs23-group-01-server.oa.r.appspot.com/ws');
+        //let Sock = new SockJS('http://localhost:8080/ws');
+        let Sock = new SockJS('https://sopra-fs23-group-01-server.oa.r.appspot.com/ws');
         stompClient = over(Sock);
         stompClient.connect({}, onConnected, onError);
     };
@@ -305,7 +306,7 @@ const Room = () => {
         setUserData({ ...userData, "connected": true });
         stompClient.subscribe('/chatroom/'+roomId+'/public', onMessageReceived);
         stompClient.subscribe('/user/' + userData.username + '/private', onPrivateMessageReceived);
-        //stompClient.subscribe('/room', onMessageReceived);
+        // stompClient.subscribe('/room', onMessageReceived);
         updateUser();
         userJoin();
     };
@@ -356,7 +357,6 @@ const Room = () => {
             var creatMessage = {
                 status: "ROOM_UPDATE"
             };
-
             console.log(creatMessage);
             stompClient.send("/app/roomcreat", {}, JSON.stringify(creatMessage));
         }
@@ -374,7 +374,7 @@ const Room = () => {
                     setPrivateChats(new Map(privateChats));
                 }
                 const joinMessage = {
-                    senderName: "system",
+                    senderName: "system", 
                     message: `${payloadData.senderName} entered the room.`,
                     status: "MESSAGE"
                 };
@@ -421,14 +421,14 @@ const Room = () => {
                 publicChats.push(reconnectMessage);
                 setPublicChats([...publicChats]);
                 scrollToBottom();
-                break;
-
+                break;   
+            
             case "ROOM_UPDATE":
-                //
+                
                 updateUser();
                 getRoom();
-                scrollToBottom();
-                break;
+                updateUser(); 
+                break;     
 
             case "START":
                 updateUser(); 
@@ -577,9 +577,8 @@ useEffect(() => {
 
     return (
         <div>
-        <BaseContainer>
 
-            {showWelcome && <Confetti />}
+            {/* {showWelcome && <Confetti />}
         <Modal 
         isOpen={showWelcome}
         onRequestClose={() => setShowWelcome(false)}
@@ -600,12 +599,11 @@ useEffect(() => {
             }
           }
         }
-      >
-        <div className='chat welcome'>Welcome to the game!</div>
+        {/* <div className='chat welcome'>Welcome to the game!</div>
         <div className='chat welcomecontainer'>
         <Button onClick={() => setShowWelcome(false)}>Close</Button>
         </div>
-      </Modal>
+      </Modal> */}
             <ToastContainer />
             {showBackIcon && <img className="room backicon" src={BackIcon} alt="Back" onClick={() => goBack()} />}
             <div className="room roomid">Room:{roomId}</div>
@@ -687,7 +685,6 @@ useEffect(() => {
                      alt="Confirm" />
             </div>
 
-            </BaseContainer>
             </div>
     );
 }
