@@ -235,20 +235,18 @@
   }
   &.playercontainer{
     width: 100%;
-    height: 110%;
+    height: 120%;
     margin-left: -25%;
     align-items: center;
     text-align: center;
     //background-color: chocolate;
-    overflow: hidden;
   }
   &.avatarimg {
     width: 70%;
     border-radius: 50%; /* 将边框半径设置为元素宽度和高度的50% */
   }
   &.playername{
-    top:20%;
-    line-height: 13%;
+    line-height: 120%;
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 500;
