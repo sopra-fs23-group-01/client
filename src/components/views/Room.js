@@ -29,6 +29,7 @@ const Room = () => {
     const history = useHistory();
     const [assignedWord, setAssignedWord] = useState('');
     const [role, setRole] = useState('');
+    const [side,setSide] = useState('');
     const [room, setRoom] = useState(null);
     const [users, setUsers] = useState(null);
     const path = window.location.pathname.substring(1); // remove
@@ -47,6 +48,7 @@ const Room = () => {
     const [votedThisRound, setVotedThisRound] = useState(true);
     const [showStartIcon,setShowStartIcon] = useState(false);
     const [words,setWords] = useState(null);
+    const [winnerList,setWinnerList] = useState(null);
 
     const getReady = async () => {
         try {
@@ -154,6 +156,24 @@ const Room = () => {
         stompClient.send("/app/gamestart/"+roomId, {},JSON.stringify());
         sendUpdateReminder();
     }
+
+    function extractWordsFromMessage(words) {
+        // 提取 Detective Word
+        const detectiveWordMatch = words.match(/Detective Word:(\w+)/);
+        const detectiveWord = detectiveWordMatch ? detectiveWordMatch[1] : "";
+
+        // 提取 Undercover Word
+        const undercoverWordMatch = words.match(/Undercover Word:(\w+)/);
+        const undercoverWord = undercoverWordMatch ? undercoverWordMatch[1] : "";
+
+        return (
+            <div>
+                <p className="room wordsResult">Detective words: {detectiveWord}</p>
+                <p className="room wordsResult">Undercover words: {undercoverWord}</p>
+            </div>
+        );
+    }
+
 
     let content = <Spinner/>;
 
@@ -275,8 +295,8 @@ const Room = () => {
     }, [room]);
     
     const connect = () => {
-        //let Sock = new SockJS('http://localhost:8080/ws');
-        let Sock = new SockJS('https://sopra-fs23-group-01-server.oa.r.appspot.com/ws');
+        let Sock = new SockJS('http://localhost:8080/ws');
+        //let Sock = new SockJS('https://sopra-fs23-group-01-server.oa.r.appspot.com/ws');
         stompClient = over(Sock);
         stompClient.connect({}, onConnected, onError);
     };
@@ -297,6 +317,8 @@ const Room = () => {
         if (message.status === 'ASSIGNED_WORD') {
             setAssignedWord(message.message);
             setRole(message.role);
+            setSide(message.message);
+            localStorage.setItem("side", message.message);
             localStorage.setItem("role", message.role);
         }
     };
@@ -594,11 +616,9 @@ useEffect(() => {
                         <div className="chat chat-box">
                             {showResult &&
                                 <div className="room result">
-                                    <img className="room trophies" src={role === 'winner' ? trophies : lose} />
+                                    <img className="room trophies" src={winner === side ? trophies : lose} />
                                     <p className="room winning">{winner} wins!</p>
-                                    <p className="room wordsResult">{words}</p>
-                                    {/*<p className="room wordsResult">Detective words:{winner}</p>*/}
-                                    {/*<p className="room wordsResult">Undercover words:{winner}</p>*/}
+                                    {extractWordsFromMessage(words)}
                                     <div className="room button-container-re" style={{ marginBottom: '30px' }}>
                                         <Button
                                             width="150px"
