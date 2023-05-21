@@ -156,10 +156,10 @@ const RoomCreation = props => {
 
                 <div className="roomCreation editText" style={{ textAlign: 'center',marginTop:'40px' }}>Number of Players</div>
                 <Counter style={{fontSize: "20px"}}/>
-
-                <Button className="confirmButton" onClick = {() => createRoom()}>Confirm</Button>
-                <Button className="cancelButton" onClick={() => doCancel()}>Cancel</Button>
-
+                <div className='roomCreation buttonContainer'>
+                    <Button className="confirmButton" onClick = {() => createRoom()}>Confirm</Button>
+                    <Button className="cancelButton" onClick={() => doCancel()}>Cancel</Button>
+                </div>
             </div>
         </BaseContainer>
     );
