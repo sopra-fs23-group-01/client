@@ -290,7 +290,6 @@ const Room = () => {
             const currentId = localStorage.getItem('id');
             if((room.roomOwnerId==currentId)){
                 setShowStartIcon(true);
-                alert()
             }
         }
     }, [room]);
@@ -380,12 +379,12 @@ const Room = () => {
                 };
                 publicChats.push(joinMessage);
                 setPublicChats([...publicChats]);
-                scrollToBottom();
+
                 break;
             case "MESSAGE":
                 publicChats.push(payloadData);
                 setPublicChats([...publicChats]);
-                scrollToBottom();
+
                 break;
             case "READY":
                 updateUser(); 
@@ -396,7 +395,7 @@ const Room = () => {
                 };
                 publicChats.push(readyMessage);
                 setPublicChats([...publicChats]);
-                scrollToBottom();
+
                 break;
             case "NOT_READY":
                 updateUser(); 
@@ -407,7 +406,7 @@ const Room = () => {
                 };
                 publicChats.push(cancelMessage);
                 setPublicChats([...publicChats]);
-                scrollToBottom();
+
                 break;
 
             case "RECONNECT":
@@ -420,7 +419,7 @@ const Room = () => {
                 };
                 publicChats.push(reconnectMessage);
                 setPublicChats([...publicChats]);
-                scrollToBottom();
+
                 break;   
             
             case "ROOM_UPDATE":
@@ -436,7 +435,7 @@ const Room = () => {
                 wordAssign();
                 publicChats.push(payloadData);
                 setPublicChats([...publicChats]);
-                scrollToBottom();
+
                 setShowSendIcon(false);
                 sendUpdateReminder();
                 setShowBackIcon(false);
@@ -446,7 +445,7 @@ const Room = () => {
                 updateUser(); 
                 publicChats.push(payloadData);
                 setPublicChats([...publicChats]);
-                scrollToBottom();
+
                 break;
 
             case "DESCRIPTION":
@@ -455,7 +454,7 @@ const Room = () => {
                 publicChats.push(payloadData);
 
                 setPublicChats([...publicChats]);
-                scrollToBottom();
+
                 setIsVisible(true);
                 setSeconds(20);
                 if(payloadData.senderName === userData.username){
@@ -468,7 +467,7 @@ const Room = () => {
                 updateUser(); 
                 publicChats.push(payloadData);
                 setPublicChats([...publicChats]);
-                scrollToBottom();
+
                 setVotedThisRound(false);
                 setSeconds(10);
                 setShowSendIcon(false);
@@ -481,7 +480,7 @@ const Room = () => {
                 publicChats.push(payloadData);
                 setWords(payloadData.message);
                 setPublicChats([...publicChats]);
-                scrollToBottom();
+
                 setShowSendIcon(true);
                 setShowBackIcon(true);
                 setWinner(payloadData.senderName);
@@ -557,7 +556,7 @@ const Room = () => {
 
     const scrollToBottom = () => {
         if (messagesEndRef.current) {
-            messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+            messagesEndRef.current.scrollIntoView({ behavior: 'smooth',  block: "end" });
         }
     };
 
@@ -643,6 +642,7 @@ useEffect(() => {
                                                 </li>
                                             ))}
                                         </ul>
+
                                     </div>
                                 </div>
                                 }
