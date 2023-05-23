@@ -120,7 +120,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    padding: 0px 8px 0px 0px;
+    padding: 0 8px 0 0;
     gap: 4px;
 
     width: 209px;
@@ -161,7 +161,7 @@
     width: 10px;
     height: 22px;
 
-    font-family: Poppins;
+    font-family: Poppins, sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 15px;
@@ -197,8 +197,8 @@
   &.id {
     width: 53px;
     height: 22px;
-    
-    font-family: 'Inter';
+
+    font-family: 'Inter', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 14px;
@@ -215,7 +215,7 @@
     width: 25px;
     height: 20px;
 
-    font-family: 'Inter';
+    font-family: 'Inter', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 12px;
@@ -254,7 +254,7 @@
   margin-left: -116px;
   top: 30px;
   
-  font-family: 'Poppins';
+  font-family: 'Poppins', sans-serif;
   font-style: normal;
   font-weight: 600;
   font-size: 20px;
@@ -315,7 +315,7 @@
   margin-left: -44.5px;
   top: 90%;
 
-  font-family: 'Poppins';
+  font-family: 'Poppins', sans-serif;
   font-style: normal;
   font-weight: 600;
   font-size: 12px;
@@ -333,7 +333,7 @@
   margin-left: -20px;
   top: 85%;
   
-  font-family: 'Poppins';
+  font-family: 'Poppins', sans-serif;
   font-style: normal;
   font-weight: 600;
   font-size: 8px;
@@ -351,7 +351,7 @@
   margin-left: -20px;
   top: 85%;
   
-  font-family: 'Poppins';
+  font-family: 'Poppins', sans-serif;
   font-style: normal;
   font-weight: 600;
   font-size: 8px;
@@ -371,7 +371,6 @@
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
   background-color: gold;
   border-radius: 50%;
-  animation: glow 1s ease-in-out infinite;
   background-image: linear-gradient(45deg, transparent 45%, rgba(255, 255, 255, 0.5) 46%, rgba(255, 255, 255, 0.5) 54%, transparent 55%);
   background-size: 200% 200%;
   animation: sweep 2s linear infinite;
@@ -390,7 +389,6 @@
   animation: glow 1s ease-in-out infinite;
   background-image: linear-gradient(45deg, transparent 45%, rgba(255, 255, 255, 0.5) 46%, rgba(255, 255, 255, 0.5) 54%, transparent 55%);
   background-size: 200% 200%;
-  animation: sweep 2s linear infinite;
 }
 
 .avatar3 {
@@ -406,8 +404,6 @@
   animation: glow 1s ease-in-out infinite;
   background-image: linear-gradient(45deg, transparent 45%, rgba(255, 255, 255, 0.5) 46%, rgba(255, 255, 255, 0.5) 54%, transparent 55%);
   background-size: 200% 200%;
-  animation: sweep 2s linear infinite;
-
 }
 
 .avatar4 {

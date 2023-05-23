@@ -4,7 +4,6 @@ import {LoginGuard} from "components/routing/routeProtectors/LoginGuard";
 //  import {ProfileGuard} from "components/routing/routeProtectors/ProfileGuard";
 import Login from "components/views/Login";
 import Register from "components/views/Register";
-import Game from "components/views/Game";
 import Profile from "components/views/Profile";
 import ProfilePage from "components/views/Profile";
 import EditProfile from "components/views/EditProfile";
@@ -49,10 +48,6 @@ const AppRouter = () => {
               {/*</RoomGuard>*/}
             </GameGuard>
           </Route>
-
-          {/*<Route path="/voteresult/room=:id">*/}
-          {/*    <VoteResult/>*/}
-          {/*</Route>*/}
 
           <Route exact path="/login">
             <LoginGuard>
