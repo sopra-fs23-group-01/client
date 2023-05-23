@@ -684,10 +684,27 @@ useEffect(() => {
 
             {content}
             <div className="chat send-messagebox">
-                <input type="text" className="chat input-message" placeholder="Enter your message here..." value={userData.message} onChange={handleMessage} />
-                <img className={`room confirmicon`}  src={showSendIcon ? ConfirmIconBlue : ConfirmIcon} onClick={showSendIcon ? () => sendValue() : null}
-                     alt="Confirm" />
+                <input 
+                    type="text" 
+                    className="chat input-message" 
+                    placeholder="Enter your message here..." 
+                    value={userData.message} 
+                    onChange={handleMessage} 
+                />
+                <img 
+                    className={`room confirmicon`}  
+                    src={showSendIcon ? ConfirmIconBlue : ConfirmIcon} 
+                    onClick={() => {
+                        if (userData.message.trim() !== '' && showSendIcon) {
+                            sendValue();
+                        }else {
+                            toast.error("Message can't be empty!");  // Optionally show an alert when the message is empty
+                        }
+                    }}
+                    alt="Confirm" 
+                />
             </div>
+
 
             </div>
     );
