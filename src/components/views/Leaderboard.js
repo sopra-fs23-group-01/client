@@ -10,9 +10,7 @@ import rank1 from './images/rank1.png';
 import rank2 from './images/rank2.png';
 import rank3 from './images/rank3.png';
 import crown from './images/crown.png';
-import avatar1 from './images/avatar1.png';
-import avatar2 from './images/avatar2.png';
-import avatar3 from './images/avatar3.png';
+
 import NavigationBar from './NavigationBar';
 import {toast, ToastContainer} from "react-toastify";
 import { Link } from 'react-router-dom';
