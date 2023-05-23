@@ -112,7 +112,10 @@ const EditAvatar= () =>{
             }
         }
 
-        fetchData().then();
+        fetchData().catch((error) => {
+            // Handle error or rejection
+            console.error('An error occurred:', error);
+        });
     }, [id]);
 
 

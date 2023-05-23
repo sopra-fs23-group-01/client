@@ -27,7 +27,10 @@ export const ProfileGuard = props => {
         }
     }
 
-    fetchUsers().then();
+    fetchUsers().catch((error) => {
+        // Handle error or rejection
+        console.error('An error occurred:', error);
+    });
 
     if (localStorage.getItem("token")) { return props.children; }
 

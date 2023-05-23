@@ -29,13 +29,16 @@ const Lobby = () => {
     const [rooms, setRooms] = useState(null);
 
     const connect = () => {
-        //let Sock = new SockJS('http://localhost:8080/ws');
-        let Sock = new SockJS('https://sopra-fs23-group-01-server.oa.r.appspot.com/ws');
+        let Sock = new SockJS('http://localhost:8080/ws');
+        //let Sock = new SockJS('https://sopra-fs23-group-01-server.oa.r.appspot.com/ws');
         stompClient = over(Sock);
         stompClient.connect({}, onConnected, onError);
     }
     const onConnected = () => {
-        updateRoom().then();
+        updateRoom().catch((error) => {
+            // Handle error or rejection
+            console.error('An error occurred:', error);
+        });
         stompClient.subscribe('/room', onMessageReceived);
     }
 
@@ -43,7 +46,10 @@ const Lobby = () => {
         var payloadData = JSON.parse(payload.body);
         switch (payloadData.status) {
             case "ROOM_UPDATE":
-                updateRoom().then();
+                updateRoom().catch((error) => {
+                    // Handle error or rejection
+                    console.error('An error occurred:', error);
+                });
                 break;
         }
     }

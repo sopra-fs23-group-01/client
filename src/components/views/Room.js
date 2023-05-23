@@ -279,7 +279,10 @@ const Room = () => {
         setUserData({ ...userData, "connected": true });
         stompClient.subscribe('/chatroom/'+roomId+'/public', onMessageReceived);
         stompClient.subscribe('/user/' + userData.username + '/private', onPrivateMessageReceived);
-        updateUser().then();
+        updateUser().catch((error) => {
+            // Handle error or rejection
+            console.error('An error occurred:', error);
+        });
         userJoin();
     };
 
@@ -303,7 +306,10 @@ const Room = () => {
             status: "JOIN"
         };
         if(room.roomProperty=='INGAME'){
-            getReconnect().then();
+            getReconnect().catch((error) => {
+                // Handle error or rejection
+                console.error('An error occurred:', error);
+            });
             setShowBackIcon(false);
             setShowSendIcon(false);
             setIsButtonVisible(false);
@@ -340,7 +346,10 @@ const Room = () => {
         var payloadData = JSON.parse(payload.body);
         switch (payloadData.status) {
             case "JOIN":
-                updateUser().then();
+                updateUser().catch((error) => {
+                    // Handle error or rejection
+                    console.error('An error occurred:', error);
+                });
                 if (!privateChats.get(payloadData.senderName)) {
                     privateChats.set(payloadData.senderName, []);
                     setPrivateChats(new Map(privateChats));
@@ -360,7 +369,10 @@ const Room = () => {
 
                 break;
             case "READY":
-                updateUser().then();
+                updateUser().catch((error) => {
+        // Handle error or rejection
+        console.error('An error occurred:', error);
+    });
                 const readyMessage = {
                     senderName: "system",
                     message: `${payloadData.senderName} is ready!`,
@@ -371,7 +383,10 @@ const Room = () => {
 
                 break;
             case "NOT_READY":
-                updateUser().then();
+                updateUser().catch((error) => {
+        // Handle error or rejection
+        console.error('An error occurred:', error);
+    });
                 const cancelMessage = {
                     senderName: "system",
                     message: `${payloadData.senderName} cancel ready!`,
@@ -384,7 +399,10 @@ const Room = () => {
 
             case "RECONNECT":
                 setRole(localStorage.getItem("role"));
-                updateUser().then();
+                updateUser().catch((error) => {
+        // Handle error or rejection
+        console.error('An error occurred:', error);
+    });
                 const reconnectMessage = {
                     senderName: "system",
                     message: `${payloadData.senderName} reconnected.`,
@@ -397,14 +415,26 @@ const Room = () => {
             
             case "ROOM_UPDATE":
                 
-                updateUser().then();
-                getRoom().then();
-                updateUser().then();
+                updateUser().catch((error) => {
+        // Handle error or rejection
+        console.error('An error occurred:', error);
+    });
+                getRoom().catch((error) => {
+        // Handle error or rejection
+        console.error('An error occurred:', error);
+    });
+                updateUser().catch((error) => {
+        // Handle error or rejection
+        console.error('An error occurred:', error);
+    });
                 break;     
 
             case "START":
                 toast.success("Game Start Now! Good Luck and Have Fun!");
-                updateUser().then();
+                updateUser().catch((error) => {
+        // Handle error or rejection
+        console.error('An error occurred:', error);
+    });
                 setIsButtonVisible(false);
                 wordAssign();
                 publicChats.push(payloadData);
@@ -416,7 +446,10 @@ const Room = () => {
                 break;
 
             case "REMINDER":
-                updateUser().then();
+                updateUser().catch((error) => {
+        // Handle error or rejection
+        console.error('An error occurred:', error);
+    });
                 publicChats.push(payloadData);
                 setPublicChats([...publicChats]);
                 // const reminderMessage = payloadData.message;
@@ -424,7 +457,10 @@ const Room = () => {
                 break;
 
             case "DESCRIPTION":
-                updateUser().then();
+                updateUser().catch((error) => {
+        // Handle error or rejection
+        console.error('An error occurred:', error);
+    });
                 setVotedThisRound(true);
                 publicChats.push(payloadData);
 
@@ -440,7 +476,10 @@ const Room = () => {
                 break;
 
             case "VOTE":
-                updateUser().then();
+                updateUser().catch((error) => {
+        // Handle error or rejection
+        console.error('An error occurred:', error);
+    });
                 publicChats.push(payloadData);
                 setPublicChats([...publicChats]);
                 toast.info("It's time to vote! Please pick a player by clicking their Avatar!")
@@ -452,7 +491,10 @@ const Room = () => {
 
             case "END":
                 toast.info("Game Over! GG!")
-                updateUser().then();
+                updateUser().catch((error) => {
+        // Handle error or rejection
+        console.error('An error occurred:', error);
+    });
                 setIsButtonVisible(true);
                 publicChats.push(payloadData);
                 setWords(payloadData.message);
