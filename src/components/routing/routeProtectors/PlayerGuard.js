@@ -23,7 +23,10 @@ export const PlayerGuard = ({ children }) => {
             }
         }
 
-        getUserRoom().then(_ => {});
+        getUserRoom().catch((error) => {
+            // Handle error or rejection
+            console.error('An error occurred:', error);
+        });
     }, [id, room]);
 
     if (!room || !room.roomId) {
