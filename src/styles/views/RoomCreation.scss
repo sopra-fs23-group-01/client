@@ -8,7 +8,7 @@
     left: 50%;
     margin-left: -32px;
     top: 5%;
-    font-family: 'Poppins';
+    font-family: 'Poppins',sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 20px;
@@ -23,7 +23,7 @@
     left: 50%;
     margin-left: -144px;
     top: 8.3%;
-    font-family: 'Poppins';
+    font-family: 'Poppins',sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 32px;
@@ -38,7 +38,7 @@
     left: 11%;
     top: 16%;
     background: rgba(255, 229, 243, 0.5285);
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
   }
 
@@ -47,10 +47,10 @@
     width: 76.7%;
     height:30%;
     left: 11%;
-    bottom: 0%;
+    bottom: 0;
   }
   &.editText {
-    font-family: 'Poppins';
+    font-family: 'Poppins',sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 25px;

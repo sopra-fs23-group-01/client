@@ -47,7 +47,7 @@
     top: 92%;
     width:100%;
 
-    font-family: 'Poppins';
+    font-family: 'Poppins', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 100%;
@@ -86,7 +86,7 @@
     left: 30vw;
     top: 3vh;
 
-    font-family: 'Poppins';
+    font-family: 'Poppins', sans-serif ;
     font-style: normal;
     font-weight: 700;
     font-size: 4vw;
@@ -104,7 +104,7 @@
   }
 }
   &.winning{
-    font-family: 'Poppins';
+    font-family: 'Poppins', sans-serif;
     font-style: normal;
     font-weight: 700;
     font-size: 140%;
@@ -113,7 +113,7 @@
     margin: 0;
   }
   &.wordsResult{
-    font-family: 'Poppins';
+    font-family: 'Poppins', sans-serif ;
     font-style: normal;
     font-weight: 700;
     font-size: 100%;
@@ -138,7 +138,7 @@
     background: #FFFAEA;
     border-radius: 19px;
 
-    font-family: 'Poppins';
+    font-family: 'Poppins', sans-serif ;
     font-style: normal;
     font-weight: 500;
     font-size: 15%;
@@ -153,7 +153,7 @@
   &.remindericon{
     position: absolute;
     width: 9%;
-    left: 0%;
+    left: 0;
     //overflow: hidden;
   }
   &.backicon{
@@ -161,7 +161,7 @@
     position: absolute;
     top:1%;
     width: 12%;
-    left: 0%;
+    left: 0;
     //overflow: hidden;
   }
   &.assignedword{
@@ -173,7 +173,7 @@
     background: #d8f8db;
     border-radius: 19px;
 
-    font-family: 'Poppins';
+    font-family: 'Poppins', sans-serif ;
     font-style: normal;
     font-weight: 500;
     font-size: 13%;
@@ -194,7 +194,7 @@
     background: #FFFAEA;
     border-radius: 19px;
 
-    font-family: 'Poppins';
+    font-family: 'Poppins', sans-serif ;
     font-style: normal;
     font-weight: 500;
     font-size: 13%;
@@ -213,7 +213,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
 
-    font-family: 'Poppins';
+    font-family: 'Poppins', sans-serif ;
     font-style: normal;
     font-weight: 600;
     font-size: 200%;
@@ -230,7 +230,7 @@
   &.user-list{
     position: absolute;
     bottom:9%;
-    left: 0%;
+    left: 0;
     width: 100%;
     max-width: 700px;
     display: grid;
@@ -251,7 +251,7 @@
   }
   &.playername{
     line-height: 120%;
-    font-family: 'Poppins';
+    font-family: 'Poppins', sans-serif ;
     font-style: normal;
     font-weight: 500;
     font-size: 80%;
@@ -292,13 +292,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    color:white;
     text-align: center;
 
     background: linear-gradient(92.24deg, #9FDBA1 -6%, #1976D2 101.32%);
     border-radius: 10px;
 
-    font-family: 'Poppins';
+    font-family: 'Poppins', sans-serif ;
     font-style: normal;
     font-weight: 500;
     font-size: 90%;
@@ -320,12 +319,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    color:white;
     text-align: center;
     background: linear-gradient(92.24deg, #9FDBA1 -6%, #1976D2 101.32%);
     border-radius: 10px;
 
-    font-family: 'Poppins';
+    font-family: 'Poppins', sans-serif ;
     font-style: normal;
     font-weight: 500;
     font-size: 90%;
@@ -364,7 +362,7 @@
     background-color: rgba(164, 164, 164, 0.1); /* Use a semi-transparent background */
     backdrop-filter: blur(10px); /* Apply a 10px blur to the background */
 
-    font-family: 'Poppins';
+    font-family: 'Poppins', sans-serif ;
     font-style: normal;
     font-weight: 500;
     font-size: 90%;
@@ -375,13 +373,13 @@
     max-width: 100px;
     position: absolute;
     width: 12%;
-    right: 0%;
+    right: 0;
     //overflow: hidden;
   }
   &.confirmicon-hidden{
     position: absolute;
     width: 12%;
-    right: 0%;
+    right: 0;
     display: none;
     //overflow: hidden;
   }
@@ -433,7 +431,7 @@
   
   &.chat-content {
     width: 100%;
-    margin-left: 0px;
+    margin-left: 0;
     height: 95%;  // 这将使 .chat-content 填充整个 .chat-container
     overflow-y: scroll;
     scrollbar-width: none;
@@ -479,7 +477,7 @@
     display: flex;
     flex-direction: row;
     left: 22px;
-    bottom: 0%;
+    bottom: 0;
   }
   
   &.input-message {
@@ -487,7 +485,7 @@
 
     width: 80%;
     height: 40px;
-    left: 0px;
+    left: 0;
     top: 450px;
     display: flex;
     justify-content: center;
@@ -495,7 +493,6 @@
 
     background: linear-gradient(0deg, rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.02)), radial-gradient(90.16% 143.01% at 15.32% 21.04%, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.0447917) 77.08%, rgba(255, 255, 255, 0) 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
     background-blend-mode: normal, overlay, normal;
-    backdrop-filter: blur(6.07811px);
     /* Note: backdrop-filter has minimal browser support */
     border: none;
     border-radius: 0.75em;
@@ -504,7 +501,7 @@
     background-color: rgba(164, 164, 164, 0.1); /* Use a semi-transparent background */
     backdrop-filter: blur(10px); /* Apply a 10px blur to the background */
 
-    font-family: 'Poppins';
+    font-family: 'Poppins', sans-serif ;
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
@@ -527,7 +524,7 @@
     background-color: rgba(164, 164, 164, 0.1); /* Use a semi-transparent background */
     backdrop-filter: blur(10px); /* Apply a 10px blur to the background */
 
-    font-family: 'Poppins';
+    font-family: 'Poppins', sans-serif ;
     font-style: normal;
     font-weight: 500;
     font-size: 90%;
@@ -608,7 +605,7 @@
   }
 
   &.welcome{
-      font-family: 'Comic Sans MS';
+      font-family: 'Comic Sans MS',sans-serif;
       font-weight: bold;
       font-size: 30px;
       color: #0c0b0b;

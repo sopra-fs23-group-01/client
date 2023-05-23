@@ -42,7 +42,7 @@
     backdrop-filter: blur(10px); /* Apply a 10px blur to the background */
   }
   &.label {
-    font-family: 'Poppins';
+    font-family: 'Poppins', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 12px;
@@ -67,7 +67,7 @@
     display: flex;
     justify-content: center;
     margin-top: 2em;
-    font-family: 'Poppins';
+    font-family: 'Poppins', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 11px;
@@ -87,7 +87,7 @@
     left: 63.2%;
     top: 60%;
 
-    font-family: 'Poppins';
+    font-family: 'Poppins', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 11.33px;
@@ -95,7 +95,7 @@
     color: #A4A4A4;
   }
   &.welcomeline1 {
-    font-family: 'Poppins';
+    font-family: 'Poppins', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 40px;
@@ -107,7 +107,7 @@
   }
 
   &.welcomeline2 {
-    font-family: 'Poppins';
+    font-family: 'Poppins', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 15px;
@@ -156,7 +156,7 @@
     right: 17.33%;
     top: 51%;
 
-    font-family: 'Poppins';
+    font-family: 'Poppins', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 9px;
