@@ -79,25 +79,30 @@
     flex-direction: column;
     overflow: hidden;
   }
-  &.roomid{
+  &.roomid {
     position: absolute;
-    width: 39%;
-    height: 6.4%;
-    left: 30%;
-    top: 3%;
+    width: 39vw;
+    height: 6.4vh;
+    left: 30vw;
+    top: 3vh;
 
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 700;
-    font-size: 140%;
-    line-height: 60px;
-    /* identical to box height */
+    font-size: 4vw;
+    line-height: 6vh;
 
     text-align: center;
 
     color: #2F2F2F;
     overflow: hidden;
+}
+
+@media (max-width: 600px) {
+  &.roomid {
+    font-size: 7vw;
   }
+}
   &.winning{
     font-family: 'Poppins';
     font-style: normal;
@@ -417,6 +422,13 @@
     width: 100%;
     height: 76%;
     margin-top: 13%;
+  }
+
+  /* For desktop: */
+  @media (min-width: 992px) {
+    &.chat-container {
+      margin-top: 4%;
+    }
   }
   
   &.chat-content {
