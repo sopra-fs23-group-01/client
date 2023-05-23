@@ -4,9 +4,13 @@ import {Button} from 'components/ui/Button';
 import {useHistory, useParams} from 'react-router-dom';
 import PropTypes from "prop-types";
 import "styles/views/Room.scss";
+import 'styles/views/ModalStyles.scss';
 import ConfirmIcon from "../../styles/image/Icons/ConfirmIcon.png";
 import ConfirmIconBlue from "../../styles/image/Icons/ConfirmIconBlue.png";
 import BackIcon from "../../styles/image/Icons/BackIcon.png";
+import BookIcon from "../../styles/image/Icons/magnifier-search-zoom-svgrepo-com.png";
+import ReadyHelp from "../../styles/image/Pics4help/readyDiscription.jpg";
+import VoteHelp from "../../styles/image/Pics4help/voteDisc.jpg";
 import {Spinner} from "../ui/Spinner";
 import React, { useEffect, useState, useRef } from 'react'
 import { over } from 'stompjs';
@@ -14,6 +18,7 @@ import SockJS from 'sockjs-client';
 import trophies from './images/trophies.png';
 import lose from './images/lose.png'
 import {toast, ToastContainer} from "react-toastify";
+import Modal from 'react-modal';
 
 
 var stompClient = null;
@@ -39,6 +44,7 @@ const Room = () => {
     const [votedThisRound, setVotedThisRound] = useState(true);
     const [showStartIcon,setShowStartIcon] = useState(false);
     const [words,setWords] = useState(null);
+    const [modalIsOpen, setModalIsOpen] = useState(false);
 
     const getReady = async () => {
         try {
@@ -587,9 +593,50 @@ useEffect(() => {
   return () => clearTimeout(timer);
 }, []);
 
+const modalContentRef = useRef(); // Create a ref
+
+useEffect(() => {
+    if (modalIsOpen) { // Check if the modal is open
+        const intervalId = setInterval(() => {
+            if (modalContentRef.current.scrollTop < modalContentRef.current.scrollHeight) {
+                // Increment the scrollTop property each time
+                modalContentRef.current.scrollTop += 1;
+            } else {
+                // If we've reached the bottom, clear the interval
+                clearInterval(intervalId);
+            }
+        }, 40); // Change the number for faster or slower scrolling
+
+        return () => clearInterval(intervalId); // Clear the interval if the component unmounts
+    }
+}, [modalIsOpen]);
+
     return (
         <div>
             <ToastContainer />
+            <Modal
+                isOpen={modalIsOpen}
+                onRequestClose={() => setModalIsOpen(false)}
+                contentLabel="Game Rules"
+                className="modal-content"
+                overlayClassName="modal-overlay"
+            >   
+                <h2 className="modal-heading">Help</h2>
+                <div className='modal-container' ref={modalContentRef}>
+                <p className="modal-body">1. Click on the Ready button and  waiting for roomowner to start the game. </p>
+                <img src={ReadyHelp} alt='ready' style={{width:'200px', height: '200px'}} />
+                <p className="modal-body">2. After game start, please use your own word to discribe the word you assigned.(you may assigned a word different from others, you need to hide yourself)</p>
+                <p className="modal-body">3. During discription stage, only one player can discribe their words each round</p>
+                <p className="modal-body">4. After discription, you need to vote one player by clicking on their avatars.(as undercover you need to hide yourself, as detective you need to vote out undercover)</p>
+                <img src={VoteHelp} alt='vote' style={{width:'200px', height: '200px'}} />
+                <p className="modal-body">5. Game continue unless one side win.</p>
+                </div>
+                <div className='modal-buttonContainer'>
+                <button className="modal-button" onClick={() => setModalIsOpen(false)}>close</button>
+                </div>
+            </Modal>
+
+            <img className="room bookicon" src={BookIcon} alt="Book" onClick={() => setModalIsOpen(true)} />
             {showBackIcon && <img className="room backicon" src={BackIcon} alt="Back" onClick={() => goBack()} />}
             <div className="room roomid">Room:{roomId}</div>
 
