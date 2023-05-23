@@ -1,6 +1,7 @@
 import {Redirect,} from "react-router-dom";
 import PropTypes from "prop-types";
 import {api} from "../../../helpers/api";
+import {toast} from "react-toastify";
 
 /**
  * routeProtectors interfaces can tell the router whether or not it should allow navigation to a requested route.
@@ -22,7 +23,7 @@ export const ProfileGuard = props => {
             }
 
         } catch (error) {
-            alert("No users in DataBase, please click on Logout!")
+            toast.info("No users in DataBase, please click on Logout!")
         }
     }
 

@@ -430,6 +430,7 @@ const Room = () => {
                 break;     
 
             case "START":
+                toast.success("Game Start Now! Good Luck and Have Fun!");
                 updateUser(); 
                 setIsButtonVisible(false);
                 wordAssign();
@@ -445,7 +446,8 @@ const Room = () => {
                 updateUser(); 
                 publicChats.push(payloadData);
                 setPublicChats([...publicChats]);
-
+                // const reminderMessage = payloadData.message;
+                // toast.info(reminderMessage, { autoClose: 2500 });
                 break;
 
             case "DESCRIPTION":
@@ -458,6 +460,7 @@ const Room = () => {
                 setIsVisible(true);
                 setSeconds(20);
                 if(payloadData.senderName === userData.username){
+                    toast.info("It's your turn! Please describe!")
                     setShowSendIcon(true);
                 } else
                 setShowSendIcon(false);
@@ -467,7 +470,7 @@ const Room = () => {
                 updateUser(); 
                 publicChats.push(payloadData);
                 setPublicChats([...publicChats]);
-
+                toast.info("It's time to vote! Please pick a player by clicking their Avatar!")
                 setVotedThisRound(false);
                 setSeconds(10);
                 setShowSendIcon(false);
@@ -475,6 +478,7 @@ const Room = () => {
                 break;
 
             case "END":
+                toast.info("Game Over! GG!")
                 updateUser(); 
                 setIsButtonVisible(true);
                 publicChats.push(payloadData);

@@ -59,7 +59,7 @@ const EditProfile= () =>{
                 setUsers(response.data);
 
             } catch (error) {
-                alert(`Something went wrong during the profile page: \n${handleError(error)}`);
+                toast.error(`Something went wrong during the profile page: \n${handleError(error)}`);
 
             }
         }

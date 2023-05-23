@@ -12,6 +12,7 @@ import PropTypes from "prop-types";
 import {Spinner} from 'components/ui/Spinner';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import {toast, ToastContainer} from "react-toastify";
 //axios的第三方库来发起HTTP请求，并在响应中获取图像URL。axios是一个流行的JavaScript库，用于在浏览器和Node.js中发起HTTP请求
 
 
@@ -131,7 +132,7 @@ const Profile= () =>{
       // Regist successfully worked --> navigate to the route /Login in the GameRouter
       history.push(`/profile/${id}`);
     } catch (error) {
-      alert(`Something went wrong during the profile edit: \n${handleError(error)}`);
+      toast.warning(`Something went wrong during the profile edit: \n${handleError(error)}`);
     }
   };
 
@@ -168,7 +169,7 @@ const Profile= () =>{
 
   return (
     <BaseContainer>
-
+      <ToastContainer />
         {content}
 
     </BaseContainer>

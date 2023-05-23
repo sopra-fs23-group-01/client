@@ -60,7 +60,7 @@ const ProfilePage=() =>{
 
 
       } catch (error) {
-        alert(`Something went wrong during the profile page: \n${handleError(error)}`);
+        toast.warning(`Something went wrong during the profile page: \n${handleError(error)}`);
         localStorage.removeItem('token');
         history.push('/login');
         
@@ -172,7 +172,7 @@ const ProfilePage=() =>{
 
   return (
     <BaseContainer>
-
+      <ToastContainer/>
         {content}
 
     </BaseContainer>
