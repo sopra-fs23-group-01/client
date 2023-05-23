@@ -70,7 +70,7 @@ const AppRouter = () => {
           <Route path="/room=:id/game">
             <GameGuard>
               <PlayerGuard>
-                <Game/>
+
               </PlayerGuard>
             </GameGuard>
           </Route>
