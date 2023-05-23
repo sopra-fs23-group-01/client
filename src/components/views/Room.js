@@ -2,14 +2,10 @@ import '@fortawesome/fontawesome-free/css/all.css';
 import {api, handleError} from 'helpers/api';
 import {Button} from 'components/ui/Button';
 import {useHistory, useParams} from 'react-router-dom';
-import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import "styles/views/Room.scss";
-import ReminderIcon from "../../styles/image/Icons/ReminderIcon.png";
 import ConfirmIcon from "../../styles/image/Icons/ConfirmIcon.png";
 import ConfirmIconBlue from "../../styles/image/Icons/ConfirmIconBlue.png";
-import OutShade from "../../styles/image/Icons/OutedFilter.png";
-import VoteShade from "../../styles/image/Icons/VotedFilter.png";
 import BackIcon from "../../styles/image/Icons/BackIcon.png";
 import {Spinner} from "../ui/Spinner";
 import React, { useEffect, useState, useRef } from 'react'
@@ -18,9 +14,6 @@ import SockJS from 'sockjs-client';
 import trophies from './images/trophies.png';
 import lose from './images/lose.png'
 import {toast, ToastContainer} from "react-toastify";
-import Modal from 'react-modal';
-import Confetti from 'react-confetti'
-import { faLessThanEqual } from '@fortawesome/free-solid-svg-icons';
 
 
 var stompClient = null;
@@ -40,21 +33,17 @@ const Room = () => {
     const [isButtonVisible, setIsButtonVisible] = useState(true);
     const [showSendIcon, setShowSendIcon] = useState(true);
     const [showBackIcon, setShowBackIcon] = useState(true);
-    const [avatarClickedVoted, setAvatarClickedVoted] = useState(false);
     const [winner, setWinner] = useState(null);
     const [showResult, setShowResult] = useState(false);
-    //const roomTheme = localStorage.getItem('roomTheme');
     const [buttonStatus, setButtonStatus] = useState("Ready");
     const [votedThisRound, setVotedThisRound] = useState(true);
     const [showStartIcon,setShowStartIcon] = useState(false);
     const [words,setWords] = useState(null);
-    const [winnerList,setWinnerList] = useState(null);
 
     const getReady = async () => {
         try {
             const requestBody = JSON.stringify({id});
             await api.put('/users/room/'+roomId, requestBody);
-            //history.push('/voteresult/room='+roomId);
 
         } catch (error) {
             toast.error(`Something went wrong get ready`);
@@ -74,14 +63,6 @@ const Room = () => {
 
 
     const getReconnect = async () => {
-        // try {
-        //     const requestBody = JSON.stringify({id});
-        //     await api.put('/users/room/'+roomId, requestBody);
-        //     //history.push('/voteresult/room='+roomId);
-        //
-        // } catch (error) {
-        //     toast.error(`Something went wrong get ready`);
-        // }
         var readyMessage = {
             senderName: userData.username,
             status: "RECONNECT"
@@ -145,9 +126,6 @@ const Room = () => {
             return () => clearInterval(intervalId);
         } else {
             setIsVisible(false);
-            // setTimeout(() => {
-            //     setIsVisible(true);
-            // }, 1000); // 5秒后重新显示倒计时组件
         }
     }, [seconds]);
 
@@ -182,10 +160,8 @@ const Room = () => {
         function Player({ user }) {
             const statusStyle = {
                 color: user.readyStatus === "READY" ? "green": "red",
-                //content: user.readyStatus === "READY" ? setButtonStatus("Cancel"):setButtonStatus("Ready"),
                 fontSize: "120%"
             };
-            // alert(user.readyStatus);
 
 
             const clickToVote = () =>{
@@ -272,7 +248,6 @@ const Room = () => {
 
     useEffect(() => {
         if (room && room.roomProperty) { // Check that room and room.roomProperty are not undefined
-            //alert(room.roomProperty);
             const currentId = localStorage.getItem('id');
             const isPlayerInRoom = room.roomPlayersList.join().includes(currentId);
             if((!isPlayerInRoom)){
@@ -286,7 +261,6 @@ const Room = () => {
 
     useEffect(() => {
         if (room && room.roomOwnerId) { // Check that room and room.roomProperty are not undefined
-            //alert(room.roomProperty);
             const currentId = localStorage.getItem('id');
             if((room.roomOwnerId==currentId)){
                 setShowStartIcon(true);
@@ -305,8 +279,7 @@ const Room = () => {
         setUserData({ ...userData, "connected": true });
         stompClient.subscribe('/chatroom/'+roomId+'/public', onMessageReceived);
         stompClient.subscribe('/user/' + userData.username + '/private', onPrivateMessageReceived);
-        // stompClient.subscribe('/room', onMessageReceived);
-        updateUser();
+        updateUser().then();
         userJoin();
     };
 
@@ -330,7 +303,7 @@ const Room = () => {
             status: "JOIN"
         };
         if(room.roomProperty=='INGAME'){
-            getReconnect();
+            getReconnect().then();
             setShowBackIcon(false);
             setShowSendIcon(false);
             setIsButtonVisible(false);
@@ -367,7 +340,7 @@ const Room = () => {
         var payloadData = JSON.parse(payload.body);
         switch (payloadData.status) {
             case "JOIN":
-                updateUser();       
+                updateUser().then();
                 if (!privateChats.get(payloadData.senderName)) {
                     privateChats.set(payloadData.senderName, []);
                     setPrivateChats(new Map(privateChats));
@@ -387,7 +360,7 @@ const Room = () => {
 
                 break;
             case "READY":
-                updateUser(); 
+                updateUser().then();
                 const readyMessage = {
                     senderName: "system",
                     message: `${payloadData.senderName} is ready!`,
@@ -398,7 +371,7 @@ const Room = () => {
 
                 break;
             case "NOT_READY":
-                updateUser(); 
+                updateUser().then();
                 const cancelMessage = {
                     senderName: "system",
                     message: `${payloadData.senderName} cancel ready!`,
@@ -411,7 +384,7 @@ const Room = () => {
 
             case "RECONNECT":
                 setRole(localStorage.getItem("role"));
-                updateUser(); 
+                updateUser().then();
                 const reconnectMessage = {
                     senderName: "system",
                     message: `${payloadData.senderName} reconnected.`,
@@ -424,14 +397,14 @@ const Room = () => {
             
             case "ROOM_UPDATE":
                 
-                updateUser();
-                getRoom();
-                updateUser(); 
+                updateUser().then();
+                getRoom().then();
+                updateUser().then();
                 break;     
 
             case "START":
                 toast.success("Game Start Now! Good Luck and Have Fun!");
-                updateUser(); 
+                updateUser().then();
                 setIsButtonVisible(false);
                 wordAssign();
                 publicChats.push(payloadData);
@@ -443,7 +416,7 @@ const Room = () => {
                 break;
 
             case "REMINDER":
-                updateUser(); 
+                updateUser().then();
                 publicChats.push(payloadData);
                 setPublicChats([...publicChats]);
                 // const reminderMessage = payloadData.message;
@@ -451,7 +424,7 @@ const Room = () => {
                 break;
 
             case "DESCRIPTION":
-                updateUser(); 
+                updateUser().then();
                 setVotedThisRound(true);
                 publicChats.push(payloadData);
 
@@ -467,7 +440,7 @@ const Room = () => {
                 break;
 
             case "VOTE":
-                updateUser(); 
+                updateUser().then();
                 publicChats.push(payloadData);
                 setPublicChats([...publicChats]);
                 toast.info("It's time to vote! Please pick a player by clicking their Avatar!")
@@ -479,7 +452,7 @@ const Room = () => {
 
             case "END":
                 toast.info("Game Over! GG!")
-                updateUser(); 
+                updateUser().then();
                 setIsButtonVisible(true);
                 publicChats.push(payloadData);
                 setWords(payloadData.message);
@@ -491,15 +464,6 @@ const Room = () => {
                 setShowResult(true);
                 setButtonStatus("Ready");
                 break;
-
-            // case "CURRENT_PLAYER":
-            //     publicChats.push(payloadData);
-            //     setPublicChats([...publicChats]);
-            //     scrollToBottom();
-            //     if(payloadData.message.equals(userData.username))
-            //         setShowSendIcon(true);
-            //     console.log(payloadData);
-            //     break;
         }
     }
 
@@ -580,33 +544,6 @@ useEffect(() => {
 
     return (
         <div>
-
-            {/* {showWelcome && <Confetti />}
-        <Modal 
-        isOpen={showWelcome}
-        onRequestClose={() => setShowWelcome(false)}
-        contentLabel="Welcome Modal"
-        style={
-          {
-            overlay: { backgroundColor: 'rgba(0, 0, 0, 0.5)' },
-            content: {
-              top: '50%',
-              left: '50%',
-              right: 'auto',
-              bottom: 'auto',
-              marginRight: '-50%',
-              transform: 'translate(-50%, -50%)',
-              backgroundColor: 'transparent',
-              borderRadius: '15px',
-            //   border:"none",
-            }
-          }
-        }
-        {/* <div className='chat welcome'>Welcome to the game!</div>
-        <div className='chat welcomecontainer'>
-        <Button onClick={() => setShowWelcome(false)}>Close</Button>
-        </div>
-      </Modal> */}
             <ToastContainer />
             {showBackIcon && <img className="room backicon" src={BackIcon} alt="Back" onClick={() => goBack()} />}
             <div className="room roomid">Room:{roomId}</div>
@@ -633,8 +570,7 @@ useEffect(() => {
                             <div className="room theme" >{role}</div>
                             {isVisible ? <div className="room countdown">{seconds} seconds left</div> : null}
                             {tab === "CHATROOM" && 
-                                <div className="chat chat-container"> 
-                                    {/* <div className="chat fade-overlay"></div> */}
+                                <div className="chat chat-container">
                                     <div className="chat chat-content">
                                         <ul className="chat chat-messages">
                                             {publicChats.map((chat, index) => (

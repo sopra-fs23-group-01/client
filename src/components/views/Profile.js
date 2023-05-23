@@ -67,7 +67,7 @@ const ProfilePage=() =>{
       }
     }
 
-    fetchData();
+    fetchData().then();
   }, [id]);
 
   let content = <Spinner/>;

@@ -83,7 +83,7 @@ const Game = () => {
 
         }
 
-        fetchData();
+        fetchData().then();
     }, [history]);
 
     const SpyContent = () => (

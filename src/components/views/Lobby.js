@@ -35,7 +35,7 @@ const Lobby = () => {
         stompClient.connect({}, onConnected, onError);
     }
     const onConnected = () => {
-        updateRoom();
+        updateRoom().then();
         stompClient.subscribe('/room', onMessageReceived);
     }
 
@@ -43,7 +43,7 @@ const Lobby = () => {
         var payloadData = JSON.parse(payload.body);
         switch (payloadData.status) {
             case "ROOM_UPDATE":
-                updateRoom();
+                updateRoom().then();
                 break;
         }
     }

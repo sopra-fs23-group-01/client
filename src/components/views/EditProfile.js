@@ -1,6 +1,5 @@
 
 import 'styles/views/Profile.scss';
-import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import {api, handleError} from 'helpers/api';
 import {Button} from "../ui/Button";
@@ -39,7 +38,6 @@ const EditProfile= () =>{
   //set new const
   const [id,] = useState(userid);
   const [username, setusername] = useState(null);
-  const [imageUrl, setImageUrl] = useState(null);
   const [birthday, setBirthday] = useState(null);
   const [intro, setIntro] = useState(null);
   const [gender, setGender] = useState(null);
@@ -47,7 +45,6 @@ const EditProfile= () =>{
   const [registerDate,] = useState(null);
   const [status,] = useState(null);
     const [users, setUsers] = useState(true);
-    let icon = localStorage.getItem('icon');
 
 
     useEffect(() => {
@@ -64,7 +61,7 @@ const EditProfile= () =>{
             }
         }
 
-        fetchData();
+        fetchData().then();
     }, [id]);
 
 

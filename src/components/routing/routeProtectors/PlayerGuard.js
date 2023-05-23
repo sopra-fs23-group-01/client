@@ -23,7 +23,7 @@ export const PlayerGuard = ({ children }) => {
             }
         }
 
-        getUserRoom();
+        getUserRoom().then();
     }, [id, room]);
 
     if (!room || !room.roomId) {

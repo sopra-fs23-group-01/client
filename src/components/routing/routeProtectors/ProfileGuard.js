@@ -27,7 +27,7 @@ export const ProfileGuard = props => {
         }
     }
 
-    fetchUsers();
+    fetchUsers().then();
 
     if (localStorage.getItem("token")) { return props.children; }
 

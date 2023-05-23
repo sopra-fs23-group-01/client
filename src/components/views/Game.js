@@ -1,17 +1,10 @@
 import '@fortawesome/fontawesome-free/css/all.css';
 import {api, handleError} from 'helpers/api';
-import {Button} from 'components/ui/Button';
-import {useHistory, useParams} from 'react-router-dom';
-import BaseContainer from "components/ui/BaseContainer";
+import {useHistory} from 'react-router-dom';
 import PropTypes from "prop-types";
 import "styles/views/Room.scss";
 import ReminderIcon from "../../styles/image/Icons/ReminderIcon.png";
 import ConfirmIcon from "../../styles/image/Icons/ConfirmIcon.png";
-import BackIcon from "../../styles/image/Icons/BackIcon.png";
-import NavigationBar from "./NavigationBar";
-import avatar1 from "./images/avatar1.png";
-import NameIcon from "../../styles/image/Icons/NameIcon.png";
-import User from "../../models/User";
 import {Spinner} from "../ui/Spinner";
 import React, { useEffect, useState, useRef } from 'react'
 import { over } from 'stompjs';
@@ -23,12 +16,10 @@ const Game = () => {
     const history = useHistory();
     const [assignedWord, setAssignedWord] = useState('');
     const [role, setRole] = useState('');
-    const [room, setRoom] = useState(null);
     const [users, setUsers] = useState(null);
     const path = window.location.pathname.substring(1); // remove leading /
     const roomId = path.split('=')[1].split('/')[0];
     const id = localStorage.getItem('id');
-    //const roomTheme = localStorage.getItem('roomTheme');
 
     useEffect(() => {
         // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
@@ -63,7 +54,7 @@ const Game = () => {
 
         }
 
-        fetchData();
+        fetchData().then();
     }, []);
 
     let content = <Spinner/>;
