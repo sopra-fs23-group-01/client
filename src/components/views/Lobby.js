@@ -10,7 +10,7 @@ import JobPic from "../../styles/image/Pics4Theme/JobTheme.png";
 import SportsPic from "../../styles/image/Pics4Theme/SportsTheme.png";
 import NavigationBar from "./NavigationBar";
 import Room from "../../models/Room";
-import {toast} from "react-toastify";
+import {toast, ToastContainer} from "react-toastify";
 import SockJS from 'sockjs-client';
 import {over} from 'stompjs';
 
@@ -29,8 +29,8 @@ const Lobby = () => {
     const [rooms, setRooms] = useState(null);
 
     const connect = () => {
-        let Sock = new SockJS('http://localhost:8080/ws');
-        //let Sock = new SockJS('https://sopra-fs23-group-01-server.oa.r.appspot.com/ws');
+        //let Sock = new SockJS('http://localhost:8080/ws');
+        let Sock = new SockJS('https://sopra-fs23-group-01-server.oa.r.appspot.com/ws');
         stompClient = over(Sock);
         stompClient.connect({}, onConnected, onError);
     }
@@ -63,11 +63,9 @@ const Lobby = () => {
         try {
             const requestBody = JSON.stringify({id});
             await api.put('/room/' + roomId + '/players', requestBody);
-            //alert('Entered room successfully: '+roomId+'userId: '+id);
-            //history.push(`/leaderboard`);
         } catch (error) {
             console.error(`Something went wrong during the enterRoom: \n${handleError(error)}`);
-            alert(`Something went wrong during the enterRoom: \n${handleError(error)}`);
+            toast.error(`Something went wrong during the enterRoom: \n${handleError(error)}`);
         }
     }
 
@@ -78,11 +76,9 @@ const Lobby = () => {
             const response = await api.post('/room/quickStart', requestBody);
             const room = new Room(response.data);
             window.location.href = `/room=${room.roomId}`;
-            //alert('Entered room successfully: '+roomId+'userId: '+id);
-            //history.push(`/leaderboard`);
         } catch (error) {
             console.error(`Something went wrong during the quickStart: \n${handleError(error)}`);
-            alert(`Something went wrong during the quickStart: \n${handleError(error)}`);
+            toast.error(`Something went wrong during the quickStart: \n${handleError(error)}`);
         }
     }
 
@@ -214,6 +210,7 @@ const Lobby = () => {
 
     return (
         <BaseContainer>
+            <ToastContainer/>
             <div className="lobby lobbyText">Game Lobby</div>
             <div className="lobby availableText">Available Room</div>
             <div className="lobby content">{content}</div>
