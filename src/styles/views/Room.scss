@@ -491,14 +491,19 @@
     justify-content: center;
     align-items: center;
 
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.02)), radial-gradient(90.16% 143.01% at 15.32% 21.04%, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.0447917) 77.08%, rgba(255, 255, 255, 0) 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+    background:
+            linear-gradient(0deg, rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.02)),
+            radial-gradient(90.16% 143.01% at 15.32% 21.04%, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.0447917) 77.08%, rgba(255, 255, 255, 0) 100%),
+            transparentize(white, 0.85),
+            rgba(164, 164, 164, 0.1);
+    /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
     background-blend-mode: normal, overlay, normal;
     /* Note: backdrop-filter has minimal browser support */
     border: none;
     border-radius: 0.75em;
-    background: transparentize(white, 0.85);
+
     color: gray;
-    background-color: rgba(164, 164, 164, 0.1); /* Use a semi-transparent background */
+
     backdrop-filter: blur(10px); /* Apply a 10px blur to the background */
 
     font-family: 'Poppins', sans-serif ;

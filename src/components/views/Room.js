@@ -228,7 +228,10 @@ const Room = () => {
     //自动连接
     useEffect(() => {
         if (userData.username) {
-            getRoom();
+            getRoom().catch((error) => {
+                // Handle error or rejection
+                console.error('An error occurred:', error);
+            });
         }
     }, [userData.username]);
 
