@@ -209,8 +209,9 @@ const Game = () => {
                             <div className="leaderboard winingrate">: {user.intro}</div>
                         </div>
                         <div className="player rate">
-                            <div className="player ratenum">{`${showSpy ? user.rateUn * 100 : user.rateDe * 100}%`}</div>
+                            <div className="player ratenum">{`${showSpy ? user.rateUn.toFixed(0) : (user.rateDe * 100).toFixed(0)}%`}</div>
                         </div>
+
                     </div>
                 </Link>
             );
