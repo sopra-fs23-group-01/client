@@ -726,7 +726,7 @@ useEffect(() => {
                         if (userData.message.trim() !== '' && showSendIcon) {
                             sendValue();
                         }else {
-                            toast.error("Message can't be empty!");  // Optionally show an alert when the message is empty
+                            //toast.error("Message can't be empty!");  // Optionally show an alert when the message is empty
                         }
                     }}
                     alt="Confirm" 
