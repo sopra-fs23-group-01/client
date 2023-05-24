@@ -275,6 +275,7 @@
     align-items: center;
     text-align: center;
     //background-color: chocolate;
+    overflow: hidden;
   }
   &.avatarimg {
     width: 70%;
@@ -291,6 +292,7 @@
     align-items: center;
     text-align: center;
     color: #000000;
+
   }
   &.chatbox{
     position: absolute;
