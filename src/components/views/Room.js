@@ -379,9 +379,9 @@ const Room = () => {
                 break;
             case "READY":
                 updateUser().catch((error) => {
-        // Handle error or rejection
-        console.error('An error occurred:', error);
-    });
+                    // Handle error or rejection
+                    console.error('An error occurred:', error);
+                });
                 const readyMessage = {
                     senderName: "system",
                     message: `${payloadData.senderName} is ready!`,
@@ -393,9 +393,9 @@ const Room = () => {
                 break;
             case "NOT_READY":
                 updateUser().catch((error) => {
-        // Handle error or rejection
-        console.error('An error occurred:', error);
-    });
+                    // Handle error or rejection
+                    console.error('An error occurred:', error);
+                });
                 const cancelMessage = {
                     senderName: "system",
                     message: `${payloadData.senderName} cancel ready!`,
@@ -409,9 +409,9 @@ const Room = () => {
             case "RECONNECT":
                 setRole(localStorage.getItem("role"));
                 updateUser().catch((error) => {
-        // Handle error or rejection
-        console.error('An error occurred:', error);
-    });
+                    // Handle error or rejection
+                    console.error('An error occurred:', error);
+                });
                 const reconnectMessage = {
                     senderName: "system",
                     message: `${payloadData.senderName} reconnected.`,
@@ -425,25 +425,25 @@ const Room = () => {
             case "ROOM_UPDATE":
                 
                 updateUser().catch((error) => {
-        // Handle error or rejection
-        console.error('An error occurred:', error);
-    });
+                    // Handle error or rejection
+                    console.error('An error occurred:', error);
+                });
                 getRoom().catch((error) => {
-        // Handle error or rejection
-        console.error('An error occurred:', error);
-    });
+                    // Handle error or rejection
+                    console.error('An error occurred:', error);
+                });
                 updateUser().catch((error) => {
-        // Handle error or rejection
-        console.error('An error occurred:', error);
-    });
+                    // Handle error or rejection
+                    console.error('An error occurred:', error);
+                });
                 break;     
 
             case "START":
                 toast.success("Game Start Now! Good Luck and Have Fun!");
                 updateUser().catch((error) => {
-        // Handle error or rejection
-        console.error('An error occurred:', error);
-    });
+                    // Handle error or rejection
+                    console.error('An error occurred:', error);
+                });
                 setIsButtonVisible(false);
                 wordAssign();
                 publicChats.push(payloadData);
@@ -456,9 +456,9 @@ const Room = () => {
 
             case "REMINDER":
                 updateUser().catch((error) => {
-        // Handle error or rejection
-        console.error('An error occurred:', error);
-    });
+                    // Handle error or rejection
+                    console.error('An error occurred:', error);
+                });
                 publicChats.push(payloadData);
                 setPublicChats([...publicChats]);
                 // const reminderMessage = payloadData.message;
@@ -467,9 +467,9 @@ const Room = () => {
 
             case "DESCRIPTION":
                 updateUser().catch((error) => {
-        // Handle error or rejection
-        console.error('An error occurred:', error);
-    });
+                    // Handle error or rejection
+                    console.error('An error occurred:', error);
+                });
                 setVotedThisRound(true);
                 publicChats.push(payloadData);
 
@@ -486,9 +486,9 @@ const Room = () => {
 
             case "VOTE":
                 updateUser().catch((error) => {
-        // Handle error or rejection
-        console.error('An error occurred:', error);
-    });
+                    // Handle error or rejection
+                    console.error('An error occurred:', error);
+                });
                 publicChats.push(payloadData);
                 setPublicChats([...publicChats]);
                 toast.info("It's time to vote! Please pick a player by clicking their Avatar!")
@@ -501,9 +501,9 @@ const Room = () => {
             case "END":
                 toast.info("Game Over! GG!")
                 updateUser().catch((error) => {
-        // Handle error or rejection
-        console.error('An error occurred:', error);
-    });
+                    // Handle error or rejection
+                    console.error('An error occurred:', error);
+                });
                 setIsButtonVisible(true);
                 publicChats.push(payloadData);
                 setWords(payloadData.message);
@@ -569,6 +569,7 @@ const Room = () => {
 
             console.log(oderMessage);
             stompClient.send("/app/roomcreat", {}, JSON.stringify(oderMessage));
+            stompClient.send("/app/message/"+roomId, {}, JSON.stringify(oderMessage));
         }
     }
     const messagesEndRef = useRef(null);
