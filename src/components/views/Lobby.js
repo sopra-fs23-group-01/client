@@ -182,7 +182,8 @@ const Lobby = () => {
 
                     <div className="lobby player container" style={{backgroundColor: "#FFE5F3", backgroundImage: getRoomPic(room.theme)}}>
                         <div className="lobby player room">Room {room.roomId}</div>
-                        <div className="lobby player theme"><span > {room.theme}</span></div>
+                        <div className="lobby player theme">{room.theme}</div>
+                        <div> 有内鬼</div>
                         <div className="lobby player statusforroom" style={{ color: room.roomProperty === "WAITING" ? "green" : "red" }}>
                             {room.roomProperty} {room.roomPlayersList.length}/{room.maxPlayersNum}
                         </div>
