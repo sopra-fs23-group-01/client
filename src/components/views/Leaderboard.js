@@ -145,7 +145,7 @@ const Game = () => {
         <div className='leaderboardhead'>
             LeaderBoard Detective
         </div>
-        <div className='zoom-text-container zoom-text-in-out' onClick={() => setShowSpy(true)}>Change to Spy</div>
+        <div className='zoom-text-container zoom-text-in-out' onClick={() => setShowSpy(true)}>Change to Undercover</div>
         <div className='leaderboard top3container'>
             <img className='rank1' src={rank1}/>
             {firstPlayer && (
@@ -209,7 +209,7 @@ const Game = () => {
                             <div className="leaderboard winingrate">: {user.intro}</div>
                         </div>
                         <div className="player rate">
-                            <div className="player ratenum">{`${showSpy ? user.rateUn.toFixed(0) : (user.rateDe * 100).toFixed(0)}%`}</div>
+                            <div className="player ratenum">{`${showSpy ? user.rateUn.toFixed(0) : ((user.rateDe ).toFixed(0))* 100}%`}</div>
                         </div>
 
                     </div>
