@@ -188,8 +188,7 @@ const Room = () => {
                             cursor: (Number(localStorage.getItem('id')) === user.id || votedThisRound === true || user.gameStatus === "OUT") ? "default" : "pointer",
                             border: `2px solid ${user.readyStatus === "READY" ? "green" : "red"}`,
                             position: "relative",
-                            backgroundColor: user.gameStatus === "OUT" ? "gray" : "transparent",
-                            background: room.roomProperty==="WAITING" && user.id === room.roomOwnerId ? "yellow" : "transparent"
+                            backgroundColor: user.gameStatus === "OUT" ? "gray" : (room.roomProperty === "WAITING" && user.id === room.roomOwnerId ? "yellow" : "transparent")
                         }}
                         className="room avatarimg"
                     />
