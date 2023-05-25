@@ -90,20 +90,6 @@ const EditProfile= () =>{
         toast.error(`Something went wrong during the profile edit`);
     }
   };
-
-    // function Profilefield({functionuser}) {
-    //     const [showEditButton, setShowEditButton] = useState(false);
-    //
-    //     useEffect(() => {
-    //         if (functionuser.id === userid) {
-    //             setShowEditButton(true);
-    //         }
-    //     }, [functionuser.id]);
-    //
-    //     const statusStyle = {
-    //         color: functionuser.status === "ONLINE" ? "green" : "red"
-    //     };
-    // }
     return(
         <BaseContainer>
         <ToastContainer />
