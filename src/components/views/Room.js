@@ -430,7 +430,7 @@ const Room = () => {
                 break;     
 
             case "START":
-                toast.success("Game Start Now! Good Luck and Have Fun!");
+                toast.success("Game Start Now! Good Luck and Have Fun!",{ autoClose: 2000 });
                 updateUser().catch((error) => {
                     // Handle error or rejection
                     console.error('An error occurred:', error);
@@ -472,7 +472,7 @@ const Room = () => {
                 setIsVisible(true);
                 setSeconds(20);
                 if(payloadData.senderName === userData.username){
-                    toast.info("It's your turn! Please describe!")
+                    toast.info("It's your turn! Please describe!",{ autoClose: 2000 })
                     setShowSendIcon(true);
                 } else
                 setShowSendIcon(false);
