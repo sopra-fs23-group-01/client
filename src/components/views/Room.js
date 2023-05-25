@@ -110,13 +110,16 @@ const Room = () => {
         try {
             const requestBody = JSON.stringify({id});
             await api.put('/users/room/out/'+roomId, requestBody);
-            if (room.roomPlayersList.length > 1){updateRoomOrder();}
+            if (room.roomPlayersList.length > 1){
+                alert("1");
+                updateRoomOrder();
+            }
             else{
                 if (stompClient) {
                     var oderMessage = {
                         status: "LOBBY_UPDATE"
                     };
-        
+                    alert("2");
                     console.log(oderMessage);
                     stompClient.send("/app/lobbyupdate", {}, JSON.stringify(oderMessage));}
 
@@ -282,8 +285,8 @@ const Room = () => {
     }, [room]);
     
     const connect = () => {
-        let Sock = new SockJS('http://localhost:8080/ws');
-        //let Sock = new SockJS('https://sopra-fs23-group-01-server.oa.r.appspot.com/ws');
+        //let Sock = new SockJS('http://localhost:8080/ws');
+        let Sock = new SockJS('https://sopra-fs23-group-01-server.oa.r.appspot.com/ws');
         stompClient = over(Sock);
         stompClient.connect({}, onConnected, onError);
     };
@@ -567,9 +570,9 @@ const Room = () => {
             var oderMessage = {
                 status: "ROOM_UPDATE"
             };
-
             console.log(oderMessage);
             stompClient.send("/app/roomcreat", {}, JSON.stringify(oderMessage));
+
             stompClient.send("/app/message/"+roomId, {}, JSON.stringify(oderMessage));
         }
     }
