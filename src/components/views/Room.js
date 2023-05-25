@@ -8,6 +8,8 @@ import 'styles/views/ModalStyles.scss';
 import ConfirmIcon from "../../styles/image/Icons/ConfirmIcon.png";
 import ConfirmIconBlue from "../../styles/image/Icons/ConfirmIconBlue.png";
 import BackIcon from "../../styles/image/Icons/BackIcon.png";
+import Win from "../../styles/image/Pics4End/WinPic.png";
+import Lose from "../../styles/image/Pics4End/LosePic.png";
 import BookIcon from "../../styles/image/Icons/magnifier-search-zoom-svgrepo-com.png";
 import ReadyHelp from "../../styles/image/Pics4help/readyDiscription.jpg";
 import VoteHelp from "../../styles/image/Pics4help/voteDisc.jpg";
@@ -15,8 +17,6 @@ import {Spinner} from "../ui/Spinner";
 import React, { useEffect, useState, useRef } from 'react'
 import { over } from 'stompjs';
 import SockJS from 'sockjs-client';
-import trophies from './images/trophies.png';
-import lose from './images/lose.png'
 import {toast, ToastContainer} from "react-toastify";
 import Modal from 'react-modal';
 
@@ -642,7 +642,7 @@ useEffect(() => {
                         <div className="chat chat-box">
                             {showResult &&
                                 <div className="room result">
-                                    <img className="room trophies" src={winner === side ? trophies : lose} />
+                                    <img className="room trophies" src={winner === side ? Win : Lose} />
                                     <p className="room winning">{winner} wins!</p>
                                     {extractWordsFromMessage(words)}
                                     <div className="room button-container-re" style={{ marginBottom: '30px' }}>
