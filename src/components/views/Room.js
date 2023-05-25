@@ -119,9 +119,13 @@ const Room = () => {
                     var oderMessage = {
                         status: "LOBBY_UPDATE"
                     };
+                    var refreshMessage = {
+                        status: "REFRESH"
+                    };
                     alert("2");
                     console.log(oderMessage);
-                    stompClient.send("/app/lobbyupdate", {}, JSON.stringify(oderMessage));}
+                    stompClient.send("/app/lobbyupdate", {}, JSON.stringify(oderMessage));
+                    stompClient.send("/app/message/"+roomId, {}, JSON.stringify(refreshMessage));}
 
             }
             history.push(`/lobby`);
@@ -498,6 +502,11 @@ const Room = () => {
                 setSeconds(10);
                 setShowSendIcon(false);
 
+                break;
+
+            case "REFRESH":
+
+                    window.location.reload();
                 break;
 
             case "END":
