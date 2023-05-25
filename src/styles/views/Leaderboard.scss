@@ -309,12 +309,12 @@
 
 .rankname1{
   position: absolute;
-  width: 89px;
+  width: 60px;
   height: 36px;
   left: 50%;
-  margin-left: -44.5px;
+  margin-left: -30px;
   top: 90%;
-
+  overflow: hidden;
   font-family: 'Poppins', sans-serif;
   font-style: normal;
   font-weight: 600;
@@ -327,11 +327,12 @@
 
 .rankname2{
   position: absolute;
-  width: 40px;
+  width: 60px;
   height: 24px;
   left: 15%;
-  margin-left: -20px;
+  margin-left: -30px;
   top: 85%;
+  overflow: hidden;
   
   font-family: 'Poppins', sans-serif;
   font-style: normal;
@@ -345,11 +346,12 @@
 
 .rankname3{
   position: absolute;
-  width: 40px;
+  width: 60px;
   height: 24px;
   left: 85%;
-  margin-left: -20px;
+  margin-left: -30px;
   top: 85%;
+  overflow: hidden;
   
   font-family: 'Poppins', sans-serif;
   font-style: normal;
