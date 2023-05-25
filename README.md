@@ -81,19 +81,56 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 - [Releases refer to the GitHub documentation](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository)
 
 
+
+## Illustrations
+### Mobile Vision
+
+<table>
+    <tr>
+        <td align="center"><img src="readme_jpgs/login.jpg" width="200" /><br />Login Screen</td>
+        <td align="center"><img src="readme_jpgs/register.jpg" width="200" /><br />Register Screen</td>
+        <td align="center"><img src="readme_jpgs/leaderboard.jpg" width="200" /><br />Leaderboard Screen</td>
+        <td align="center"><img src="readme_jpgs/profile.jpg" width="200" /><br />Profile Screen</td>
+    </tr>
+    <tr>
+        <td align="center"><img src="readme_jpgs/editprofile.jpg" width="200" /><br />Edit Profile Screen</td>
+        <td align="center"><img src="readme_jpgs/lobby.jpg" width="200" /><br />Lobby Screen</td>
+        <td align="center"><img src="readme_jpgs/waiting.jpg" width="200" /><br />Room Waiting Screen</td>
+        <td align="center"><img src="readme_jpgs/discribe.jpg" width="200" /><br />Room Discribe Screen</td>
+    </tr>
+</table>
+
+### Desktop Vision
+
+<table>
+    <tr>
+        <td align="center"><img src="readme_jpgs/desktoplogin.jpg" width="200" /><br />Login Screen</td>
+        <td align="center"><img src="readme_jpgs/desktopregister.jpg" width="200" /><br />Register Screen</td>
+        <td align="center"><img src="readme_jpgs/desktopleaderboard.jpg" width="200" /><br />Leaderboard Screen</td>
+        <td align="center"><img src="readme_jpgs/desktopprofile.jpg" width="200" /><br />Profile Screen</td>
+    </tr>
+    <tr>
+        <td align="center"><img src="readme_jpgs/desktoplobby.jpg" width="200" /><br />Lobby Screen</td>
+        <td align="center"><img src="readme_jpgs/desktoproom.jpg" width="200" /><br />Room Screen</td>
+        <td align="center"><img src="readme_jpgs/desktophelp.jpg" width="200" /><br />Help Screen</td>
+    </tr>
+</table>
+
+
+
 ## Illustrations
 ### Mobile Vision
 <div style="text-align: center;">
     <figure style="display: inline-block">
-        <img src="readme_jpgs/login.jpg" width="150" />
+        <img src="readme_jpgs/login.jpg" width="200" />
         <figcaption>Login Screen</figcaption>
     </figure>
     <figure style="display: inline-block">
-        <img src="readme_jpgs/register.jpg" width="150" />
+        <img src="readme_jpgs/register.jpg" width="200" />
         <figcaption>Register Screen</figcaption>
     </figure>
     <figure style="display: inline-block">
-        <img src="readme_jpgs/leaderboard.jpg" width="150" />
+        <img src="readme_jpgs/leaderboard.jpg" width="200" />
         <figcaption>Leaderboard Screen</figcaption>
     </figure>
     <figure style="display: inline-block">
@@ -140,6 +177,7 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
         <figcaption>Room Lose Screen</figcaption>
     </figure>
 </div>
+
 ### Desktop Vision
 <div style="text-align: center;">
     <figure style="display: inline-block">
