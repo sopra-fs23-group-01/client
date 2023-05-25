@@ -10,7 +10,6 @@ import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import {Spinner} from 'components/ui/Spinner';
 import {toast, ToastContainer} from "react-toastify";
-//use axios to generate the pictures
 
 
 const ProfilePage=() =>{
@@ -41,12 +40,6 @@ const ProfilePage=() =>{
     }
     history.push('/login');
   };
-  //   //The icon
-  // useEffect(() => {
-  //   axios.get('https://robohash.org/1')
-  //     .then((response) => setImageUrl(response.request.responseURL))
-  //     .catch((error) => console.log(error));
-  // }, []);
 
   useEffect(() => {
     // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:

@@ -142,11 +142,9 @@ const Room = () => {
     }
 
     function extractWordsFromMessage(words) {
-        // 提取 Detective Word
         const detectiveWordMatch = words.match(/Detective Word:(\w+)/);
         const detectiveWord = detectiveWordMatch ? detectiveWordMatch[1] : "";
 
-        // 提取 Undercover Word
         const undercoverWordMatch = words.match(/Undercover Word:(\w+)/);
         const undercoverWord = undercoverWordMatch ? undercoverWordMatch[1] : "";
 
@@ -204,7 +202,6 @@ const Room = () => {
 
         content = (
             <div>
-                
                 <ul className="room user-list">
                     {users.map(user => (
                         <Player user={user} key={user.id}/>
@@ -228,7 +225,6 @@ const Room = () => {
         message: ''
     });
 
-    //自动连接
     useEffect(() => {
         if (userData.username) {
             getRoom().catch((error) => {

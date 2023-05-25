@@ -13,13 +13,6 @@ import PasswordIcon from "../../styles/image/Icons/PasscodeIcon.png";
 import {toast, ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
-
-/*
-It is possible to add multiple components inside a single file,
-however be sure not to clutter your files with an endless amount!
-As a rule of thumb, use one file per component and only add small,
-specific components that belong to the main one in the same file.
- */
 const FormField = props => {
   return (
     <div className="login field">
@@ -131,8 +124,4 @@ const Login = props => {
   );
 };
 
-/**
- * You can get access to the history object's properties via the withRouter.
- * withRouter will pass updated match, location, and history props to the wrapped component whenever it renders.
- */
 export default Login;
