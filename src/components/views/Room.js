@@ -415,10 +415,11 @@ const Room = () => {
                 break;   
             
             case "ROOM_UPDATE":
+                if (room.roomPlayersList && room.roomPlayersList.length >= 1){
                 getRoom().catch((error) => {
                     // Handle error or rejection
                     console.error('An error occurred:', error);
-                });
+                });}
                 if (room.roomPlayersList && room.roomPlayersList.length > 1){
                 updateUser().catch((error) => {
                     // Handle error or rejection
