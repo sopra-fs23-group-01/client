@@ -100,116 +100,31 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
     </tr>
 </table>
 
-### Desktop Vision
-
-<table>
-    <tr>
-        <td align="center"><img src="readme_jpgs/desktoplogin.jpg" width="200" /><br />Login Screen</td>
-        <td align="center"><img src="readme_jpgs/desktopregister.jpg" width="200" /><br />Register Screen</td>
-        <td align="center"><img src="readme_jpgs/desktopleaderboard.jpg" width="200" /><br />Leaderboard Screen</td>
-        <td align="center"><img src="readme_jpgs/desktopprofile.jpg" width="200" /><br />Profile Screen</td>
-    </tr>
-    <tr>
-        <td align="center"><img src="readme_jpgs/desktoplobby.jpg" width="200" /><br />Lobby Screen</td>
-        <td align="center"><img src="readme_jpgs/desktoproom.jpg" width="200" /><br />Room Screen</td>
-        <td align="center"><img src="readme_jpgs/desktophelp.jpg" width="200" /><br />Help Screen</td>
-    </tr>
-</table>
-
-
-
-## Illustrations
-### Mobile Vision
-<div style="text-align: center;">
-    <figure style="display: inline-block">
-        <img src="readme_jpgs/login.jpg" width="200" />
-        <figcaption>Login Screen</figcaption>
-    </figure>
-    <figure style="display: inline-block">
-        <img src="readme_jpgs/register.jpg" width="200" />
-        <figcaption>Register Screen</figcaption>
-    </figure>
-    <figure style="display: inline-block">
-        <img src="readme_jpgs/leaderboard.jpg" width="200" />
-        <figcaption>Leaderboard Screen</figcaption>
-    </figure>
-    <figure style="display: inline-block">
-        <img src="readme_jpgs/profile.jpg" width="200" />
-        <figcaption>Profile Screen</figcaption>
-    </figure>
-    <figure style="display: inline-block">
-        <img src="readme_jpgs/editprofile.jpg" width="200"/>
-        <figcaption>Edit Profile Screen</figcaption>
-    </figure>
-        <figure style="display: inline-block">
-        <img src="readme_jpgs/lobby.jpg" width="200"/>
-        <figcaption>Lobby Screen</figcaption>
-    </figure>
-    </figure>
-        <figure style="display: inline-block">
-        <img src="readme_jpgs/waiting.jpg" width="200"/>
-        <figcaption>Room Waiting Screen</figcaption>
-    </figure>
-    </figure>
-        <figure style="display: inline-block">
-        <img src="readme_jpgs/discribe.jpg" width="200"/>
-        <figcaption>Room Discribe Screen</figcaption>
-    </figure>
-    </figure>
-        <figure style="display: inline-block">
-        <img src="readme_jpgs/vote.jpg" width="200"/>
-        <figcaption>Room Vote Screen</figcaption>
-    </figure>
-    </figure>
-        <figure style="display: inline-block">
-        <img src="readme_jpgs/help.jpg" width="200"/>
-        <figcaption>Room Help Screen</figcaption>
-    </figure>
-    </figure>
-        <figure style="display: inline-block">
-        <img src="readme_jpgs/win.jpg" width="200"/>
-        <figcaption>Room Win Screen</figcaption>
-    </figure>
-    </figure>
-    </figure>
-        <figure style="display: inline-block">
-        <img src="readme_jpgs/lose.jpg" width="200"/>
-        <figcaption>Room Lose Screen</figcaption>
-    </figure>
-</div>
 
 ### Desktop Vision
-<div style="text-align: center;">
-    <figure style="display: inline-block">
-        <img src="readme_jpgs/desktoplogin.jpg" width="600" />
-        <figcaption>Login Screen</figcaption>
-    </figure>
-    <figure style="display: inline-block">
-        <img src="readme_jpgs/desktopregister.jpg" width="600" />
-        <figcaption>Register Screen</figcaption>
-    </figure>
-    <figure style="display: inline-block">
-        <img src="readme_jpgs/desktopleaderboard.jpg" width="600" />
-        <figcaption>Leaderboard Screen</figcaption>
-    </figure>
-    <figure style="display: inline-block">
-        <img src="readme_jpgs/desktopprofile.jpg" width="600" />
-        <figcaption>Profile Screen</figcaption>
-    </figure>
-    <figure style="display: inline-block">
-        <img src="readme_jpgs/desktoplobby.jpg" width="600" />
-        <figcaption>Lobby Screen</figcaption>
-    </figure>
-    <figure style="display: inline-block">
-        <img src="readme_jpgs/desktoproom.jpg" width="600" />
-        <figcaption>Room Screen</figcaption>
-    </figure>
-        <figure style="display: inline-block">
-        <img src="readme_jpgs/desktophelp.jpg" width="600" />
-        <figcaption>Help Screen</figcaption>
-    </figure>
 
-</div>
+#### Login Screen
+<img src="readme_jpgs/desktoplogin.jpg" width="600">
+
+#### Register Screen
+<img src="readme_jpgs/desktopregister.jpg" width="600">
+
+#### Leaderboard Screen
+<img src="readme_jpgs/desktopleaderboard.jpg" width="600">
+
+#### Profile Screen
+<img src="readme_jpgs/desktopprofile.jpg" width="600">
+
+#### Lobby Screen
+<img src="readme_jpgs/desktoplobby.jpg" width="600">
+
+#### Room Screen
+<img src="readme_jpgs/desktoproom.jpg" width="600">
+
+#### Help Screen
+<img src="readme_jpgs/desktophelp.jpg" width="600">
+
+
 
 ## Roadmap
 New developers who want to contribute to your projec could add:
