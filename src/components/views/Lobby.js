@@ -45,6 +45,12 @@ const Lobby = () => {
                     console.error('An error occurred:', error);
                 });
                 break;
+            case "LOBBY_UPDATE":
+                updateRoom().catch((error) => {
+                        // Handle error or rejection
+                    console.error('An error occurred:', error);
+                });
+                break;
         }
     }
 

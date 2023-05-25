@@ -110,7 +110,17 @@ const Room = () => {
         try {
             const requestBody = JSON.stringify({id});
             await api.put('/users/room/out/'+roomId, requestBody);
-            updateRoomOrder();
+            if (room.roomPlayersList.length > 1){updateRoomOrder();}
+            else{
+                if (stompClient) {
+                    var oderMessage = {
+                        status: "LOBBY_UPDATE"
+                    };
+        
+                    console.log(oderMessage);
+                    stompClient.send("/app/roomcreat", {}, JSON.stringify(oderMessage));}
+
+            }
             history.push(`/lobby`);
         } catch (error) {
             alert(`Something went wrong during the goBack: \n${handleError(error)}`);
@@ -272,8 +282,8 @@ const Room = () => {
     }, [room]);
     
     const connect = () => {
-        //let Sock = new SockJS('http://localhost:8080/ws');
-        let Sock = new SockJS('https://sopra-fs23-group-01-server.oa.r.appspot.com/ws');
+        let Sock = new SockJS('http://localhost:8080/ws');
+        //let Sock = new SockJS('https://sopra-fs23-group-01-server.oa.r.appspot.com/ws');
         stompClient = over(Sock);
         stompClient.connect({}, onConnected, onError);
     };
@@ -302,7 +312,7 @@ const Room = () => {
         }
     };
 
-    const userJoin = () => {
+    const userJoin = () => { 
     
         var joinMessage = {
             senderName: userData.username,
@@ -416,18 +426,14 @@ const Room = () => {
                 break;   
             
             case "ROOM_UPDATE":
-                if (room.roomPlayersList && room.roomPlayersList.length > 1){
                 getRoom().catch((error) => {
                     // Handle error or rejection
                     console.error('An error occurred:', error);
-                });}
-                if (room.roomPlayersList && room.roomPlayersList.length > 1){
+                });
                 updateUser().catch((error) => {
                     // Handle error or rejection
                     console.error('An error occurred:', error);
                 });
-                };
-
 
                 break;     
 
