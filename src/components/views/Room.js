@@ -87,6 +87,8 @@ const Room = () => {
             // Get the returned users and update the state.
             setUsers(response.data);
 
+            // This is just some data for you to see what is available.
+            // Feel free to remove it.
             console.log('request to:', response.request.responseURL);
             console.log('status code:', response.status);
             console.log('status text:', response.statusText);
@@ -140,8 +142,11 @@ const Room = () => {
     }
 
     function extractWordsFromMessage(words) {
+        // 提取 Detective Word
         const detectiveWordMatch = words.match(/Detective Word:(\w+)/);
         const detectiveWord = detectiveWordMatch ? detectiveWordMatch[1] : "";
+
+        // 提取 Undercover Word
         const undercoverWordMatch = words.match(/Undercover Word:(\w+)/);
         const undercoverWord = undercoverWordMatch ? undercoverWordMatch[1] : "";
 
@@ -183,7 +188,7 @@ const Room = () => {
                             cursor: (Number(localStorage.getItem('id')) === user.id || votedThisRound === true || user.gameStatus === "OUT") ? "default" : "pointer",
                             border: `2px solid ${user.readyStatus === "READY" ? "green" : "red"}`,
                             position: "relative",
-                            backgroundColor: user.gameStatus === "OUT" ? "gray" : (user.id === room.roomOwnerId ? "yellow" : "transparent")
+                            backgroundColor: user.gameStatus === "OUT" ? "gray" : (room.roomProperty === "WAITING" && user.id === room.roomOwnerId ? "yellow" : "transparent")
                         }}
                         className="room avatarimg"
                     />
@@ -223,6 +228,7 @@ const Room = () => {
         message: ''
     });
 
+    //自动连接
     useEffect(() => {
         if (userData.username) {
             getRoom().catch((error) => {
@@ -439,12 +445,10 @@ const Room = () => {
                 wordAssign();
                 publicChats.push(payloadData);
                 setPublicChats([...publicChats]);
+
                 setShowSendIcon(false);
+                sendUpdateReminder();
                 setShowBackIcon(false);
-                sendUpdateReminder().catch((error) => {
-                    // Handle error or rejection
-                    console.error('An error occurred:', error);
-                });
                 break;
 
             case "REMINDER":
@@ -497,14 +501,11 @@ const Room = () => {
                     // Handle error or rejection
                     console.error('An error occurred:', error);
                 });
-                // sendUpdateReminder().catch((error) => {
-                //     // Handle error or rejection
-                //     console.error('An error occurred:', error);
-                // });
                 setIsButtonVisible(true);
                 publicChats.push(payloadData);
                 setWords(payloadData.message);
                 setPublicChats([...publicChats]);
+
                 setShowSendIcon(true);
                 setShowBackIcon(true);
                 setWinner(payloadData.senderName);
@@ -697,6 +698,9 @@ useEffect(() => {
                                     </div>
                                     
                                 </div>: null}
+
+
+
                         </div>
                         :
                         null
