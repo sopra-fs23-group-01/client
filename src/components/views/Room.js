@@ -434,7 +434,7 @@ const Room = () => {
                 break;     
 
             case "START":
-                toast.success("Game Start Now! Good Luck and Have Fun!",{ autoClose: 2000 });
+                //toast.success("Game Start Now! Good Luck and Have Fun!",{ autoClose: 2000 });
                 updateUser().catch((error) => {
                     // Handle error or rejection
                     console.error('An error occurred:', error);
@@ -510,6 +510,7 @@ const Room = () => {
                 localStorage.setItem("winner",payloadData.senderName)
                 setShowResult(true);
                 setButtonStatus("Ready");
+                localStorage.setItem("role","");
                 break;
         }
     }
@@ -545,9 +546,9 @@ const Room = () => {
                 status: "MESSAGE"
             };
 
-            let invalidWords = synonymsOfWord.filter(word => chatMessage.message.includes(word));
-            if (invalidWords.length > 0) {
-                toast.warning("Your message contains words that are not allowed: " + invalidWords.join(", "));
+            //let invalidWords = role.filter(word => chatMessage.message.includes(word));
+            if (role !== null && role !== '' && chatMessage.message.includes(role)) {
+                toast.warning("Your message contains words that are not allowed: " + role);
                 return;
             }
 
