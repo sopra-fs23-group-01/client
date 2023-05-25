@@ -441,7 +441,7 @@ const Room = () => {
                 setPublicChats([...publicChats]);
 
                 setShowSendIcon(false);
-                sendUpdateReminder().catch((error) => {
+                updateRoomOrder().catch((error) => {
                     // Handle error or rejection
                     console.error('An error occurred:', error);
                 });
@@ -512,6 +512,10 @@ const Room = () => {
                 setWinner(payloadData.senderName);
                 setShowResult(true);
                 setButtonStatus("Ready");
+                updateRoomOrder().catch((error) => {
+                    // Handle error or rejection
+                    console.error('An error occurred:', error);
+                });
                 break;
         }
     }
