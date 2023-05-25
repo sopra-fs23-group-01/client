@@ -111,7 +111,6 @@ const Room = () => {
             const requestBody = JSON.stringify({id});
             await api.put('/users/room/out/'+roomId, requestBody);
             if (room.roomPlayersList.length > 1){
-                alert("1");
                 updateRoomOrder();
             }
             else{
@@ -122,7 +121,6 @@ const Room = () => {
                     var refreshMessage = {
                         status: "REFRESH"
                     };
-                    alert("2");
                     console.log(oderMessage);
                     stompClient.send("/app/lobbyupdate", {}, JSON.stringify(oderMessage));
                     stompClient.send("/app/message/"+roomId, {}, JSON.stringify(refreshMessage));}
