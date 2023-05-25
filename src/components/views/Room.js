@@ -172,6 +172,7 @@ const Room = () => {
                 console.log('id:'+localStorage.getItem('id')+'userid'+user.id)
                 if(Number(localStorage.getItem('id')) !== user.id){
                     api.put("room/"+roomId+"/vote/" +localStorage.getItem('id')+"="+user.id);
+                    toast.success("Voted success!", { autoClose: 2000 });
                     setVotedThisRound(true);
                 }
             }
@@ -470,7 +471,7 @@ const Room = () => {
                 setIsVisible(true);
                 setSeconds(20);
                 if(payloadData.senderName === userData.username){
-                    toast.info("It's your turn! Please describe!",{ autoClose: 2000 })
+                    toast.info("It's your turn! Please describe!",{ autoClose: 1500 })
                     setShowSendIcon(true);
                 } else
                 setShowSendIcon(false);
