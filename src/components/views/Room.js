@@ -507,6 +507,7 @@ const Room = () => {
                 setShowSendIcon(true);
                 setShowBackIcon(true);
                 setWinner(payloadData.senderName);
+                localStorage.setItem("winner",payloadData.senderName)
                 setShowResult(true);
                 setButtonStatus("Ready");
                 break;
