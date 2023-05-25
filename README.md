@@ -85,15 +85,15 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 ### Mobile Vision
 <div style="text-align: center;">
     <figure style="display: inline-block">
-        <img src="readme_jpgs/login.jpg" width="200" />
+        <img src="readme_jpgs/login.jpg" width="150" />
         <figcaption>Login Screen</figcaption>
     </figure>
     <figure style="display: inline-block">
-        <img src="readme_jpgs/register.jpg" width="200" />
+        <img src="readme_jpgs/register.jpg" width="150" />
         <figcaption>Register Screen</figcaption>
     </figure>
     <figure style="display: inline-block">
-        <img src="readme_jpgs/leaderboard.jpg" width="200" />
+        <img src="readme_jpgs/leaderboard.jpg" width="150" />
         <figcaption>Leaderboard Screen</figcaption>
     </figure>
     <figure style="display: inline-block">
