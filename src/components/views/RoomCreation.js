@@ -10,30 +10,14 @@ import SockJS from 'sockjs-client';
 import { over } from 'stompjs';
 
 var stompClient = null;
-
-/*
-It is possible to add multiple components inside a single file,
-however be sure not to clutter your files with an endless amount!
-As a rule of thumb, use one file per component and only add small,
-specific components that belong to the main one in the same file.
- */
-
-
-
 const RoomCreation = props => {
 
     const history = useHistory();
     const [maxPlayersNum, setMaxPlayersNum] = useState(4);
     const [theme, setTheme] = useState('SPORTS');
     const [room, setRoom] = useState(null);
-    //const [roomProperty, setRoomProperty] = useState("PUBLIC");
     const [roomOwnerId, setRoomOwnerId] = useState(null);
     const [roomPlayersList, setroomPlayersList] = useState([]);
-    //"roomPlayersList": ["id1", "id2", "id3"]
-
-    // function handleCheckBox(){
-    //     setRoomProperty("PRIVATE");
-    // }
 
     const connect = () => {
         //let Sock = new SockJS('http://localhost:8080/ws');
@@ -90,15 +74,9 @@ const RoomCreation = props => {
             </div>
         );
     };
-    // const history = useHistory();
-    // const [password, setPassword] = useState(null);
-    // const [username, setUsername] = useState(null);
-
     const createRoom = async () => {
         try {
             const roomOwnerId = localStorage.getItem('id');
-            //const roomPlayersList = [localStorage.getItem('id')];
-            //alert(roomOwnerId);
             const requestBody = JSON.stringify({theme, maxPlayersNum, roomOwnerId});
             const response = await api.post('/games/room', requestBody);
 
@@ -106,7 +84,6 @@ const RoomCreation = props => {
             const room = new Room(response.data);
 
             // Store the token into the local storage.
-            //localStorage.setItem('token', user.token);
             localStorage.setItem('roomId', room.roomId);
             localStorage.setItem('roomOwnerId', room.roomOwnerId);
             sendUpdateReminder();
@@ -124,16 +101,8 @@ const RoomCreation = props => {
     useEffect(() => {
         connect();
         return () => {
-            // stompClient.disconnect();
         };
     }, []);
-
-/*Here is roomCreation page:
-  1. Selecting theme
-  2. Choose the number of players
-  3. Set room to be private or not
-  4. Confirm and Cancel buttons
- */
     return (
         <BaseContainer>
             {/*<div className="roomCreation profileText">Profile</div>*/}
@@ -165,8 +134,4 @@ const RoomCreation = props => {
     );
 };
 
-/**
- * You can get access to the history object's properties via the withRouter.
- * withRouter will pass updated match, location, and history props to the wrapped component whenever it renders.
- */
 export default RoomCreation;
