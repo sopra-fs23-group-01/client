@@ -118,7 +118,7 @@ const Room = () => {
                     };
         
                     console.log(oderMessage);
-                    stompClient.send("/app/roomcreat", {}, JSON.stringify(oderMessage));}
+                    stompClient.send("/app/lobbyupdate", {}, JSON.stringify(oderMessage));}
 
             }
             history.push(`/lobby`);
