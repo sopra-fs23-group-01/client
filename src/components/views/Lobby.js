@@ -162,11 +162,10 @@ const Lobby = () => {
                         color: room.roomProperty === "INGAME" ? 'gray' : 'black',
                     }}
                     onClick={(e) => {
-                        e.preventDefault(); // 禁止默认的点击事件
+                        e.preventDefault(); 
                         const currentId = localStorage.getItem('id');
                         const isPlayerInRoom = room.roomPlayersList.join().includes(currentId);
                         if (room.roomProperty === "INGAME" && !isPlayerInRoom || (room.roomPlayersList.length === room.maxPlayersNum && !isPlayerInRoom)) {
-                            // 如果房间正在进行游戏，则不执行进入房间操作
                             return;
                         }
                         enterRoom(room.roomId, currentId)

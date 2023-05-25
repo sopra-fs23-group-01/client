@@ -18,7 +18,6 @@ As a rule of thumb, use one file per component and only add small,
 specific components that belong to the main one in the same file.
  */
 
-//这里创建一个可加减的数字
 
 
 const RoomCreation = props => {

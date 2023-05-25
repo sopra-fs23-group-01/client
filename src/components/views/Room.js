@@ -87,8 +87,6 @@ const Room = () => {
             // Get the returned users and update the state.
             setUsers(response.data);
 
-            // This is just some data for you to see what is available.
-            // Feel free to remove it.
             console.log('request to:', response.request.responseURL);
             console.log('status code:', response.status);
             console.log('status text:', response.statusText);
@@ -142,11 +140,8 @@ const Room = () => {
     }
 
     function extractWordsFromMessage(words) {
-        // 提取 Detective Word
         const detectiveWordMatch = words.match(/Detective Word:(\w+)/);
         const detectiveWord = detectiveWordMatch ? detectiveWordMatch[1] : "";
-
-        // 提取 Undercover Word
         const undercoverWordMatch = words.match(/Undercover Word:(\w+)/);
         const undercoverWord = undercoverWordMatch ? undercoverWordMatch[1] : "";
 
@@ -217,12 +212,9 @@ const Room = () => {
     const [privateChats, setPrivateChats] = useState(new Map());
     const [publicChats, setPublicChats] = useState([]);
     const [tab, setTab] = useState("CHATROOM");
-    const synonymsOfWord = ["apple", "pear"]; // 修改为你的同义词列表
+    const synonymsOfWord = ["apple", "pear"]; 
 
 
-
-
-    // // 从localStorage获取username并将其设置为userData的初始值。
     const storedUsername = localStorage.getItem('username');
     const [userData, setUserData] = useState({
         username: storedUsername || '',
@@ -231,7 +223,6 @@ const Room = () => {
         message: ''
     });
 
-    //自动连接
     useEffect(() => {
         if (userData.username) {
             getRoom().catch((error) => {
@@ -450,7 +441,10 @@ const Room = () => {
                 setPublicChats([...publicChats]);
 
                 setShowSendIcon(false);
-                sendUpdateReminder();
+                sendUpdateReminder().catch((error) => {
+                    // Handle error or rejection
+                    console.error('An error occurred:', error);
+                });
                 setShowBackIcon(false);
                 break;
 
@@ -501,6 +495,10 @@ const Room = () => {
             case "END":
                 toast.info("Game Over! GG!")
                 updateUser().catch((error) => {
+                    // Handle error or rejection
+                    console.error('An error occurred:', error);
+                });
+                sendUpdateReminder().catch((error) => {
                     // Handle error or rejection
                     console.error('An error occurred:', error);
                 });
@@ -701,9 +699,6 @@ useEffect(() => {
                                     </div>
                                     
                                 </div>: null}
-
-
-
                         </div>
                         :
                         null

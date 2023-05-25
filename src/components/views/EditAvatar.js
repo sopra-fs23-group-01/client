@@ -54,7 +54,7 @@ function AvatarList(props) {
         try {
             const requestBody = JSON.stringify({
                 id: id,
-                avatarUrl: url // 将选中的头像 URL 更新到数据库中的 avatarUrl 字段
+                avatarUrl: url 
             });
             await api.put('/users/'+id, requestBody);
 
