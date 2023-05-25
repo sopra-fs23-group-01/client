@@ -498,10 +498,10 @@ const Room = () => {
                     // Handle error or rejection
                     console.error('An error occurred:', error);
                 });
-                sendUpdateReminder().catch((error) => {
-                    // Handle error or rejection
-                    console.error('An error occurred:', error);
-                });
+                // sendUpdateReminder().catch((error) => {
+                //     // Handle error or rejection
+                //     console.error('An error occurred:', error);
+                // });
                 setIsButtonVisible(true);
                 publicChats.push(payloadData);
                 setWords(payloadData.message);
