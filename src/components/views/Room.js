@@ -415,7 +415,7 @@ const Room = () => {
                 break;   
             
             case "ROOM_UPDATE":
-                if (room.roomPlayersList && room.roomPlayersList.length >= 1){
+                if (room.roomPlayersList && room.roomPlayersList.length > 1){
                 getRoom().catch((error) => {
                     // Handle error or rejection
                     console.error('An error occurred:', error);
@@ -544,7 +544,7 @@ const Room = () => {
             };
 
             //let invalidWords = role.filter(word => chatMessage.message.includes(word));
-            if (role !== null && role !== '' && chatMessage.message.includes(role)) {
+            if (role !== null && role !== '' && chatMessage.message.toLowerCase().includes(role.toLowerCase())) {
                 toast.warning("Your message contains words that are not allowed: " + role);
                 return;
             }
