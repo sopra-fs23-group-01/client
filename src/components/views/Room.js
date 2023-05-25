@@ -183,7 +183,7 @@ const Room = () => {
                             cursor: (Number(localStorage.getItem('id')) === user.id || votedThisRound === true || user.gameStatus === "OUT") ? "default" : "pointer",
                             border: `2px solid ${user.readyStatus === "READY" ? "green" : "red"}`,
                             position: "relative",
-                            backgroundColor: user.gameStatus === "OUT" ? "gray" : (room.roomProperty === "WAITING" && user.id === room.roomOwnerId ? "yellow" : "transparent")
+                            backgroundColor: user.gameStatus === "OUT" ? "gray" : (user.id === room.roomOwnerId ? "yellow" : "transparent")
                         }}
                         className="room avatarimg"
                     />
@@ -269,8 +269,8 @@ const Room = () => {
     }, [room]);
     
     const connect = () => {
-        //let Sock = new SockJS('http://localhost:8080/ws');
-        let Sock = new SockJS('https://sopra-fs23-group-01-server.oa.r.appspot.com/ws');
+        let Sock = new SockJS('http://localhost:8080/ws');
+        //let Sock = new SockJS('https://sopra-fs23-group-01-server.oa.r.appspot.com/ws');
         stompClient = over(Sock);
         stompClient.connect({}, onConnected, onError);
     };
@@ -439,13 +439,12 @@ const Room = () => {
                 wordAssign();
                 publicChats.push(payloadData);
                 setPublicChats([...publicChats]);
-
                 setShowSendIcon(false);
-                updateRoomOrder().catch((error) => {
+                setShowBackIcon(false);
+                sendUpdateReminder().catch((error) => {
                     // Handle error or rejection
                     console.error('An error occurred:', error);
                 });
-                setShowBackIcon(false);
                 break;
 
             case "REMINDER":
@@ -506,16 +505,11 @@ const Room = () => {
                 publicChats.push(payloadData);
                 setWords(payloadData.message);
                 setPublicChats([...publicChats]);
-
                 setShowSendIcon(true);
                 setShowBackIcon(true);
                 setWinner(payloadData.senderName);
                 setShowResult(true);
                 setButtonStatus("Ready");
-                updateRoomOrder().catch((error) => {
-                    // Handle error or rejection
-                    console.error('An error occurred:', error);
-                });
                 break;
         }
     }
