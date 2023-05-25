@@ -31,6 +31,7 @@ const FormField = props => {
       <input
         className="register input"
         placeholder="enter here.."
+        maxLength="18"
         value={props.value}
         onChange={e => props.onChange(e.target.value)}
       />
