@@ -367,7 +367,6 @@ const Room = () => {
                 };
                 publicChats.push(joinMessage);
                 setPublicChats([...publicChats]);
-
                 break;
             case "MESSAGE":
                 publicChats.push(payloadData);
@@ -420,19 +419,18 @@ const Room = () => {
                 break;   
             
             case "ROOM_UPDATE":
-                
-                updateUser().catch((error) => {
-                    // Handle error or rejection
-                    console.error('An error occurred:', error);
-                });
                 getRoom().catch((error) => {
                     // Handle error or rejection
                     console.error('An error occurred:', error);
                 });
+                if (room.roomPlayersList && room.roomPlayersList.length > 1){
                 updateUser().catch((error) => {
                     // Handle error or rejection
                     console.error('An error occurred:', error);
                 });
+                };
+
+
                 break;     
 
             case "START":
