@@ -17,6 +17,7 @@ const NameChangeField= props =>{
                 type={props.type}
                 placeholder="enter here"
                 value={props.value}
+                maxLength="18"
                 onChange={e => props.onChange(e.target.value)}
                 />
         </div>
