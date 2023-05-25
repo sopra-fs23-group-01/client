@@ -1,3 +1,6 @@
+[![Deploy Project to App Engine](https://github.com/sopra-fs23-group-01/sopra-fs23-group-01-client/actions/workflows/main.yml/badge.svg)](https://github.com/sopra-fs23-group-01/sopra-fs23-group-01-client/actions/workflows/main.yml)
+[![npm version](https://img.shields.io/badge/npm-9.3.1-blue.svg)](https://www.npmjs.com/package/npm/v/9.3.1)
+[![React version](https://img.shields.io/badge/React-17.0.2-blue.svg)](https://reactjs.org/)
 # Who is undercover?  :shipit:
 
 ## Table of Content
