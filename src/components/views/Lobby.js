@@ -20,13 +20,6 @@ const Lobby = () => {
 
     // use react-router-dom's hook to access the history
     const history = useHistory();
-
-    // define a state variable (using the state hook).
-    // if this variable changes, the component will re-render, but the variable will
-    // keep its value throughout render cycles.
-    // a component can have as many state variables as you like.
-    // more information can be found under https://reactjs.org/docs/hooks-state.html
-    //const [users, setUsers] = useState(null);
     const [rooms, setRooms] = useState(null);
 
     const connect = () => {
@@ -86,21 +79,6 @@ const Lobby = () => {
     const createRoom = async () => {
         window.location.href = `/roomCreation`;
     };
-
-
-    // useEffect(() => {
-    //     // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
-    //     async function fetchData() {
-    //             //get rooms the url is set in Specification
-    //             const response = await api.get('/games');
-
-    //             await new Promise(resolve => setTimeout(resolve, 1000));
-
-    //             // Get the returned  and update the state.
-    //             setRooms(response.data);
-    //     }
-    //     fetchData();
-    // }, [history]);
 
     const updateRoom = async () => {
         try {
