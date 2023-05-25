@@ -8,6 +8,7 @@ import "styles/views/Lobby.scss";
 import FurniturePic from "../../styles/image/Pics4Theme/FurnitureTheme.png";
 import JobPic from "../../styles/image/Pics4Theme/JobTheme.png";
 import SportsPic from "../../styles/image/Pics4Theme/SportsTheme.png";
+import SuperheroPic from "../../styles/image/Pics4Theme/SuperheroTheme.png";
 import NavigationBar from "./NavigationBar";
 import Room from "../../models/Room";
 import {toast, ToastContainer} from "react-toastify";
@@ -134,6 +135,8 @@ const Lobby = () => {
                 return `url(${JobPic})`;
             case 'FURNITURE':
                 return `url(${FurniturePic})`;
+            case 'SUPERHERO':
+                return `url(${SuperheroPic})`;
             default:
                 return 'none';
         }
