@@ -147,6 +147,7 @@ const RoomCreation = props => {
                     <div className="roomCreation select-wrapper">
                         <select value={theme} style={{ textAlign: 'center',width:'180px',height:'35px',marginTop:'20px' }} onChange={e => setTheme(e.target.value)}>
                             <option value="SPORTS">Sports</option>
+                            <option value="SUPERHERO">Superhero</option>
                             <option value="FURNITURE">Furniture</option>
                             <option value="JOB">Job</option>
                         </select>
